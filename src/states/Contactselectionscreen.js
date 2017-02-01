@@ -8,7 +8,7 @@ import {
 	TouchableHighlight,
 	View
 } from 'react-native';
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 /**
  * Contact selection view
@@ -57,6 +57,7 @@ class Contactselectionscreen extends ComponentAbstract {
 						<View key={contact.id} style={localStyles.element} >
 							<TouchableHighlight key={contact.id} onPress={ () => this.onPressContact(contact) }>
 								<Text key={contact.id} style={localStyles.data}>
+									<Icon name="user" style={localStyles.dataIcon} />
 									{ "  " + contact.getFullName() } { "\n      <" + contact.email + ">" }
 								</Text>
 							</TouchableHighlight>
@@ -86,6 +87,9 @@ const localStyles = StyleSheet.create({
 		padding: 10,
 		fontSize: 15,
 		color: '#666666'
+	},
+	dataIcon: {
+		fontSize: 25
 	},
 	welcomeText: {
 		textAlign: 'center',

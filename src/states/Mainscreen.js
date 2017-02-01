@@ -10,7 +10,7 @@ import {
 
 import LendyooRegistry from '../libs/LendyooRegistry';
 import MenuBar from './MenuBar';
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 /**
  * Welcome/help screen
@@ -76,9 +76,9 @@ class Mainscreen extends Component {
 	{
 		this.console.log('Mainscreen.getNavigationItem()');
 		if (this.state.selectedView.showBackButton)
-			return <Text style={ localStyles.topBarText } onPress={ () => this.routes.goBack() }>XXX</Text>;
+			return <Text style={ localStyles.topBarText } onPress={ () => this.routes.goBack() }><Icon name="chevron-left" style={ localStyles.topBarIcon } /></Text>;
 		else
-			return <Text style={ localStyles.topBarText } onPress={ () => this.showMenu() }>XXX</Text>;
+			return <Text style={ localStyles.topBarText } onPress={ () => this.showMenu() }><Icon name="bars" style={ localStyles.topBarIcon } /></Text>;
 	}
 
 	/**
@@ -95,8 +95,8 @@ class Mainscreen extends Component {
 					<View style={{flex: 1}}>
 						{ this.getNavigationItem() }
 					</View>
-					<View style={{flex: 3}}><Text
-						style={ localStyles.topBarText }>XXX { this.state.selectedView.label }
+					<View style={{flex: 3}}><Text style={ localStyles.topBarText }>
+						<Icon name={ this.state.selectedView.icon } style={ localStyles.topBarText } /> { this.state.selectedView.label }
 					</Text></View>
 					<View style={{flex: 1}}><Text style={ localStyles.topBarText }></Text></View>
 				</View>
@@ -108,6 +108,12 @@ class Mainscreen extends Component {
 
 
 const localStyles = StyleSheet.create({
+	topBarIcon: {
+		paddingTop: 5,
+		color: '#FFFFFF',
+		textAlign: 'center',
+		fontSize: 20
+	},
 	topBarText: {
 		paddingTop: 10,
 		color: '#FFFFFF',

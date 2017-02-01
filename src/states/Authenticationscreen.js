@@ -68,8 +68,7 @@ class Authenticationscreen extends ComponentAbstract {
 						}</Text>
 					<View style={localStyles.socialViews}>
 					<Icon.Button name="thumbs-o-up" style={localStyles.socialButton} backgroundColor="#FF9100"
-								 onPress={ () => this.lendItem() } title="Lend an item"></Icon.Button>
-						<Icon name="rocket" size={30} color="#900" />
+								 onPress={ () => this.lendItem() } title="Lend an item">Lend an item</Icon.Button>
 					</View>
 				</View>
 			</View>

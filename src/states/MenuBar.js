@@ -13,7 +13,7 @@ import {
 	Alert,
 	AlertIOS
 } from 'react-native';
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 /**
@@ -77,7 +77,7 @@ class MenuBar extends ComponentAbstract {
 				}}>
 				{ this.props.parentComponent.menuItems/* .filter(function(e) { return !e.showBackButton; } ) */.map(
 					(o, i) => <TouchableHighlight style={ localStyles.touchHighligh } key={i} onPress={ () => this.onPressTextbox(i) }><Text
-						style={ localStyles.globalText }>XXX { o.label }
+						style={ localStyles.globalText }><Icon name={ o.icon } style={ localStyles.globalText } /> { o.label }
 					</Text></TouchableHighlight>
 				) }
 			</Animated.View>

@@ -11,7 +11,7 @@ import {
 	Alert,
 	AlertIOS
 } from 'react-native';
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 /**
@@ -144,7 +144,7 @@ class Makeloanscreen extends ComponentAbstract {
 						</View>
 						<View style={{flex: .2, alignItems: 'center'}}>
 							<TouchableHighlight onPress={ () => this.onPressLoadDirection() }>
-								<Text>XXX</Text>
+								<Icon name={ this.getIconeDirectionName( this.state.direction ) } style={ localStyles.arrow } />
 							</TouchableHighlight>
 						</View>
 						<View style={{flex: .4, alignItems: 'center'}}>
@@ -159,7 +159,8 @@ class Makeloanscreen extends ComponentAbstract {
 				</View>
 				<View style={localStyles.adddetailSpace}>
 					<TouchableHighlight onPress={ () => this.onPressAddDetail() }>
-						<Text style={ localStyles.addDetailButton }>XXX  Add / Edit short description</Text>
+						<Text style={ localStyles.addDetailButton }>
+							<Icon name="pencil" style={ localStyles.addDetailButton } /> Add / Edit short description</Text>
 					</TouchableHighlight>
 					<Text style={ localStyles.detailText }>{ this.state.loan.title }</Text>
 				</View>
