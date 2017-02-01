@@ -8,7 +8,7 @@ import {
 	Button
 } from 'react-native';
 import styles from '../styles/Mainstyle';
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 /**
  * Authentication
@@ -67,8 +67,9 @@ class Authenticationscreen extends ComponentAbstract {
 							"e-mail : " + this.user.email
 						}</Text>
 					<View style={localStyles.socialViews}>
-					<Button name="thumbs-o-up" style={localStyles.socialButton} backgroundColor="#FF9100"
-								 onPress={ () => this.lendItem() } title="Lend an item"></Button>
+					<Icon.Button name="thumbs-o-up" style={localStyles.socialButton} backgroundColor="#FF9100"
+								 onPress={ () => this.lendItem() } title="Lend an item"></Icon.Button>
+						<Icon name="rocket" size={30} color="#900" />
 					</View>
 				</View>
 			</View>

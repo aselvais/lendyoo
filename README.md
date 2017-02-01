@@ -42,3 +42,20 @@ he has to download the app too)
 
 https://github.com/vhpoet/react-native-styling-cheat-sheet
 https://github.com/jondot/awesome-react-native
+
+
+# External modules
+
+## Update react native
+
+    sudo npm install -g react-native-git-upgrade
+    react-native-git-upgrade
+
+## react-native-vector-icons
+https://github.com/oblador/react-native-vector-icons
+
+    npm install react-native-vector-icons --save
+    react-native link
+    
+
+
