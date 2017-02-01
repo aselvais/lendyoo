@@ -1,0 +1,22 @@
+import React, {Component} from 'react';
+import {
+	AppRegistry
+} from 'react-native';import Mainscreen from './src/states/Mainscreen';
+
+/**
+ * Bootstraping iOS
+ */
+class lendyoo extends Component {
+	/**
+	 *
+	 * @returns {XML}
+	 */
+	render()
+	{
+		return (
+            <Mainscreen/>
+		);
+	}
+}
+AppRegistry.registerComponent('lendyoo', () => lendyoo);
+export default lendyoo;

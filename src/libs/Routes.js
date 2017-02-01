@@ -1,0 +1,149 @@
+import React from 'react';
+
+import Makeloanscreen from '../states/Makeloanscreen';
+import Authenticationscreen from '../states/Authenticationscreen';
+import Settingsscreen from '../states/Settingsscreen';
+import Contactselectionscreen from '../states/Contactselectionscreen';
+import Loandetailscreen from '../states/Loandetailscreen';
+import Loanhistoryscreen from '../states/Loanhistoryscreen';
+import Registrationscreen from '../states/Registrationscreen';
+import Helpscreen from '../states/Helpscreen';
+
+let instance = null;
+
+/**
+ * Singleton containing all the possible states/views of the app.
+ *
+ */
+class Routes
+{
+
+	/**
+	 *
+	 * @returns {*}
+	 */
+	constructor()
+	{
+		if(!instance){
+			this.instanceTime = new Date();
+			this._routes = [
+				{ name: 'auth', icon: 'home', label: 'Home', component: <Authenticationscreen/>, showBackButton: false },
+				{ name: 'reg', icon: 'user', label: 'Registration', component: <Registrationscreen/>, showBackButton: false },
+				{ name: 'settings', icon: 'cog', label: 'Settings', component: <Settingsscreen/>, showBackButton: false },
+				{ name: 'lend', icon: 'thumbs-o-up', label: 'Make Loan', component: <Makeloanscreen/>, showBackButton: false },
+				{ name: 'detail', icon: 'info', label: 'Loan Detail', component: <Loandetailscreen/>, showBackButton: true },
+				{ name: 'history', icon: 'file-text', label: 'Loans History', component: <Loanhistoryscreen/>, showBackButton: false },
+				{ name: 'contacts', icon: 'address-book', label: 'Contact Selection', component: <Contactselectionscreen/>, showBackButton: true },
+				{ name: 'help', icon: 'question-circle', label: 'About / Help', component: <Helpscreen/>, showBackButton: false }
+			];
+			this._currentView = null;
+			// @todo Create a stack instead of only one value
+			this._previousView = null;
+			// default route
+			this.setCurrentView( this.getViewByName('auth') );
+			instance = this;
+		}
+		return instance;
+	}
+
+	/**
+	 * Sets the component that will display the routed components
+	 * @param {Mainscreen} globalContainer
+	 */
+	setGlobalContainer(globalContainer)
+	{
+		this._globalContainer = globalContainer;
+	}
+
+	/**
+	 * Sets the current view and store the previous one
+	 * @param view
+	 */
+	setCurrentView( view )
+	{
+		this._previousView = this._currentView;
+		this._currentView = view;
+	}
+
+	/**
+	 *
+	 * @returns {Array|[*,*,*,*,*,*]}
+	 */
+	getRoutes()
+	{
+		return this._routes;
+	}
+
+	/**
+	 *
+	 * @param idx
+	 * @returns {{name, component}|*}
+	 * @deprecated
+	 */
+	getViewById( idx=1 )
+	{
+		// this.setCurrentView( this._routes[idx] );
+		this._currentView = this._routes[idx];
+		return this._currentView;
+	}
+
+	/**
+	 *
+	 * @returns {null|{name, label, component}|*}
+	 */
+	getCurrentView()
+	{
+		return this._currentView;
+	}
+
+	/**
+	 *
+	 * @param name
+	 * @returns {null|{name, label, component}|*}
+	 */
+	getViewByName( name="auth" )
+	{
+		var len = this._routes.length;
+		while(len--)
+		{
+			if (this._routes[len].name == name)
+			{
+				this.setCurrentView( this._routes[len] );
+				break;
+			}
+		}
+		return this._currentView;
+	}
+
+	/**
+	 * Go to the current view
+	 * @todo make something cleaner than that
+	 */
+	gotToCurrentView()
+	{
+		this._globalContainer.onPressTextbox( this._routes.indexOf(this._currentView) );
+	}
+
+	/**
+	 * Go to a view by it's route name
+	 * @param {string} name Route name
+	 */
+	gotTo( name="auth" )
+	{
+		this.getViewByName(name);
+		this.gotToCurrentView();
+	}
+
+	/**
+	 * Go back to the previous view
+	 */
+	goBack()
+	{
+		this.gotTo( this._previousView.name );
+	}
+
+
+
+}
+
+export default Routes;
