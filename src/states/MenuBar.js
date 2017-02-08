@@ -91,7 +91,7 @@ class MenuBar extends ComponentAbstract {
  */
 const localStyles = StyleSheet.create({
 	touchHighligh: {
-		paddingTop: 15
+		paddingTop: 18
 	},
 	globalText: {
 		color: '#FFFFFF',

@@ -58,10 +58,10 @@ class Makeloanscreen extends ComponentAbstract {
 	 *
 	 * @param e
 	 */
-	onPressPicture(e) {
-		this.console.log('Makeloanscreen.onPressPicture()', e);
-		Alert.alert('To be implemented', 'Picture pressed');
-	}
+	/* onPressPicture(e) {
+	 this.console.log('Makeloanscreen.onPressPicture()', e);
+	 Alert.alert('To be implemented', 'Picture pressed');
+	 } */
 
 	/**
 	 *
@@ -83,22 +83,37 @@ class Makeloanscreen extends ComponentAbstract {
 	 */
 	onPressAddDetail(e) {
 		this.console.log('Makeloanscreen.onPressAddDetail()', e);
-		var that = this;
-		AlertIOS.prompt(
-			'Loan title',
-			'What item are you lending?',
-			[
-				{text: 'Cancel', style: 'cancel'},
-				{
-					text: 'OK', onPress: function (itemTitle) {
-					that.loan.title = itemTitle;
-					that.setState({loan: that.loan});
-				}
-				}
-			],
-			'plain-text',
-			that.loan.title
-		);
+		if (this.lendyooRegistry.isIOS()) {
+			AlertIOS.prompt(
+				'Loan title',
+				'What item are you lending?',
+				[
+					{text: 'Cancel', style: 'cancel'},
+					{
+						text: 'OK', onPress: function (itemTitle) {
+						that.loan.title = itemTitle;
+						that.setState({loan: that.loan});
+					}
+					}
+				],
+				'plain-text',
+				that.loan.title
+			);
+		}
+		else
+		{
+			Alert.alert(
+				'Alert Title',
+				'My platform ' + this.lendyooRegistry.platform,
+				[
+					{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+					{text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+					{text: 'OK', onPress: () => console.log('OK Pressed')},
+				],
+				{cancelable: false}
+			);
+		}
+
 	}
 
 	/**
@@ -144,7 +159,8 @@ class Makeloanscreen extends ComponentAbstract {
 						</View>
 						<View style={{flex: .2, alignItems: 'center'}}>
 							<TouchableHighlight onPress={ () => this.onPressLoadDirection() }>
-								<Icon name={ this.getIconeDirectionName( this.state.direction ) } style={ localStyles.arrow } />
+								<Icon name={ this.getIconeDirectionName( this.state.direction ) }
+									  style={ localStyles.arrow }/>
 							</TouchableHighlight>
 						</View>
 						<View style={{flex: .4, alignItems: 'center'}}>
@@ -160,7 +176,8 @@ class Makeloanscreen extends ComponentAbstract {
 				<View style={localStyles.adddetailSpace}>
 					<TouchableHighlight onPress={ () => this.onPressAddDetail() }>
 						<Text style={ localStyles.addDetailButton }>
-							<Icon name="pencil" style={ localStyles.addDetailButton } /> Add / Edit short description</Text>
+							<Icon name="pencil" style={ localStyles.addDetailButton }/>
+							Add / Edit short description</Text>
 					</TouchableHighlight>
 					<Text style={ localStyles.detailText }>{ this.state.loan.title }</Text>
 				</View>

@@ -18,9 +18,9 @@ class ComponentAbstract extends Component
 		this.user = this.lendyooRegistry.user;
 		this.routes = this.lendyooRegistry.routes;
 		this.loan = this.lendyooRegistry.loanCollection.getActiveModel();
+
+
 	}
-
-
 
 }
 

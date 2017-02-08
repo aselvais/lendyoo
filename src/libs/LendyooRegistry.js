@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import Console from './Console';
 import Routes from './Routes';
 import User from '../models/User';
@@ -20,6 +21,7 @@ class LendyooRegistry
 	{
 		if(!instance){
 			this.Console = new Console(true);
+			this.platform = Platform.OS;
 			// @todo write this with the buid and deployment process
 			this.appVersion = '0.0.7';
 			// date of singleton instanciation
@@ -61,6 +63,23 @@ class LendyooRegistry
 		}
 
 		return instance;
+	}
+
+	/**
+	 * Returns true if we are using IOS, or false if we assume we are on
+	 * Android.
+	 * @returns {boolean}
+	 */
+	isIOS()
+	{
+		if (this.platform === 'ios')
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 
