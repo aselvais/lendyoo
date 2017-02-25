@@ -62,10 +62,7 @@ class Mainscreen extends Component {
 	 */
 	renderMenu(visible = true) {
 		this.console.log('Mainscreen.renderMenu()', visible);
-		if (visible)
-			return <MenuBar menuItems={this.menuItems} parentComponent={this}></MenuBar>;
-		else
-			return null;
+		return <MenuBar visibility={visible} menuItems={this.menuItems} parentComponent={this}></MenuBar>;
 	}
 
 	/**

@@ -27,10 +27,12 @@ class MenuBar extends ComponentAbstract {
 	 */
 	constructor(props) {
 		super(props);
-		this.console.log('MenuBar.constructor()', props);
+		this.console.log('MenuBar.constructor()', this.props.visibility);
 		this.state = {
-			slideIn: new Animated.Value(-200)
+			slideIn: new Animated.Value(-300),
+			visibility: false
 		};
+//		this.setState({ visibility: this.props.visibility });
 	}
 
 	/**
@@ -38,11 +40,19 @@ class MenuBar extends ComponentAbstract {
 	 */
 	componentDidMount() {
 		this.console.log('MenuBar.componentDidMount()');
+	}
+
+	/**
+	 *
+	 */
+	animateSlide()
+	{
+		this.console.log('MenuBar.animateSlide()', this.props.visibility);
 		Animated.spring(
 			this.state.slideIn,
 			{
-				toValue: -15,
-				duration: 200
+				toValue: (this.props.visibility ? -15 : -300),
+				duration: 100
 			}
 		).start();
 	}
@@ -62,7 +72,8 @@ class MenuBar extends ComponentAbstract {
 	 * @returns {XML}
 	 */
 	render() {
-		this.console.log('MenuBar.render()');
+		this.console.log('MenuBar.render()', this.props.visibility);
+		this.animateSlide();
 		return (
 			<Animated.View
 				style={{
@@ -73,7 +84,7 @@ class MenuBar extends ComponentAbstract {
 					width: 250,
 					height: 1080,
 					zIndex: 1000,
-					backgroundColor: '#212121',
+					backgroundColor: '#212121'
 				}}>
 				{ this.props.parentComponent.menuItems/* .filter(function(e) { return !e.showBackButton; } ) */.map(
 					(o, i) => <TouchableHighlight style={ localStyles.touchHighligh } key={i} onPress={ () => this.onPressTextbox(i) }><Text
