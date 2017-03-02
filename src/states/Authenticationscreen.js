@@ -57,15 +57,20 @@ class Authenticationscreen extends ComponentAbstract {
 						Authenticated user data:
 					</Text>
 					<Text style={localStyles.data}>{
-							"Instance date : " + "\n" + this.user.instanceTime + "\n\n" +
-							"Is Registered : " + this.user.isRegistered + "\n" +
-							"Username : " + this.user.username + "\n" +
-							"First Name : " + this.user.fname + "\n" +
-							"Last Name : " + this.user.lname + "\n" +
-							"DoB : " + this.user.dob + "\n" +
-							"Gender : " + this.user.gender + "\n" +
-							"e-mail : " + this.user.email
+						/*
+							"Instance: " + "\n" + this.user.instanceTime + "\n\n" +
+							"Is Registered: " + this.user.isRegistered + "\n" +
+							"Username: " + this.user.username + "\n" +
+							"First Name: " + this.user.fname + "\n" +
+							"Last Name: " + this.user.lname + "\n" +
+							"DoB: " + this.user.dob + "\n" +
+							"Gender: " + this.user.gender + "\n" +
+							"e-mail: " + this.user.email
+						*/
 						}</Text>
+					<View style={localStyles.socialViews}>
+						<Text style={localStyles.data}>Instance:</Text>
+					</View>
 					<View style={localStyles.socialViews}>
 					<Icon.Button name="thumbs-o-up" style={localStyles.socialButton} backgroundColor="#FF9100"
 								 onPress={ () => this.lendItem() } title="Lend an item">Lend an item</Icon.Button>

@@ -38,10 +38,10 @@ class User extends ModelAbstract
 	setStoredData()
 	{
 		this.isRegistered = true;
-		this.username = 'rthys';
-		this.password = 'rthys11';
-		this.fname = 'Raphael';
-		this.lname = 'Thys';
+		this.username = 'aselvais';
+		this.password = 'aselvais11';
+		this.fname = 'Arnaud';
+		this.lname = 'Selvais';
 		this.gender = 'M';
 		this.email = 'raphael.thys@gmail.com';
 	}

@@ -1,0 +1,3 @@
+[submodule "src/shared"]
+	path = src/shared
+	url = ssh://arnaud@antidot.ca/home/git/repositories/lendyoo-shared.git
