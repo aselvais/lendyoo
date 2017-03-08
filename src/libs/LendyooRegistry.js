@@ -1,9 +1,9 @@
 import {Platform} from 'react-native';
 import Console from './Console';
 import Routes from './Routes';
-import User from '../models/User';
-import ContactCollection from '../models/ContactCollection';
-import LoanCollection from '../models/LoanCollection';
+import User from '../shared/models/frontend/User';
+import ContactCollection from '../shared/models/frontend/ContactCollection';
+import LoanCollection from '../shared/models/frontend/LoanCollection';
 
 
 let instance = null;
