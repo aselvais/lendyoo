@@ -1,31 +1,20 @@
 import ModelAbstract from './ModelAbstract';
+import _schema from '../shared/models/schemas/Loan.json';
 
 /**
  * Loan model
  */
-class Loan extends ModelAbstract
+class Loan extends LoanAbstract
 {
 
-	/**
-	 *
-	 * @param data
-	 */
-	constructor(data=[])
+	constructor(params={})
 	{
-		super(data);
-
-		if (!this.id) this.id = '';
-		if (!this.fromId) this.fromId = null;
-		if (!this.toId) this.toId = null;
-		if (!this.photo) this.photo = null;
-		if (!this.isSaved) this.isSaved = false;
-		if (!this.title) this.title = '';
-		if (!this.detail) this.detail = '';
-		if (!this.loanDate) this.loanDate = null;
-		if (!this.loanExpirationDate) this.loanExpirationDate = '';
-		if (!this.lastReminderSent) this.lastReminderSent = '';
-		if (!this.sendReminders) this.sendReminders = true;
-		if (!this.remindersFrequency) this.remindersFrequency = 7;
+		if(!instance){
+			super(params);
+			this.setSchema(_schema);
+			instance = this;
+		}
+		return instance;
 	}
 
 	/**

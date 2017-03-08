@@ -1,4 +1,5 @@
 import ModelAbstract from './ModelAbstract';
+import _schema from '../shared/models/schemas/Contact.json';
 
 /**
  * Contact model.
@@ -8,15 +9,14 @@ import ModelAbstract from './ModelAbstract';
 class Contact extends ModelAbstract
 {
 
-	constructor(data=null)
+	constructor(params={})
 	{
-		super(data);
-
-		if (!this.id) this.id= '';
-		if (!this.firstName) this.firstName = '';
-		if (!this.lastName) this.lastName = '';
-		if (!this.email) this.email = '';
-		if (!this.picture) this.picture = '';
+		if(!instance){
+			super(params);
+			this.setSchema(_schema);
+			instance = this;
+		}
+		return instance;
 	}
 
 	/**
