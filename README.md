@@ -10,8 +10,9 @@ The dev is a React Native based app. So to set it up it is pretty easy:
 ### Install the dependencies via npm
 
     npm install
+    git submodule init
+    git submodule update
 
-And that's about it ... Now you can run the project with react native and develop your eyes off !!!
 
 ## Questions
 
