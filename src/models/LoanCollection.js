@@ -1,4 +1,4 @@
-import CollectionAbstract from '../libs/CollectionAbstract';
+import CollectionAbstract from './CollectionAbstract';
 import Loan from './Loan';
 
 /**

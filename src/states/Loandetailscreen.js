@@ -34,7 +34,7 @@ class Loandetailscreen extends ComponentAbstract {
 		this.console.log('Loandetailscreen.getFromName()');
 		if (!this.loan.fromId)
 		{
-			return this.user.getFullName();
+			return this.user.fullName;
 		}
 		else
 		{

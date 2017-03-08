@@ -1,5 +1,5 @@
 
-import CollectionAbstract from '../libs/CollectionAbstract';
+import CollectionAbstract from './CollectionAbstract';
 import Contact from './Contact';
 
 /**

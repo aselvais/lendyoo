@@ -1,4 +1,4 @@
-import ModelAbstract from '../libs/ModelAbstract';
+import ModelAbstract from './ModelAbstract';
 
 /**
  * Loan model

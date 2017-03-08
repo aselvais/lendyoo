@@ -154,7 +154,7 @@ class Makeloanscreen extends ComponentAbstract {
 					<View style={{flex: 1, flexDirection: 'row'}}>
 						<View style={{flex: .4, alignItems: 'center'}}>
 							<TouchableHighlight onPress={ () => this.onPressFrom() }>
-								<Text style={ localStyles.fromToText }>{ this.user.getFullName() }</Text>
+								<Text style={ localStyles.fromToText }>{ this.user.fullName }</Text>
 							</TouchableHighlight>
 						</View>
 						<View style={{flex: .2, alignItems: 'center'}}>
