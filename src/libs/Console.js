@@ -1,5 +1,4 @@
 
-
 let instance = null;
 
 /**

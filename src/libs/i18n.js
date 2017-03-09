@@ -3,8 +3,11 @@
  */
 class i18n
 {
-
-
+	/**
+	 *
+	 * @param str
+	 * @returns {string}
+	 */
 	translate( str='' )
 	{
 		return str;
