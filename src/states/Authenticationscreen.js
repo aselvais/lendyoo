@@ -21,6 +21,17 @@ class Authenticationscreen extends ComponentAbstract {
 	 */
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			user: this.user
+		};
+		var _that = this;
+		this.user.populateDataFromRemote('58be0931785ff104cc252d88').then(
+			function(d){
+				if (d) _that.setState({ user: _that.user });
+			}
+		);
+
 		this.console.log('Authenticationscreen.constructor()', props);
 	}
 
@@ -51,26 +62,23 @@ class Authenticationscreen extends ComponentAbstract {
 
 				<View style={localStyles.RegisterContainer}>
 					<Text style={styles.welcome}>
-						Hello { this.user.fname }
-					</Text>
-					<Text style={styles.welcome}>
-						Authenticated user data:
+						Hello { this.state.user.fullName }
 					</Text>
 					<Text style={localStyles.data}>{
-						/*
-							"Instance: " + "\n" + this.user.instanceTime + "\n\n" +
-							"Is Registered: " + this.user.isRegistered + "\n" +
-							"Username: " + this.user.username + "\n" +
-							"First Name: " + this.user.fname + "\n" +
-							"Last Name: " + this.user.lname + "\n" +
-							"DoB: " + this.user.dob + "\n" +
-							"Gender: " + this.user.gender + "\n" +
-							"e-mail: " + this.user.email
-						*/
+							"Group_id: " + this.state.user.Group_id + "\n" +
+							"authType: " + this.state.user.authType + "\n" +
+							"isRegistered: " + this.state.user.isRegistered + "\n" +
+							"username: " + this.state.user.username + "\n" +
+							"password: " + this.state.user.password + "\n" +
+							"fname: " + this.state.user.fname + "\n" +
+							"lname: " + this.state.user.lname + "\n" +
+							"gender: " + this.state.user.gender + "\n" +
+							"email: " + this.state.user.email + "\n" +
+							"dateOfBirth: " + this.state.user.dateOfBirth + "\n" +
+							"dateCreated: " + this.state.user.dateCreated + "\n" +
+							"dateUpdated: " + this.state.user.dateUpdated + "\n" +
+							"role: " + this.state.user.role + "\n"
 						}</Text>
-					<View style={localStyles.socialViews}>
-						<Text style={localStyles.data}>Instance:</Text>
-					</View>
 					<View style={localStyles.socialViews}>
 					<Icon.Button name="thumbs-o-up" style={localStyles.socialButton} backgroundColor="#FF9100"
 								 onPress={ () => this.lendItem() } title="Lend an item">Lend an item</Icon.Button>

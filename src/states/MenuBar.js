@@ -30,7 +30,7 @@ class MenuBar extends ComponentAbstract {
 		this.console.log('MenuBar.constructor()', this.props.visibility);
 		this.state = {
 			slideIn: new Animated.Value(-300),
-			visibility: false
+			visibility: this.props.visibility
 		};
 //		this.setState({ visibility: this.props.visibility });
 	}

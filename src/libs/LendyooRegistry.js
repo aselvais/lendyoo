@@ -26,15 +26,7 @@ class LendyooRegistry {
 			// date of singleton instanciation
 			this.instanceTime = new Date();
 			// The authenticated user
-			this.user = new User({
-				isRegistered: true,
-				username: 'aselvais',
-				password: 'aselvais11',
-				fname: 'Arnaud',
-				lname: 'Selvais',
-				gender: 'M',
-				email: 'raphael.thys@gmail.com'
-			});
+			this.user = new User({ fname: 'Arnaud', lname: 'Selvais'});
 
 			this.contactCollection = new ContactCollection();
 			this.contactCollection.setContacts(

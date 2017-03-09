@@ -57,16 +57,6 @@ class Mainscreen extends Component {
 
 	/**
 	 *
-	 * @param visible
-	 * @returns {*}
-	 */
-	renderMenu(visible = true) {
-		this.console.log('Mainscreen.renderMenu()', visible);
-		return <MenuBar visibility={visible} menuItems={this.menuItems} parentComponent={this}></MenuBar>;
-	}
-
-	/**
-	 *
 	 * @returns {XML}
 	 */
 	getNavigationItem()
@@ -87,7 +77,7 @@ class Mainscreen extends Component {
 		return (
 			<View style={{flex: 1}}>
 				<StatusBar hidden={true}/>
-				{ this.renderMenu(this.state.visible) }
+				<MenuBar visibility={this.state.visible} menuItems={this.menuItems} parentComponent={this}></MenuBar>
 				<View style={ localStyles.topBarContainer }>
 					<View style={{flex: 1}}>
 						{ this.getNavigationItem() }
