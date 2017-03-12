@@ -2,6 +2,7 @@ import React from 'react';
 
 import Makeloanscreen from '../states/Makeloanscreen';
 import Authenticationscreen from '../states/Authenticationscreen';
+import Profilescreen from '../states/Profilescreen';
 import Settingsscreen from '../states/Settingsscreen';
 import Contactselectionscreen from '../states/Contactselectionscreen';
 import Loandetailscreen from '../states/Loandetailscreen';
@@ -28,7 +29,8 @@ class Routes
 			this.instanceTime = new Date();
 			this._routes = [
 				{ name: 'auth', icon: 'home', label: 'Home', component: <Authenticationscreen/>, showBackButton: false },
-				{ name: 'reg', icon: 'user', label: 'Registration', component: <Registrationscreen/>, showBackButton: false },
+				{ name: 'reg', icon: 'check', label: 'Registration', component: <Registrationscreen/>, showBackButton: false },
+				{ name: 'profile', icon: 'user', label: 'Profile', component: <Profilescreen/>, showBackButton: false },
 				{ name: 'settings', icon: 'cog', label: 'Settings', component: <Settingsscreen/>, showBackButton: false },
 				{ name: 'lend', icon: 'thumbs-o-up', label: 'Make Loan', component: <Makeloanscreen/>, showBackButton: false },
 				{ name: 'detail', icon: 'info', label: 'Loan Detail', component: <Loandetailscreen/>, showBackButton: true },
@@ -40,7 +42,7 @@ class Routes
 			// @todo Create a stack instead of only one value
 			this._previousView = null;
 			// default route
-			this.setCurrentView( this.getViewByName('auth') );
+			this.setCurrentView( this.getViewByName('profile') );
 			instance = this;
 		}
 		return instance;

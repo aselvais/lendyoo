@@ -2,6 +2,7 @@ import {Platform} from 'react-native';
 import Console from './Console';
 import Routes from './Routes';
 import User from '../shared/models/frontend/User';
+import Group from '../shared/models/frontend/Group';
 import ContactCollection from '../shared/models/frontend/ContactCollection';
 import LoanCollection from '../shared/models/frontend/LoanCollection';
 
@@ -26,7 +27,9 @@ class LendyooRegistry {
 			// date of singleton instanciation
 			this.instanceTime = new Date();
 			// The authenticated user
-			this.user = new User({ fname: 'Arnaud', lname: 'Selvais'});
+			this.user = new User({});
+			// The group the user is a part of
+			this.group = new Group({});
 
 			this.contactCollection = new ContactCollection();
 			this.contactCollection.setContacts(

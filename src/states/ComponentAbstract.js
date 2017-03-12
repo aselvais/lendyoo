@@ -16,6 +16,7 @@ class ComponentAbstract extends Component
 		this.lendyooRegistry = new LendyooRegistry();
 		this.console = this.lendyooRegistry.Console;
 		this.user = this.lendyooRegistry.user;
+		this.group = this.lendyooRegistry.group;
 		this.routes = this.lendyooRegistry.routes;
 		this.loan = this.lendyooRegistry.loanCollection.getActiveModel();
 

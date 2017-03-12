@@ -9,7 +9,7 @@ import {
 	Button
 } from 'react-native';
 import styles from '../styles/Mainstyle';
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 /**
  * Registration
@@ -75,16 +75,16 @@ class Registrationscreen extends ComponentAbstract {
 						Register using
 					</Text>
 					<View style={localStyles.socialViews}>
-						<Button name="facebook" style={localStyles.socialButton} backgroundColor="#3b5998"
-									 onPress={ () => this.facebookLogin() } title="My Facebook Account"></Button>
+						<Icon.Button name="facebook" backgroundColor="#3b5998" style={localStyles.socialButton}
+									 onPress={ () => this.facebookLogin() }>My Facebook Account</Icon.Button>
 					</View>
 					<View style={localStyles.socialViews}>
-						<Button name="twitter" style={localStyles.socialButton} backgroundColor="#1a8bf0"
-									 onPress={ () => this.twitterLogin() } title="My Twitter Account"></Button>
+						<Icon.Button name="twitter" style={localStyles.socialButton} backgroundColor="#1a8bf0"
+									 onPress={ () => this.twitterLogin() }>My Twitter Account</Icon.Button>
 					</View>
 					<View style={localStyles.socialViews}>
-						<Button name="google" style={localStyles.socialButton} backgroundColor="#DF4A32"
-									 onPress={ () => this.googleLogin() } title="My Google Account"></Button>
+						<Icon.Button name="google" style={localStyles.socialButton} backgroundColor="#DF4A32"
+									 onPress={ () => this.googleLogin() }>My Google Account</Icon.Button>
 					</View>
 
 					<View style={localStyles.socialViews}>
@@ -106,8 +106,8 @@ class Registrationscreen extends ComponentAbstract {
 						<TextInput style={localStyles.formTextField} value="repeat password"/>
 					</View>
 					<View style={localStyles.socialViews}>
-						<Button name="thumbs-o-up" style={localStyles.socialButton} backgroundColor="#FF9100"
-									 onPress={ () => this.createAccount() } title="Create Lendyoo account"></Button>
+						<Icon.Button name="thumbs-o-up" style={localStyles.socialButton} backgroundColor="#FF9100"
+									 onPress={ () => this.createAccount() }>Create Lendyoo account</Icon.Button>
 					</View>
 
 				</View>
