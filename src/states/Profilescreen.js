@@ -29,8 +29,6 @@ class Profilescreen extends ComponentAbstract {
 					_that.setState({ user: _that.user });
 					_that.group.populateDataFromRemote(_that.user.Group_id).then(
 						function(dd) {
-							console.log('----------------- ' + _that.user.Group_id );
-							console.log( dd );
 							if (dd)
 								_that.setState({ group: _that.group });
 						}
@@ -65,8 +63,16 @@ class Profilescreen extends ComponentAbstract {
 						Company / Group
 					</Text>
 					<Text style={localStyles.data}>{
-						"Group_id: " + this.state.user.Group_id + "\n" +
-						"Name: " + this.state.group.name + "\n"
+					"isActive: " + this.state.group.isActive + "\n" +
+					"name: " + this.state.group.name + "\n" +
+					"email: " + this.state.group.email + "\n" +
+					"address: " + this.state.group.address + "\n" +
+					"zipcode: " + this.state.group.zipcode + "\n" +
+					"state: " + this.state.group.state + "\n" +
+					"country: " + this.state.group.country + "\n" +
+					"dateCreated: " + this.state.group.dateCreated + "\n" +
+					"dateUpdated: " + this.state.group.dateUpdated + "\n" +
+					"type: " + this.state.group.type
 					}</Text>
 				</View>
 
@@ -78,7 +84,6 @@ class Profilescreen extends ComponentAbstract {
 						"authType: " + this.state.user.authType + "\n" +
 						"isRegistered: " + this.state.user.isRegistered + "\n" +
 						"username: " + this.state.user.username + "\n" +
-						"password: " + this.state.user.password + "\n" +
 						"fname: " + this.state.user.fname + "\n" +
 						"lname: " + this.state.user.lname + "\n" +
 						"gender: " + this.state.user.gender + "\n" +
