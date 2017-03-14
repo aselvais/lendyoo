@@ -4,16 +4,19 @@ import {
 	AppRegistry,
 	Text,
 	View,
-	StyleSheet
+	StyleSheet,
+	ScrollView
 } from 'react-native';
-import styles from '../styles/Mainstyle';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 /**
  *
  */
 class Profilescreen extends ComponentAbstract {
-
-
+	/**
+	 *
+	 * @param props
+	 */
 	constructor(props)
 	{
 		super(props);
@@ -36,9 +39,23 @@ class Profilescreen extends ComponentAbstract {
 				}
 			}
 		);
+	}
+
+	/**
+	 *
+	 */
+	editGroup()
+	{
 
 	}
 
+	/**
+	 *
+	 */
+	editUser()
+	{
+
+	}
 
 	/**
 	 *
@@ -56,7 +73,7 @@ class Profilescreen extends ComponentAbstract {
 					Hello { this.state.user.fullName }
 				</Text>
 			</View>
-
+			<ScrollView>
 			<View style={localStyles.RegisterContainer}>
 				<View>
 					<Text style={localStyles.dataTitle}>
@@ -74,6 +91,8 @@ class Profilescreen extends ComponentAbstract {
 					"dateUpdated: " + this.state.group.dateUpdated + "\n" +
 					"type: " + this.state.group.type
 					}</Text>
+					<Icon.Button name="pencil" style={localStyles.socialButton} backgroundColor="#FF9100"
+								 onPress={ () => this.editGroup() }>Edit group</Icon.Button>
 				</View>
 
 				<View>
@@ -93,11 +112,11 @@ class Profilescreen extends ComponentAbstract {
 						"dateUpdated: " + this.state.user.dateUpdated + "\n" +
 						"role: " + this.state.user.role + "\n"
 					}</Text>
-
+					<Icon.Button name="pencil" style={localStyles.socialButton} backgroundColor="#FF9100"
+								 onPress={ () => this.editUser() }>Edit user</Icon.Button>
 				</View>
-
-
 			</View>
+			</ScrollView>
 		</View>
 
 		);
@@ -140,7 +159,7 @@ const localStyles = StyleSheet.create({
 		padding: 50
 	},
 	socialButton: {
-		margin: 5
+		margin: 3
 	}
 });
 

@@ -5,7 +5,7 @@ import User from '../shared/models/frontend/User';
 import Group from '../shared/models/frontend/Group';
 import ContactCollection from '../shared/models/frontend/ContactCollection';
 import LoanCollection from '../shared/models/frontend/LoanCollection';
-
+import Config from '../shared/models/frontend/Config';
 
 let instance = null;
 
@@ -16,14 +16,19 @@ let instance = null;
  */
 class LendyooRegistry {
 
+	/**
+	 *
+	 * @returns {*}
+	 */
 	constructor()
 	{
 		if (!instance)
 		{
+			this.config = new Config();
 			this.Console = new Console(true);
 			this.platform = Platform.OS;
 			// @todo write this with the buid and deployment process
-			this.appVersion = '0.0.7';
+			this.appVersion = this.config.APP_VERSION;
 			// date of singleton instanciation
 			this.instanceTime = new Date();
 			// The authenticated user

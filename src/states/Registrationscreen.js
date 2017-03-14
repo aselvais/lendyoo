@@ -6,7 +6,8 @@ import {
 	Text,
 	TextInput,
 	View,
-	Button
+	Button,
+	ScrollView
 } from 'react-native';
 import styles from '../styles/Mainstyle';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -69,7 +70,7 @@ class Registrationscreen extends ComponentAbstract {
 						Welcome to Lendyoo !
 					</Text>
 				</View>
-
+				<ScrollView>
 				<View style={localStyles.RegisterContainer}>
 					<Text style={styles.welcome}>
 						Register using
@@ -109,9 +110,8 @@ class Registrationscreen extends ComponentAbstract {
 						<Icon.Button name="thumbs-o-up" style={localStyles.socialButton} backgroundColor="#FF9100"
 									 onPress={ () => this.createAccount() }>Create Lendyoo account</Icon.Button>
 					</View>
-
-				</View>
-
+			</View>
+				</ScrollView>
 
 			</View>
 		);
