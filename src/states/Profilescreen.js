@@ -25,7 +25,7 @@ class Profilescreen extends ComponentAbstract {
 			group: this.group
 		};
 		var _that = this;
-		this.user.populateDataFromRemote('58be0931785ff104cc252d88').then(
+		this.user.populateDataFromRemote(this.lendyooRegistry.User_id).then(
 			function(d){
 				if (d)
 				{

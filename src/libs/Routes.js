@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Makeloanscreen from '../states/Makeloanscreen';
-import Authenticationscreen from '../states/Authenticationscreen';
+import Homescreen from '../states/Homescreen';
 import Profilescreen from '../states/Profilescreen';
 import Settingsscreen from '../states/Settingsscreen';
 import Contactselectionscreen from '../states/Contactselectionscreen';
@@ -23,12 +23,12 @@ class Routes
 	 *
 	 * @returns {*}
 	 */
-	constructor()
+	constructor(isAuthenticated=false)
 	{
 		if(!instance){
 			this.instanceTime = new Date();
 			this._routes = [
-				{ name: 'auth', icon: 'home', label: 'Home', component: <Authenticationscreen/>, showBackButton: false },
+				{ name: 'home', icon: 'home', label: 'Home', component: <Homescreen/>, showBackButton: false },
 				{ name: 'reg', icon: 'check', label: 'Registration', component: <Registrationscreen/>, showBackButton: false },
 				{ name: 'profile', icon: 'user', label: 'Profile', component: <Profilescreen/>, showBackButton: false },
 				{ name: 'settings', icon: 'cog', label: 'Settings', component: <Settingsscreen/>, showBackButton: false },
@@ -42,7 +42,7 @@ class Routes
 			// @todo Create a stack instead of only one value
 			this._previousView = null;
 			// default route
-			this.setCurrentView( this.getViewByName('profile') );
+			this.setCurrentView( this.getViewByName((isAuthenticated ? 'history' : 'home')));
 			instance = this;
 		}
 		return instance;
@@ -103,7 +103,7 @@ class Routes
 	 * @param name
 	 * @returns {null|{name, label, component}|*}
 	 */
-	getViewByName( name="auth" )
+	getViewByName( name="home" )
 	{
 		var len = this._routes.length;
 		while(len--)
