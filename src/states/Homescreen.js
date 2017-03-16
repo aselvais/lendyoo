@@ -38,20 +38,31 @@ class Authenticationscreen extends ComponentAbstract {
 	{
 		var _that = this;
 		this.console.log('Authenticationscreen.logIn()');
-		this.user.authenticate(this.state.email, this.state.password).then(
-			function(data){
-				if (data === true)
-				{
-					_that.lendyooRegistry.isAuthenticated = true;
-					_that.lendyooRegistry.User_id = _that.user._id;
-					_that.lendyooRegistry.routes.gotTo("lend");
-				} else
-					_that.displayErrorAlert('Wrong username or password');
-			},
-			function(err){
-				_that.displayErrorAlert('Unexpected error');
-			}
-		);
+		var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if (!this.state.email || !this.state.password) {
+			_that.displayErrorAlert('All fields have to be filled in');
+		}
+		else if (!re.test(this.state.email))
+		{
+			_that.displayErrorAlert('The email address is not valid');
+		}
+		else
+		{
+			this.user.authenticate(this.state.email, this.state.password).then(
+				function(data){
+					if (data === true)
+					{
+						_that.lendyooRegistry.isAuthenticated = true;
+						_that.lendyooRegistry.User_id = _that.user._id;
+						_that.lendyooRegistry.routes.gotTo("lend");
+					} else
+						_that.displayErrorAlert('Wrong username or password');
+				},
+				function(err){
+					_that.displayErrorAlert('Unexpected error');
+				}
+			);
+		}
 	}
 
 	/**
@@ -66,9 +77,7 @@ class Authenticationscreen extends ComponentAbstract {
 			[{text: 'OK', onPress: () => console.log('OK Pressed')}],
 			{ cancelable: false }
 		);
-
 	}
-
 
 	/**
 	 *
