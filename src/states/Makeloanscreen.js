@@ -5,6 +5,8 @@ import {
 	Dimensions,
 	StyleSheet,
 	Text,
+	TextInput,
+	ScrollView,
 	View,
 	Image,
 	TouchableHighlight,
@@ -30,7 +32,9 @@ class Makeloanscreen extends ComponentAbstract {
 		this.activeContact = this.contactCollection.getActiveModel();
 		this.state = {
 			direction: '>',
-			loan: this.loan
+			loan: this.loan,
+			loantitle: '',
+			photo: false
 		};
 	}
 
@@ -69,6 +73,7 @@ class Makeloanscreen extends ComponentAbstract {
 	 */
 	onPressSave() {
 		this.console.log('Makeloanscreen.onPressSave()');
+		this.loan.title = this.state.loantitle;
 		// @todo save the loan
 		this.loan.loanDate = new Date();
 		this.loan.setDefaultExpirationDate();
@@ -141,6 +146,12 @@ class Makeloanscreen extends ComponentAbstract {
 			return 'Choose ...';
 	}
 
+	takePicture()
+	{
+		//styles.container.backgroundImage='../assets/images/user-3.png';
+		this.setState({ photo: true });
+	}
+
 
 	/**
 	 *
@@ -171,20 +182,37 @@ class Makeloanscreen extends ComponentAbstract {
 					</View>
 				</View>
 				<View style={localStyles.imageSpace}>
-					<View style={styles.container}></View>
+					{
+						this.state.photo ?
+							(
+								<Image source={require('../assets/images/bigstock-attractive-young-business-man-43103578.jpg')} style={styles.backgroundImage}></Image>
+							) : (
+								<View style={styles.container}>
+									<TouchableHighlight onPress={ () => this.takePicture() }>
+										<Icon name="camera" style={ localStyles.photoText } />
+									</TouchableHighlight>
+								</View>
+							)
+					}
 				</View>
 				<View style={localStyles.adddetailSpace}>
-					<TouchableHighlight onPress={ () => this.onPressAddDetail() }>
-						<Text style={ localStyles.addDetailButton }>
-							<Icon name="pencil" style={ localStyles.addDetailButton }/>
-							Add / Edit short description</Text>
-					</TouchableHighlight>
 					<Text style={ localStyles.detailText }>{ this.state.loan.title }</Text>
+					<TextInput
+						ref="1"
+						spellCheck={true}
+						style={localStyles.formTextField}
+						placeholder="Description"
+						returnKeyType="next"
+						onChangeText={(loantitle) => this.setState({loantitle})}
+						value={this.state.loantitle}
+						blurOnSubmit={false}
+						autoCapitalize="none"
+						onSubmitEditing={() => this.focusNextField('2')}
+					/>
 				</View>
 				<View style={ localStyles.saveButtonContainer }>
-					<TouchableHighlight onPress={ () => this.onPressSave() }>
-						<Text style={ localStyles.buttonSaveLend }>Save loan</Text>
-					</TouchableHighlight>
+					<Icon.Button ref="2" name="thumbs-o-up" style={localStyles.buttonSaveLend} backgroundColor="#FF9100"
+								 onPress={ () => this.onPressSave() } title="Lend an item">Lend an item</Icon.Button>
 				</View>
 			</View>
 		);
@@ -195,6 +223,12 @@ class Makeloanscreen extends ComponentAbstract {
  * Local styles
  */
 const localStyles = StyleSheet.create({
+	backgroundImage: {
+		flex: 1,
+		// remove width and height to override fixed static size
+		width: null,
+		height: null,
+	},
 	globalContainer: {
 		flex: 1,
 		flexDirection: 'column'
@@ -206,6 +240,11 @@ const localStyles = StyleSheet.create({
 	fromToText: {
 		paddingTop: 20,
 		fontSize: 20,
+		color: '#FFFFFF'
+	},
+	photoText: {
+		paddingTop: 300,
+		fontSize: 40,
 		color: '#FFFFFF'
 	},
 	directionText: {
@@ -253,10 +292,18 @@ const localStyles = StyleSheet.create({
 	buttonSaveLend: {
 		padding: 10,
 		width: 200,
-		textAlign: 'center',
-		color: '#FFFFFF',
+		//textAlign: 'center',
+		//color: '#FFFFFF',
 		backgroundColor: '#F57F17',
 		borderRadius: 5
+	},
+	formTextField : {
+		fontSize: 16,
+		padding: 7,
+		height: 35,
+		borderColor: '#666',
+		borderWidth: 0,
+		color: '#FFF'
 	}
 });
 

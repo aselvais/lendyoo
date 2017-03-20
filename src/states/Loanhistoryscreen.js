@@ -42,6 +42,11 @@ class Loanhistoryscreen extends ComponentAbstract {
 				</View>
 
 				<View style={localStyles.RegisterContainer}>
+					<View>
+						<Text style={localStyles.welcomeText2}>
+							No active loan for the moment ...
+						</Text>
+					</View>
 					<View style={localStyles.socialViews}>
 						<Icon.Button name="thumbs-o-up" style={localStyles.socialButton} backgroundColor="#FF9100"
 									 onPress={ () => this.lendItem() } title="Lend an item">Lend an item</Icon.Button>
@@ -75,6 +80,12 @@ const localStyles = StyleSheet.create({
 		paddingTop: 25,
 		fontSize: 20,
 		color: '#FFFFFF'
+	},
+	welcomeText2: {
+		textAlign: 'center',
+		paddingTop: 50,
+		fontSize: 20,
+		color: '#000'
 	},
 	socialViews: {
 		padding: 50

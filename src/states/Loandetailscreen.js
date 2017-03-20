@@ -3,12 +3,14 @@ import ComponentAbstract from './ComponentAbstract';
 import {
 	AppRegistry,
 	StyleSheet,
+	ScrollView,
 	Text,
 	View,
-	Button
+	Button,
+	Image
 } from 'react-native';
 import styles from '../styles/Mainstyle';
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 /**
  * Load detailed information
@@ -65,17 +67,15 @@ class Loandetailscreen extends ComponentAbstract {
 		this.console.log('Loandetailscreen.render()');
 		return (
 			<View style={ localStyles.globalContainer }>
-
 				<View style={localStyles.welcomeContainer}>
 					<Text style={localStyles.welcomeText}>
 						Loan saved { "\n\"" + this.loan.title + "\"" }
 					</Text>
 				</View>
+				<ScrollView>
 
 				<View style={localStyles.RegisterContainer}>
-					<Text style={styles.welcome}>
-						PHOTO
-					</Text>
+					<Image source={require('../assets/images/bigstock-attractive-young-business-man-43103578.jpg')} style={styles.backgroundImage}></Image>
 					<Text style={localStyles.data}>{
 						"Loan Title : " + this.loan.title + "\n" +
 						"Loan from : " + this.getFromName() + "\n" +
@@ -89,16 +89,23 @@ class Loandetailscreen extends ComponentAbstract {
 						"Loan lastReminderSent : " + "\n" + this.loan.lastReminderSent + "\n"
 					}</Text>
 					<View style={localStyles.socialViews}>
-						<Button name="thumbs-o-up" style={localStyles.socialButton} backgroundColor="#FF9100"
-									 onPress={ () => this.save() } title="Confirm / update loan"></Button>
+						<Icon.Button ref="2" name="thumbs-o-up" style={localStyles.buttonSaveLend} backgroundColor="#FF9100"
+									 onPress={ () => this.save() } title="Lend an item">Confirm / update loan</Icon.Button>
 					</View>
 				</View>
+			</ScrollView>
 			</View>
 		);
 	}
 }
 
 const localStyles = StyleSheet.create({
+	backgroundImage: {
+		flex: 1,
+		// remove width and height to override fixed static size
+		width: null,
+		height: null,
+	},
 	globalContainer: {
 		flex: 1,
 		flexDirection: 'column'

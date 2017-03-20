@@ -24,6 +24,7 @@ class LendyooRegistry {
 	{
 		if (!instance)
 		{
+			var _that = this;
 			this.config = new Config();
 			this.Console = new Console(true);
 			this.platform = Platform.OS;
@@ -33,8 +34,7 @@ class LendyooRegistry {
 
 			// do the stored auth here
 			// ...
-			//this.isAuthenticated = true;
-			//this.User_id = '58be0931785ff104cc252d88'; // to store locally
+			this.isAuthenticated = true;
 
 			// date of singleton instanciation
 			this.instanceTime = new Date();
@@ -46,12 +46,39 @@ class LendyooRegistry {
 			// The group the user is a part of
 			this.group = new Group({});
 
+			if (this.isAuthenticated) {
+				this.User_id = '58be0931785ff104cc252d88'; // to store locally
+
+				this.user.populateDataFromRemote(this.User_id).then(
+					function(d){
+						if (d)
+						{
+							_that.group.populateDataFromRemote(_that.user.Group_id).then(
+								function(dd) {
+								}
+							);
+						}
+					}
+				);
+
+			}
+
 			this.contactCollection = new ContactCollection();
 			this.contactCollection.setContacts(
 				[
 					{id: 1, firstName: 'Arnaud', lastName: 'Selvais', email: 'arnaud@antidot.ca'},
-					{id: 2, firstName: 'Emily', lastName: 'Liu', email: 'emily.sw.liu@gmail.com'},
-					{id: 3, firstName: 'Sebastien', lastName: 'Le Grand', email: 'sebastien@antidot.com'}
+					{id: 2, firstName: 'Kevin', lastName: 'Lame', email: 'steve.lame@gmail.com'},
+					{id: 3, firstName: 'Emily', lastName: 'Liu', email: 'emily.sw.liu@gmail.com'},
+					{id: 4, firstName: 'Sebastien', lastName: 'Le Grand', email: 'sebastien@antidot.com'},
+					{id: 5, firstName: 'Raphael', lastName: 'Thys', email: 'rthys@antidot.ca'},
+					{id: 6, firstName: 'Emily', lastName: 'Liu', email: 'emily.sw.liu@gmail.com'},
+					{id: 7, firstName: 'Sebastien', lastName: 'Le Grand', email: 'sebastien@antidot.com'},
+					{id: 8, firstName: 'Raphael', lastName: 'Thys', email: 'rthys@antidot.ca'},
+					{id: 9, firstName: 'Arnaud', lastName: 'Selvais', email: 'arnaud@antidot.ca'},
+					{id: 10, firstName: 'Emily', lastName: 'Liu', email: 'emily.sw.liu@gmail.com'},
+					{id: 11, firstName: 'Sebastien', lastName: 'Le Grand', email: 'sebastien@antidot.com'},
+					{id: 12, firstName: 'Raphael', lastName: 'Thys', email: 'rthys@antidot.ca'},
+					{id: 13, firstName: 'Arnaud', lastName: 'Selvais', email: 'arnaud@antidot.ca'}
 				]
 			);
 			this.loanCollection = new LoanCollection();
