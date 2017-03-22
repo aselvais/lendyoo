@@ -13,6 +13,7 @@ import {
 	Alert,
 	AlertIOS
 } from 'react-native';
+import Loan from '../shared/models/frontend/Loan';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
@@ -30,6 +31,8 @@ class Makeloanscreen extends ComponentAbstract {
 		this.console.log('Makeloanscreen.constructor()', props);
 		this.contactCollection = this.lendyooRegistry.contactCollection;
 		this.activeContact = this.contactCollection.getActiveModel();
+		if (!this.loan)
+			this.loan = new Loan();
 		this.state = {
 			direction: '>',
 			loan: this.loan,
@@ -62,63 +65,38 @@ class Makeloanscreen extends ComponentAbstract {
 	 *
 	 * @param e
 	 */
-	/* onPressPicture(e) {
-	 this.console.log('Makeloanscreen.onPressPicture()', e);
-	 Alert.alert('To be implemented', 'Picture pressed');
-	 } */
-
-	/**
-	 *
-	 * @param e
-	 */
 	onPressSave() {
+		var _that = this;
 		this.console.log('Makeloanscreen.onPressSave()');
-		this.loan.title = this.state.loantitle;
-		// @todo save the loan
-		this.loan.loanDate = new Date();
-		this.loan.setDefaultExpirationDate();
-		this.loan.toId = this.activeContact.id;
-		this.loan.save();
-		this.routes.gotTo("detail");
-	}
-
-	/**
-	 *
-	 * @param e
-	 */
-	onPressAddDetail(e) {
-		this.console.log('Makeloanscreen.onPressAddDetail()', e);
-		if (this.lendyooRegistry.isIOS()) {
-			AlertIOS.prompt(
-				'Loan title',
-				'What item are you lending?',
-				[
-					{text: 'Cancel', style: 'cancel'},
+		var _loanData = {
+			Group_id: this.user.Group_id,
+			User_id: this.user._id,
+			Contact_id: this.activeContact._id,
+			photo: '',
+			isSaved: true,
+			title: this.state.loantitle,
+			detail: '',
+			dateCreated: new Date(),
+		};
+		var _loan = new Loan(_loanData);
+		_loan.save().then(
+			function(d){
+				if (d === true)
+				{
+					try {
+						_that.loanCollection.addModel(_loan);
+						_that.loanCollection.setActiveModel(_loan);
+					} catch(e)
 					{
-						text: 'OK', onPress: function (itemTitle) {
-						that.loan.title = itemTitle;
-						that.setState({loan: that.loan});
+						console.error(_loan);
 					}
-					}
-				],
-				'plain-text',
-				that.loan.title
-			);
-		}
-		else
-		{
-			Alert.alert(
-				'Alert Title',
-				'My platform ' + this.lendyooRegistry.platform,
-				[
-					{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
-					{text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-					{text: 'OK', onPress: () => console.log('OK Pressed')},
-				],
-				{cancelable: false}
-			);
-		}
-
+					_that.routes.gotTo("detail");
+				}
+				else
+					console.error('Error saving loan', d);
+			},
+			function(e){ console.error('Error saving loan', e); }
+		);
 	}
 
 	/**
@@ -146,12 +124,13 @@ class Makeloanscreen extends ComponentAbstract {
 			return 'Choose ...';
 	}
 
+	/**
+	 *
+	 */
 	takePicture()
 	{
-		//styles.container.backgroundImage='../assets/images/user-3.png';
 		this.setState({ photo: true });
 	}
-
 
 	/**
 	 *

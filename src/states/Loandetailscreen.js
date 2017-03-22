@@ -50,12 +50,9 @@ class Loandetailscreen extends ComponentAbstract {
 	save()
 	{
 		this.console.log('Loandetailscreen.save()');
-		// @todo save here
-		this.lendyooRegistry.loanCollection.createNewLoan();
-		this.loan.save();
-
+		// this.loan.save();
 		// redirect
-		this.routes.gotTo("auth");
+		this.routes.gotTo("history");
 	}
 
 	/**
@@ -79,7 +76,7 @@ class Loandetailscreen extends ComponentAbstract {
 					<Text style={localStyles.data}>{
 						"Loan Title : " + this.loan.title + "\n" +
 						"Loan from : " + this.getFromName() + "\n" +
-						"Loan to : " + this.contactCollection.getModelById(this.loan.toId).getFullName() + "\n\n" +
+						"Loan to : " + this.contactCollection.getModelById(this.loan.Contact_id).getFullName() + "\n\n" +
 						"Loan isSaved : " + this.loan.isSaved + "\n" +
 						"Loan detail : " + this.loan.detail + "\n" +
 						"Loan sendReminders : " + this.loan.sendReminders + "\n" +
@@ -88,6 +85,7 @@ class Loandetailscreen extends ComponentAbstract {
 						"Loan loanExpirationDate : " + "\n" + this.loan.loanExpirationDate + "\n" +
 						"Loan lastReminderSent : " + "\n" + this.loan.lastReminderSent + "\n"
 					}</Text>
+
 					<View style={localStyles.socialViews}>
 						<Icon.Button ref="2" name="thumbs-o-up" style={localStyles.buttonSaveLend} backgroundColor="#FF9100"
 									 onPress={ () => this.save() } title="Lend an item">Confirm / update loan</Icon.Button>

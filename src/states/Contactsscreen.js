@@ -22,7 +22,7 @@ class Contactsscreen extends ComponentAbstract {
 	constructor(props) {
 		super(props);
 		this.console.log('Contactsscreen.constructor()', props);
-		this.ContactCollection = this.lendyooRegistry.loanCollection;
+		this.ContactCollection = this.lendyooRegistry.contactCollection;
 	}
 
 	/**

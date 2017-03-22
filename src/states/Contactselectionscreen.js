@@ -21,7 +21,30 @@ class Contactselectionscreen extends ComponentAbstract {
 	constructor(props) {
 		super(props);
 		this.console.log('Contactselectionscreen.constructor()', props);
-		this.contactCollection = this.lendyooRegistry.contactCollection;
+		this.state = {
+			contactCollectionModels: this.lendyooRegistry.contactCollection.models
+		};
+	}
+
+	/**
+	 *
+	 */
+	componentDidMount()
+	{
+		this.setContactList();
+	}
+
+	/**
+	 *
+	 */
+	setContactList()
+	{
+		var _that = this;
+		this.lendyooRegistry.contactCollection.setRemoteContactsFromUser( this.user._id ).then(
+			function(d){
+				_that.setState({contactCollectionModels: _that.lendyooRegistry.contactCollection.models });
+			}
+		);
 	}
 
 	/**
@@ -30,8 +53,8 @@ class Contactselectionscreen extends ComponentAbstract {
 	 */
 	onPressContact(contact)
 	{
-		this.console.log('Contactselectionscreen.onPressContact()', contact);
-		this.contactCollection.setActiveModel(contact);
+		this.console.log('Contactselectionscreen.onPressContact()');
+		this.lendyooRegistry.contactCollection.setActiveModel(contact);
 		this.routes.gotTo("lend");
 	}
 
@@ -53,10 +76,10 @@ class Contactselectionscreen extends ComponentAbstract {
 
 				<ScrollView style={localStyles.RegisterContainer}>
 					{
-						this.contactCollection.models.map((contact) =>
-						<View key={contact.id} style={localStyles.element} >
-							<TouchableHighlight key={contact.id} onPress={ () => this.onPressContact(contact) }>
-								<Text key={contact.id} style={localStyles.data}>
+						this.state.contactCollectionModels.map((contact) =>
+						<View key={contact._id} style={localStyles.element} >
+							<TouchableHighlight key={contact._id} onPress={ () => this.onPressContact(contact) }>
+								<Text key={contact._id} style={localStyles.data}>
 									<Icon name="user" style={localStyles.dataIcon} />
 									{ "  " + contact.getFullName() } { "\n      <" + contact.email + ">" }
 								</Text>
@@ -106,7 +129,6 @@ const localStyles = StyleSheet.create({
 	element: {
 		borderBottomWidth: 1,
 		borderBottomColor: '#DDDDDD'
-
 	}
 });
 

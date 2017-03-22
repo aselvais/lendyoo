@@ -3,6 +3,8 @@ import ComponentAbstract from './ComponentAbstract';
 import {
 	AppRegistry,
 	StyleSheet,
+	ScrollView,
+	TouchableHighlight,
 	Text,
 	View,
 	Button
@@ -14,23 +16,59 @@ import Icon from 'react-native-vector-icons/FontAwesome';
  * Loans history/list
  */
 class Loanhistoryscreen extends ComponentAbstract {
-
+	/**
+	 *
+	 * @param props
+	 */
+	constructor(props) {
+		super(props);
+		this.console.log('Contactselectionscreen.constructor()', props);
+		this.state = {
+			loanCollectionModels: this.lendyooRegistry.loanCollection.models
+		};
+	}
 
 	/**
 	 *
 	 */
-	lendItem()
+	componentDidMount()
 	{
+		this.setLoansList();
+	}
+
+	/**
+	 *
+	 */
+	setLoansList() {
+		var _that = this;
+		this.lendyooRegistry.loanCollection.setRemoteLoansFromUser(this.user._id).then(
+			function (d) {
+				_that.setState({loanCollectionModels: _that.lendyooRegistry.loanCollection.models});
+			}
+		);
+	}
+
+	/**
+	 *
+	 */
+	lendItem() {
 		this.console.log('Authenticationscreen.lendItem()');
 		this.lendyooRegistry.routes.gotTo("lend");
 	}
 
 	/**
 	 *
+	 * @param loan
+	 */
+	onPressLoan(loan) {
+		console.log(loan);
+	}
+
+	/**
+	 *
 	 * @returns {XML}
 	 */
-	render()
-	{
+	render() {
 		this.console.log('Loanhistoryscreen.render()');
 		return (
 			<View style={ localStyles.globalContainer }>
@@ -42,11 +80,29 @@ class Loanhistoryscreen extends ComponentAbstract {
 				</View>
 
 				<View style={localStyles.RegisterContainer}>
-					<View>
-						<Text style={localStyles.welcomeText2}>
-							No active loan for the moment ...
-						</Text>
-					</View>
+					{
+						(!this.state.loanCollectionModels || this.state.loanCollectionModels.length <= 0) ?
+							(<View>
+								<Text style={localStyles.welcomeText2}>
+									No active loan for the moment ...
+								</Text>
+							</View>)
+							:
+							(<ScrollView style={localStyles.RegisterContainer}>
+								{
+									this.state.loanCollectionModels.map((loan) =>
+										<View key={loan._id} style={localStyles.element}>
+											<TouchableHighlight key={loan._id} onPress={ () => this.onPressLoan(loan) }>
+												<Text key={loan._id} style={localStyles.data}>
+													<Icon name="pencil" style={localStyles.dataIcon}/>
+													{ "  " + loan.title } { "\n      <" + loan.dateCreated + ">" }
+												</Text>
+											</TouchableHighlight>
+										</View>
+									)
+								}
+							</ScrollView>)
+					}
 					<View style={localStyles.socialViews}>
 						<Icon.Button name="thumbs-o-up" style={localStyles.socialButton} backgroundColor="#FF9100"
 									 onPress={ () => this.lendItem() } title="Lend an item">Lend an item</Icon.Button>
@@ -92,6 +148,10 @@ const localStyles = StyleSheet.create({
 	},
 	socialButton: {
 		margin: 5
+	},
+	element: {
+		borderBottomWidth: 1,
+		borderBottomColor: '#DDDDDD'
 	}
 });
 AppRegistry.registerComponent('Loanhistoryscreen', () => Loanhistoryscreen);
