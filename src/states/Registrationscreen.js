@@ -30,6 +30,9 @@ class Registrationscreen extends ComponentAbstract {
 			password: '',
 			password2: ''
 		};
+		if (this.lendyooRegistry.isAuthenticated)
+			this.lendyooRegistry.routes.gotTo('history');
+
 	}
 
 	/**

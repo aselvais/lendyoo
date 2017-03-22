@@ -29,6 +29,8 @@ class Authenticationscreen extends ComponentAbstract {
 			password: ''
 		};
 		this.console.log('Authenticationscreen.constructor()', props);
+		if (this.lendyooRegistry.isAuthenticated)
+			this.lendyooRegistry.routes.gotTo('history');
 	}
 
 	/**
