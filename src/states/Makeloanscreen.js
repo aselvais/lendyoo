@@ -30,7 +30,7 @@ class Makeloanscreen extends ComponentAbstract {
 		super(props);
 		this.console.log('Makeloanscreen.constructor()', props);
 		this.contactCollection = this.lendyooRegistry.contactCollection;
-		if (!this.loan || this.routes.getPreviousViewName() != 'contacts')
+		if (!this.loan || (this.routes.getPreviousViewName() != 'contacts' && this.routes.getPreviousViewName() != 'detail'))
 		{
 			this.loan = new Loan();
 			this.loanCollection.setActiveModel(this.loan);
