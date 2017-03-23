@@ -30,13 +30,16 @@ class Makeloanscreen extends ComponentAbstract {
 		super(props);
 		this.console.log('Makeloanscreen.constructor()', props);
 		this.contactCollection = this.lendyooRegistry.contactCollection;
-		this.activeContact = this.contactCollection.getActiveModel();
-		if (!this.loan)
+		if (!this.loan || this.routes.getPreviousViewName() != 'contacts')
+		{
 			this.loan = new Loan();
+			this.loanCollection.setActiveModel(this.loan);
+			this.contactCollection.setActiveModel(null);
+		}
+		this.activeContact = this.contactCollection.getActiveModel();
 		this.state = {
 			direction: '>',
 			loan: this.loan,
-			loantitle: '',
 			photo: false
 		};
 	}
@@ -68,17 +71,14 @@ class Makeloanscreen extends ComponentAbstract {
 	onPressSave() {
 		var _that = this;
 		this.console.log('Makeloanscreen.onPressSave()');
-		var _loanData = {
-			Group_id: this.user.Group_id,
-			User_id: this.user._id,
-			Contact_id: this.activeContact._id,
-			photo: '',
-			isSaved: true,
-			title: this.state.loantitle,
-			detail: '',
-			dateCreated: new Date(),
-		};
-		var _loan = new Loan(_loanData);
+		var _loan = _that.loan;
+		_loan.Group_id = this.user.Group_id;
+		_loan.User_id = this.user._id;
+		_loan.Contact_id = this.activeContact._id;
+		_loan.photo = '';
+		_loan.isSaved = true;
+		_loan.detail = '';
+		_loan.dateCreated = new Date();
 		_loan.save().then(
 			function(d){
 				if (d === true)
@@ -134,6 +134,15 @@ class Makeloanscreen extends ComponentAbstract {
 
 	/**
 	 *
+	 * @param title
+	 */
+	changeTitle(title)
+	{
+		this.loan.title = title;
+	}
+
+	/**
+	 *
 	 * @returns {XML}
 	 */
 	render() {
@@ -165,7 +174,9 @@ class Makeloanscreen extends ComponentAbstract {
 						this.state.photo ?
 							(
 								<Image source={require('../assets/images/bigstock-attractive-young-business-man-43103578.jpg')} style={styles.backgroundImage}></Image>
-							) : (
+							)
+							:
+							(
 								<View style={styles.container}>
 									<TouchableHighlight onPress={ () => this.takePicture() }>
 										<Icon name="camera" style={ localStyles.photoText } />
@@ -175,15 +186,15 @@ class Makeloanscreen extends ComponentAbstract {
 					}
 				</View>
 				<View style={localStyles.adddetailSpace}>
-					<Text style={ localStyles.detailText }>{ this.state.loan.title }</Text>
+					<Text style={ localStyles.detailText }>{ this.loan._id }</Text>
 					<TextInput
 						ref="1"
 						spellCheck={true}
 						style={localStyles.formTextField}
 						placeholder="Description"
 						returnKeyType="next"
-						onChangeText={(loantitle) => this.setState({loantitle})}
-						value={this.state.loantitle}
+						onChangeText={ (title) => this.changeTitle(title) }
+						value={this.loan.title}
 						blurOnSubmit={false}
 						autoCapitalize="none"
 						onSubmitEditing={() => this.focusNextField('2')}
@@ -282,7 +293,7 @@ const localStyles = StyleSheet.create({
 		height: 35,
 		borderColor: '#666',
 		borderWidth: 0,
-		color: '#FFF'
+		color: '#E65100'
 	}
 });
 

@@ -40,6 +40,7 @@ class Loanhistoryscreen extends ComponentAbstract {
 	 *
 	 */
 	setLoansList() {
+		this.setState({loanCollectionModels: []});
 		var _that = this;
 		this.lendyooRegistry.loanCollection.setRemoteLoansFromUser(this.user._id).then(
 			function (d) {
@@ -61,7 +62,8 @@ class Loanhistoryscreen extends ComponentAbstract {
 	 * @param loan
 	 */
 	onPressLoan(loan) {
-		console.log(loan);
+		this.lendyooRegistry.loanCollection.setActiveModel( loan );
+		this.routes.gotTo('detail');
 	}
 
 	/**
@@ -91,10 +93,10 @@ class Loanhistoryscreen extends ComponentAbstract {
 							(<ScrollView style={localStyles.RegisterContainer}>
 								{
 									this.state.loanCollectionModels.map((loan) =>
-										<View key={loan._id} style={localStyles.element}>
-											<TouchableHighlight key={loan._id} onPress={ () => this.onPressLoan(loan) }>
-												<Text key={loan._id} style={localStyles.data}>
-													<Icon name="pencil" style={localStyles.dataIcon}/>
+										<View key={'view-'+loan._id} style={localStyles.element}>
+											<TouchableHighlight key={'touch-'+loan._id} onPress={ () => this.onPressLoan(loan) }>
+												<Text key={'text-'+loan._id} style={localStyles.data}>
+													<Icon key={'icon-'+loan._id} name="pencil" style={localStyles.dataIcon}/>
 													{ "  " + loan.title } { "\n      <" + loan.dateCreated + ">" }
 												</Text>
 											</TouchableHighlight>

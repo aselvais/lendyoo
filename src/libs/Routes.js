@@ -10,6 +10,8 @@ import Loanhistoryscreen from '../states/Loanhistoryscreen';
 import Registrationscreen from '../states/Registrationscreen';
 import Helpscreen from '../states/Helpscreen';
 
+import LendyooRegistry from './LendyooRegistry';
+
 let instance = null;
 
 /**
@@ -27,6 +29,7 @@ class Routes
 	{
 		if(!instance){
 			this.instanceTime = new Date();
+			this.isAuthenticated = false;
 			this._routes = [
 				{ name: 'home', icon: 'home', label: 'Home', component: <Homescreen/>, showBackButton: false },
 				{ name: 'reg', icon: 'check', label: 'Registration', component: <Registrationscreen/>, showBackButton: false },
@@ -142,6 +145,18 @@ class Routes
 	goBack()
 	{
 		this.gotTo( this._previousView.name );
+	}
+
+	/**
+	 * Returns the name of the previous view
+	 * @returns {*}
+	 */
+	getPreviousViewName()
+	{
+		if (this._previousView && this._previousView.name)
+			return this._previousView.name;
+		else
+			return null;
 	}
 
 

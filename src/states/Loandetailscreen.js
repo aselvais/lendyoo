@@ -55,6 +55,14 @@ class Loandetailscreen extends ComponentAbstract {
 		this.routes.gotTo("history");
 	}
 
+	getContactName()
+	{
+		if (this.contactCollection.models && this.contactCollection.models.length > 0)
+			return this.contactCollection.getModelById(this.loan.Contact_id).getFullName();
+		else
+			return '@TODO@ get name here';
+	}
+
 	/**
 	 *
 	 * @returns {XML}
@@ -76,7 +84,7 @@ class Loandetailscreen extends ComponentAbstract {
 					<Text style={localStyles.data}>{
 						"Loan Title : " + this.loan.title + "\n" +
 						"Loan from : " + this.getFromName() + "\n" +
-						"Loan to : " + this.contactCollection.getModelById(this.loan.Contact_id).getFullName() + "\n\n" +
+						"Loan to : " + this.getContactName() + "\n\n" +
 						"Loan isSaved : " + this.loan.isSaved + "\n" +
 						"Loan detail : " + this.loan.detail + "\n" +
 						"Loan sendReminders : " + this.loan.sendReminders + "\n" +
