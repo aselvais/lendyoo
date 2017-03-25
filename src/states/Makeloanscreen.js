@@ -88,14 +88,16 @@ class Makeloanscreen extends ComponentAbstract {
 						_that.loanCollection.setActiveModel(_loan);
 					} catch(e)
 					{
-						console.error(_loan);
+						//console.error(_loan);
 					}
 					_that.routes.gotTo("detail");
 				}
-				else
-					console.error('Error saving loan', d);
+				//else
+					//console.error('Error saving loan', d);
 			},
-			function(e){ console.error('Error saving loan', e); }
+			function(e){
+				//console.error('Error saving loan', e);
+			}
 		);
 	}
 

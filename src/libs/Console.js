@@ -38,7 +38,7 @@ class Console
 				+ d.getSeconds() + '.' +
 				+ d.getMilliseconds();
 			var params = [...arguments];
-			console.log('[' + dd + ']', ((params.length > 1) ? params : params[0] ) );
+			// console.log('[' + dd + ']', ((params.length > 1) ? params : params[0] ) );
 		}
 	}
 

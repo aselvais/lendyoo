@@ -6,6 +6,7 @@ import Group from '../shared/models/frontend/Group';
 import ContactCollection from '../shared/models/frontend/ContactCollection';
 import LoanCollection from '../shared/models/frontend/LoanCollection';
 import Config from '../shared/models/frontend/Config';
+import LendyooStorage from './LendyooStorage';
 
 let instance = null;
 
@@ -44,16 +45,30 @@ class LendyooRegistry {
 		this.group = new Group();
 		this.contactCollection = new ContactCollection();
 		this.loanCollection = new LoanCollection();
+		this.storage = new LendyooStorage();
 
-		// do the stored auth here
-		this.isAuthenticated = true;
+		this.storage.getData().then(
+			function(sd) {
+				var _d = JSON.parse(sd);
+				if (_d && _d.User_id)
+				{
+					_that.isAuthenticated = true;
+					_that.User_id = _d.User_id;
+					_that.user.populateDataFromRemote(_that.User_id).then((d) => _that.group.populateDataFromRemote(_that.user.Group_id));
+				}
+				else
+				{
+					// console.warn('No stored profile data found');
+				}
+			},
+			function(se) {
+				_that.isAuthenticated = false;
+				// console.error(se);
+			},
+		);
 
-		if (this.isAuthenticated) {
-			this.User_id = '58be0931785ff104cc252d88'; // to store locally
-			this.user.populateDataFromRemote(this.User_id).then((d) => _that.group.populateDataFromRemote(_that.user.Group_id));
-		}
 
-		this.routes = new Routes(this.isAuthenticated);
+		_that.routes = new Routes(_that.isAuthenticated);
 
 
 	}
@@ -74,7 +89,7 @@ class LendyooRegistry {
 			return false;
 		}
 	}
-
+3
 
 }
 
