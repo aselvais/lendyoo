@@ -38,11 +38,16 @@ class Loanhistoryscreen extends ComponentAbstract {
 	 *
 	 */
 	setLoansList() {
+		this.rootComponent.setLoading(true);
 		this.setState({loanCollectionModels: []});
 		var _that = this;
 		this.lendyooRegistry.loanCollection.setRemoteLoansFromUser(this.user._id).then(
 			function (d) {
 				_that.setState({loanCollectionModels: _that.lendyooRegistry.loanCollection.models});
+				_that.rootComponent.setLoading(false);
+			},
+			function (d) {
+				_that.rootComponent.setLoading(false);
 			}
 		);
 	}
@@ -76,6 +81,24 @@ class Loanhistoryscreen extends ComponentAbstract {
 	}
 
 	/**
+	 * @todo Put this thing somewhere else
+	 * @returns {*}
+	 */
+	getContactName(_loan)
+	{
+		if (_loan && _loan.Contact_id && this.lendyooRegistry.contactCollection.models && this.lendyooRegistry.contactCollection.models.length > 0) {
+			var toret = this.lendyooRegistry.contactCollection.getModelById(_loan.Contact_id);
+			console.log(toret);
+			if (toret && toret.getFullName)
+				return toret.getFullName();
+			else
+				return '';
+		}
+		else
+			return '';
+	}
+
+	/**
 	 *
 	 * @returns {XML}
 	 */
@@ -104,16 +127,17 @@ class Loanhistoryscreen extends ComponentAbstract {
 									this.state.loanCollectionModels.map((loan) =>
 									<ListItem key={loan._id} onPress={ () => this.onPressLoan(loan) } avatar>
 										<Left>
-											<Thumbnail source={require('../assets/images/bigstock-attractive-young-business-man-43103578.jpg')} small/>
+											<Thumbnail square size={80} source={require('../assets/images/bigstock-attractive-young-business-man-43103578.jpg')}/>
 										</Left>
 										<Body>
 										<Text>{ loan.title }</Text>
-										<Text note>{ this.getFormatedDate(loan.dateCreated) }</Text>
+										<Text note>{ this.getContactName(loan) }</Text>
 										</Body>
 										<Right>
 											<Badge danger>
 												<Text>{ loan.status }</Text>
 											</Badge>
+											<Text note>{ this.getFormatedDate(loan.dateCreated) }</Text>
 										</Right>
 									</ListItem>
 

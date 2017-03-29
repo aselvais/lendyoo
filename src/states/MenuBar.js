@@ -90,13 +90,14 @@ const localStyles = StyleSheet.create({
 		backgroundColor: '#FFFFFF'
 	},
 	touchHighligh: {
-		paddingTop: 18
+		paddingTop: 22
 	},
 	globalText: {
-		paddingTop: 18,
-		fontSize: 20,
+		color: '#000000',
+		paddingTop: 22,
+		fontSize: 22,
 		textAlign: 'left',
-		paddingLeft: 20
+		paddingLeft: 25
 	}
 });
 

@@ -24,7 +24,12 @@ class Profilescreen extends ComponentAbstract {
 			user: this.user,
 			group: this.group
 		};
+	}
+
+	componentDidMount()
+	{
 		var _that = this;
+		_that.rootComponent.setLoading(true);
 		this.user.populateDataFromRemote(this.lendyooRegistry.User_id).then(
 			function(d){
 				if (d)
@@ -32,12 +37,15 @@ class Profilescreen extends ComponentAbstract {
 					_that.setState({ user: _that.user });
 					_that.group.populateDataFromRemote(_that.user.Group_id).then(
 						function(dd) {
+							_that.rootComponent.setLoading(false);
 							if (dd)
 								_that.setState({ group: _that.group });
-						}
+						},
+						function() { _that.rootComponent.setLoading(false); }
 					);
 				}
-			}
+			},
+			function() { _that.rootComponent.setLoading(false); }
 		);
 	}
 

@@ -31,48 +31,52 @@ class LendyooRegistry {
 		return instance;
 	}
 
-	init()
+	/**
+	 * Initialization
+	 * @param useLocalStorageAuth
+	 */
+	init(useLocalStorageAuth=true)
 	{
-		var _that = this;
-		this.config = new Config();
-		this.Console = new Console(true);
-		this.platform = Platform.OS;
-		this.appVersion = this.config.APP_VERSION;
 		this.isAuthenticated = false;
-		this.rootComponent = null;
-		this.menuBarComponent = null;
+		if (useLocalStorageAuth) {
+			this.config = new Config();
+			this.Console = new Console(true);
+			this.platform = Platform.OS;
+			this.appVersion = this.config.APP_VERSION;
+			this.rootComponent = null;
+			this.menuBarComponent = null;
+			this.instanceTime = new Date();
+			this.storage = new LendyooStorage();
+		}
 		this.User_id = false;
-		this.instanceTime = new Date();
 		this.user = new User();
 		this.group = new Group();
 		this.contactCollection = new ContactCollection();
 		this.loanCollection = new LoanCollection();
-		this.storage = new LendyooStorage();
 
-		this.storage.getData().then(
-			function(sd) {
-				var _d = JSON.parse(sd);
-				if (_d && _d.User_id)
-				{
-					_that.setAuthStatus(true);
-					_that.User_id = _d.User_id;
-					_that.user.populateDataFromRemote(_that.User_id).then((d) => _that.group.populateDataFromRemote(_that.user.Group_id));
-				}
-				else
-				{
-					// console.warn('No stored profile data found');
-				}
-			},
-			function(se) {
-				_that.setAuthStatus(false);
-				// console.error(se);
-			},
-		);
+		if (useLocalStorageAuth === true) {
+			var _that = this;
+			this.storage.getData().then(
+				function (sd) {
+					var _d = JSON.parse(sd);
+					if (_d && _d.User_id) {
+						_that.setAuthStatus(true);
+						_that.User_id = _d.User_id;
+						_that.user.populateDataFromRemote(_that.User_id).then((d) => _that.group.populateDataFromRemote(_that.user.Group_id));
+					}
+					else {
+						// console.warn('No stored profile data found');
+					}
+				},
+				function (se) {
+					_that.setAuthStatus(false);
+					// console.error(se);
+				},
+			);
 
+			_that.routes = new Routes(_that.isAuthenticated);
 
-		_that.routes = new Routes(_that.isAuthenticated);
-
-
+		}
 	}
 
 	/**
@@ -92,19 +96,35 @@ class LendyooRegistry {
 		}
 	}
 
+	/**
+	 * Sets the authentication status
+	 * @param s
+	 */
 	setAuthStatus(s)
 	{
 
 		if (this.menuBarComponent && this.menuBarComponent.setAuthState)
 			this.menuBarComponent.setAuthState(s);
 		this.isAuthenticated = s;
+		if (this.isAuthenticated === false)
+		{
+			this.init(false);
+		}
 	}
 
+	/**
+	 * Sets the root component to a local property
+	 * @param r
+	 */
 	setRootComponent(r)
 	{
 		this.rootComponent = r;
 	}
 
+	/**
+	 * Sets the menubar to a local property
+	 * @param c
+	 */
 	setMenuBarComponent(c)
 	{
 		this.menuBarComponent = c;

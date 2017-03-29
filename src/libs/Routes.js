@@ -9,8 +9,7 @@ import Loandetailscreen from '../states/Loandetailscreen';
 import Loanhistoryscreen from '../states/Loanhistoryscreen';
 import Registrationscreen from '../states/Registrationscreen';
 import Helpscreen from '../states/Helpscreen';
-
-import LendyooRegistry from './LendyooRegistry';
+import Logoutscreen from '../states/Logoutscreen';
 
 let instance = null;
 
@@ -40,7 +39,8 @@ class Routes
 				{ name: 'detail', icon: 'info', label: 'Loan Detail', component: <Loandetailscreen/>, showBackButton: true, showWhenAuth: true },
 				{ name: 'contacts', icon: 'address-book', label: 'Contact Selection', component: <Contactselectionscreen/>, showBackButton: true, showWhenAuth: true },
 				{ name: 'help', icon: 'question-circle', label: 'About / Help', component: <Helpscreen/>, showBackButton: false, showWhenAuth: false },
-				{ name: 'helpAuth', icon: 'question-circle', label: 'About / Help', component: <Helpscreen/>, showBackButton: false, showWhenAuth: true }
+				{ name: 'helpAuth', icon: 'question-circle', label: 'About / Help', component: <Helpscreen/>, showBackButton: false, showWhenAuth: true },
+				{ name: 'logout', icon: 'lock', label: 'Log-out', component: <Logoutscreen/>, showBackButton: false, showWhenAuth: true }
 			];
 			this._currentView = null;
 			// @todo Create a stack instead of only one value

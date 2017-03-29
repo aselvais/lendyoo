@@ -61,7 +61,12 @@ class Mainscreen extends Component {
 
 	hideMenu()
 	{
-		this._drawer._root.close();
+		try {
+			this._drawer._root.close();
+		} catch(er)
+		{
+			console.log('Error, must be a logout');
+		}
 	}
 
 	toggleMenu()
