@@ -2,15 +2,14 @@ import React, {Component} from 'react';
 import {
 	AppRegistry,
 	StyleSheet,
-	Text,
-	View,
-	StatusBar,
-	Alert
+	Text
 } from 'react-native';
+
+import { Container, Header, Title, Button, Left, Right, Body, Icon, Drawer } from 'native-base';
 
 import LendyooRegistry from '../libs/LendyooRegistry';
 import MenuBar from './MenuBar';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import IconAwesome from 'react-native-vector-icons/FontAwesome';
 
 /**
  * Welcome/help screen
@@ -30,8 +29,7 @@ class Mainscreen extends Component {
 		this.routes.setGlobalContainer(this);
 
 		this.state = {
-			selectedView: this.routes._currentView,
-			visible: false
+			selectedView: this.routes._currentView
 		};
 		this.menuItems = this.routes.getRoutes();
 	}
@@ -42,30 +40,41 @@ class Mainscreen extends Component {
 	 */
 	onPressTextbox(elemId = 0) {
 		this.console.log('Mainscreen.onPressTextbox()', elemId);
-		this.routes.getViewById( elemId );
-		this.setState({selectedView: this.routes.getCurrentView() });
-		this.setState({visible: false});
+		this.routes.getViewById(elemId);
+		this.setState({selectedView: this.routes.getCurrentView()});
+		this.hideMenu();
 	}
 
 	/**
 	 *
 	 */
 	showMenu() {
-		this.console.log('Mainscreen.showMenu()');
-		this.setState({visible: true});
+		this._drawer._root.open();
 	}
+
+	hideMenu()
+	{
+		this._drawer._root.close();
+	}
+
+	toggleMenu()
+	{
+		this._drawer._root.toggle();
+	}
+
 
 	/**
 	 *
 	 * @returns {XML}
 	 */
-	getNavigationItem()
-	{
+	getNavigationItem() {
 		this.console.log('Mainscreen.getNavigationItem()');
 		if (this.state.selectedView.showBackButton)
-			return <Text style={ localStyles.topBarText } onPress={ () => this.routes.goBack() }><Icon name="chevron-left" style={ localStyles.topBarIcon } /></Text>;
+			return <Text style={ localStyles.topBarText } onPress={ () => this.routes.goBack() }><IconAwesome
+				name="chevron-left" style={ localStyles.topBarIcon }/></Text>;
 		else
-			return <Text style={ localStyles.topBarText } onPress={ () => this.showMenu() }><Icon name="bars" style={ localStyles.topBarIcon } /></Text>;
+			return <Text style={ localStyles.topBarText } onPress={ () => this.showMenu() }><IconAwesome name="bars"
+																								  style={ localStyles.topBarIcon }/></Text>;
 	}
 
 	/**
@@ -73,37 +82,38 @@ class Mainscreen extends Component {
 	 * @returns {XML}
 	 */
 	render() {
-		this.console.log('Mainscreen.render()');
 		return (
-			<View style={{flex: 1}}>
-				<StatusBar hidden={true}/>
-				<MenuBar visibility={this.state.visible} menuItems={this.menuItems} parentComponent={this}></MenuBar>
-				<View style={ localStyles.topBarContainer }>
-					<View style={{flex: 1}}>
-						{ this.getNavigationItem() }
-					</View>
-					<View style={{flex: 3}}><Text style={ localStyles.topBarText }>
-						<Icon name={ this.state.selectedView.icon } style={ localStyles.topBarText } /> { this.state.selectedView.label }
-					</Text></View>
-					<View style={{flex: 1}}><Text style={ localStyles.topBarText }></Text></View>
-				</View>
-				{ this.state.selectedView.component }
-			</View>
+			<Container>
+				<Header>
+					<Left>
+						<Button transparent onPress={() => this.toggleMenu()}>
+							<Icon name='menu'/>
+						</Button>
+					</Left>
+					<Body>
+					<Title><IconAwesome name={ this.state.selectedView.icon } style={ localStyles.topBarIcon } /> { this.state.selectedView.label }</Title>
+					</Body>
+					<Right />
+				</Header>
+				<Drawer ref={(ref) => { this._drawer = ref; }} content={<MenuBar menuItems={this.menuItems} parentComponent={this}></MenuBar>} onClose={() => this.hideMenu()}>
+						{ this.state.selectedView.component }
+				</Drawer>
+			</Container>
+
 		);
 	}
+
 }
 
 
 const localStyles = StyleSheet.create({
 	topBarIcon: {
 		paddingTop: 5,
-		color: '#FFFFFF',
 		textAlign: 'center',
 		fontSize: 20
 	},
 	topBarText: {
 		paddingTop: 10,
-		color: '#FFFFFF',
 		textAlign: 'center'
 	},
 	topBarContainer: {

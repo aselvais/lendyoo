@@ -5,13 +5,11 @@ import {
 	StyleSheet,
 	Text,
 	View,
-	Button,
-	ScrollView,
-	TextInput,
 	Alert
 } from 'react-native';
+import { Content, Button, Icon, Form, Item, Input, Label, H1, H2, H3 } from 'native-base';
 import styles from '../styles/Mainstyle';
-import Icon from 'react-native-vector-icons/FontAwesome';
+// import Icon from 'react-native-vector-icons/FontAwesome';
 
 /**
  * Authentication
@@ -25,6 +23,8 @@ class Authenticationscreen extends ComponentAbstract {
 	constructor(props) {
 		super(props);
 		this.state = {
+			//email: 'arnaud@antidot.ca',
+			//password: 'test'
 			email: '',
 			password: ''
 		};
@@ -114,74 +114,79 @@ class Authenticationscreen extends ComponentAbstract {
 		this.console.log('Authenticationscreen.render()');
 		return (
 			<View style={ localStyles.globalContainer }>
+				<Content>
 
-				<View style={localStyles.welcomeContainer}>
-					<Text style={localStyles.welcomeText}>
+				<View>
+					<H1>
 						Welcome to Lendyoo v{ this.lendyooRegistry.appVersion } !
-					</Text>
+					</H1>
 				</View>
-				<ScrollView>
 					<View style={localStyles.RegisterContainer}>
-						<Text style={styles.welcome}>
+						<H3>
 							Authenticate using social medias
-						</Text>
+						</H3>
 						<View style={localStyles.socialViewsCntr}>
 							<View style={localStyles.socialViews}>
-								<Icon.Button name="facebook" backgroundColor="#3b5998" style={localStyles.socialButton} onPress={ () => this.facebookLogin() }></Icon.Button>
+								<Icon name="logo-facebook" style={{color: '#3b5998'}} onPress={ () => this.facebookLogin() } />
 							</View>
 							<View style={localStyles.socialViews}>
-								<Icon.Button name="twitter" style={localStyles.socialButton} backgroundColor="#1a8bf0" onPress={ () => this.twitterLogin() }></Icon.Button>
+								<Icon name="logo-twitter" style={{ color: '#1a8bf0' }} onPress={ () => this.twitterLogin() } />
 							</View>
 							<View style={localStyles.socialViews}>
-								<Icon.Button name="google" style={localStyles.socialButton} backgroundColor="#DF4A32" onPress={ () => this.googleLogin() }></Icon.Button>
+								<Icon name="logo-googleplus" style={{ color: '#d34836' }} onPress={ () => this.googleLogin() } />
 							</View>
 						</View>
 						<View style={localStyles.socialViews}>
 							<Text style={localStyles.or}>
 								OR
 							</Text>
-							<Text style={styles.welcome}>
+							<H3>
 								Authenticate with a Lendyoo account
-							</Text>
+							</H3>
 						</View>
 
+
+						<Form>
+							<Item floatingLabel>
+								<Label>e-mail</Label>
+								<Input
+									ref="1"
+									spellCheck={false}
+									keyboardType="email-address"
+									returnKeyType="next"
+									onChangeText={(email) => this.setState({email})}
+									value={this.state.email}
+									blurOnSubmit={false}
+									autoCapitalize="none"
+									onSubmitEditing={() => this.focusNextField('2')}
+								/>
+							</Item>
+							<Item floatingLabel last>
+								<Label>Password</Label>
+								<Input
+									ref="2"
+									spellCheck={false}
+									keyboardType="default"
+									returnKeyType="next"
+									autoCapitalize="none"
+									secureTextEntry={true}
+									onChangeText={(password) => this.setState({password})}
+									value={this.state.password}
+									blurOnSubmit={false}
+									onSubmitEditing={() => this.logIn()}
+								/>
+							</Item>
+						</Form>
+
+
+
 						<View style={localStyles.socialViews}>
-							<TextInput
-								ref="1"
-								spellCheck={false}
-								style={localStyles.formTextField}
-								keyboardType="email-address"
-								placeholder="e-mail"
-								returnKeyType="next"
-								onChangeText={(email) => this.setState({email})}
-								value={this.state.email}
-								blurOnSubmit={false}
-								autoCapitalize="none"
-								onSubmitEditing={() => this.focusNextField('2')}
-							/>
-						</View>
-						<View style={localStyles.socialViews}>
-							<TextInput
-								ref="2"
-								style={localStyles.formTextField}
-								spellCheck={false}
-								keyboardType="default"
-								placeholder="Password"
-								returnKeyType="next"
-								autoCapitalize="none"
-								secureTextEntry={true}
-								onChangeText={(password) => this.setState({password})}
-								value={this.state.password}
-								blurOnSubmit={false}
-								onSubmitEditing={() => this.logIn()}
-							/>
-						</View>
-						<View style={localStyles.socialViews}>
-							<Icon.Button name="lock" style={localStyles.socialButton} backgroundColor="#FF9100"
-										 onPress={ () => this.logIn() }>Log-in</Icon.Button>
+							<Button ref="3" primary block onPress={ () => this.logIn() }>
+								<Text style={localStyles.buttonText}>Log-in</Text>
+							</Button>
 						</View>
 					</View>
-				</ScrollView>
+				</Content>
 			</View>
 		);
 	}
@@ -200,6 +205,10 @@ const localStyles = StyleSheet.create({
 	RegisterContainer: {
 		flex: .7
 	},
+	or: {
+		textAlign: 'center',
+		padding: 20
+	},
 	data: {
 		textAlign: 'left',
 		padding: 10,
@@ -209,6 +218,11 @@ const localStyles = StyleSheet.create({
 	welcomeText: {
 		textAlign: 'center',
 		paddingTop: 25,
+		fontSize: 20,
+		color: '#FFFFFF'
+	},
+	buttonText: {
+		textAlign: 'center',
 		fontSize: 20,
 		color: '#FFFFFF'
 	},
@@ -236,3 +250,39 @@ const localStyles = StyleSheet.create({
 AppRegistry.registerComponent('Authenticationscreen', () => Authenticationscreen);
 
 export default Authenticationscreen;
+
+
+/**
+ <View style={localStyles.socialViews}>
+ <TextInput
+ ref="1"
+ spellCheck={false}
+ style={localStyles.formTextField}
+ keyboardType="email-address"
+ placeholder="e-mail"
+ returnKeyType="next"
+ onChangeText={(email) => this.setState({email})}
+ value={this.state.email}
+ blurOnSubmit={false}
+ autoCapitalize="none"
+ onSubmitEditing={() => this.focusNextField('2')}
+ />
+ </View>
+ <View style={localStyles.socialViews}>
+ <TextInput
+ ref="2"
+ style={localStyles.formTextField}
+ spellCheck={false}
+ keyboardType="default"
+ placeholder="Password"
+ returnKeyType="next"
+ autoCapitalize="none"
+ secureTextEntry={true}
+ onChangeText={(password) => this.setState({password})}
+ value={this.state.password}
+ blurOnSubmit={false}
+ onSubmitEditing={() => this.logIn()}
+ />
+ </View>
+
+ */

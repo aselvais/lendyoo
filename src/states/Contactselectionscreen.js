@@ -3,12 +3,13 @@ import ComponentAbstract from './ComponentAbstract';
 import {
 	AppRegistry,
 	StyleSheet,
-	Text,
+	//Text,
 	ScrollView,
 	TouchableHighlight,
 	View
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Container, Content, Left, Body, Right, ListItem, Thumbnail, Text } from 'native-base';
 
 /**
  * Contact selection view
@@ -66,33 +67,44 @@ class Contactselectionscreen extends ComponentAbstract {
 	{
 		this.console.log('Contactselectionscreen.render()');
 		return (
+			<Content>
 			<View style={ localStyles.globalContainer }>
 
-				<View style={localStyles.welcomeContainer}>
-					<Text style={localStyles.welcomeText}>
-						Lend the item to
-					</Text>
-				</View>
-
-				<ScrollView style={localStyles.RegisterContainer}>
-					{
-						this.state.contactCollectionModels.map((contact) =>
-						<View key={contact._id} style={localStyles.element} >
-							<TouchableHighlight key={contact._id} onPress={ () => this.onPressContact(contact) }>
-								<Text key={contact._id} style={localStyles.data}>
-									<Icon name="user" style={localStyles.dataIcon} />
-									{ "  " + contact.getFullName() } { "\n      <" + contact.email + ">" }
-								</Text>
-							</TouchableHighlight>
-						</View>
-						)
-					}
-				</ScrollView>
+				{
+					this.state.contactCollectionModels.map((contact) =>
+						<ListItem key={contact._id} onPress={ () => this.onPressContact(contact) } avatar>
+							<Left>
+								<Thumbnail source={require('../assets/images/bigstock-attractive-young-business-man-43103578.jpg')} small/>
+							</Left>
+							<Body>
+							<Text>{ contact.getFullName() }</Text>
+							<Text note>{ contact.email }</Text>
+							</Body>
+						</ListItem>
+					)
+				}
 			</View>
+			</Content>
 		);
 	}
 }
 
+/*
+ <ScrollView style={localStyles.RegisterContainer}>
+ {
+ this.state.contactCollectionModels.map((contact) =>
+ <View key={contact._id} style={localStyles.element} >
+ <TouchableHighlight key={contact._id} onPress={ () => this.onPressContact(contact) }>
+ <Text key={contact._id} style={localStyles.data}>
+ <Icon name="user" style={localStyles.dataIcon} />
+ { "  " + contact.getFullName() } { "\n      <" + contact.email + ">" }
+ </Text>
+ </TouchableHighlight>
+ </View>
+ )
+ }
+ </ScrollView>
+*/
 const localStyles = StyleSheet.create({
 	globalContainer: {
 		flex: 1,

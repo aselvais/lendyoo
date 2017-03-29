@@ -2,19 +2,14 @@ import React from 'react';
 import ComponentAbstract from './ComponentAbstract';
 import {
 	AppRegistry,
-	Animated,
-	Easing,
-	Dimensions,
 	StyleSheet,
 	Text,
 	View,
-	Image,
-	TouchableHighlight,
-	Alert,
-	AlertIOS
+	ScrollView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import Dimensions from 'Dimensions';
+const {width, height} = Dimensions.get('window');
 
 /**
  * Make loan screen (with pict)
@@ -27,12 +22,7 @@ class MenuBar extends ComponentAbstract {
 	 */
 	constructor(props) {
 		super(props);
-		this.console.log('MenuBar.constructor()', this.props.visibility);
-		this.state = {
-			slideIn: new Animated.Value(-300),
-			visibility: this.props.visibility
-		};
-//		this.setState({ visibility: this.props.visibility });
+		this.props.parentComponent = props.parentComponent;
 	}
 
 	/**
@@ -40,21 +30,6 @@ class MenuBar extends ComponentAbstract {
 	 */
 	componentDidMount() {
 		this.console.log('MenuBar.componentDidMount()');
-	}
-
-	/**
-	 *
-	 */
-	animateSlide()
-	{
-		this.console.log('MenuBar.animateSlide()', this.props.visibility);
-		Animated.spring(
-			this.state.slideIn,
-			{
-				toValue: (this.props.visibility ? -15 : -300),
-				duration: 100
-			}
-		).start();
 	}
 
 	/**
@@ -72,26 +47,16 @@ class MenuBar extends ComponentAbstract {
 	 * @returns {XML}
 	 */
 	render() {
-		this.console.log('MenuBar.render()', this.props.visibility);
-		this.animateSlide();
 		return (
-			<Animated.View
-				style={{
-					position: "absolute",
-					left: this.state.slideIn,
-					top: 45,
-					padding: 30,
-					width: 250,
-					height: 1080,
-					zIndex: 1000,
-					backgroundColor: '#212121'
-				}}>
+			<View style={ localStyles.containerStyle }>
+				<ScrollView>
 				{ this.props.parentComponent.menuItems/* .filter(function(e) { return !e.showBackButton; } ) */.map(
-					(o, i) => <TouchableHighlight style={ localStyles.touchHighligh } key={i} onPress={ () => this.onPressTextbox(i) }><Text
+					(o, i) => <Text key={ i } onPress={ () => this.onPressTextbox(i) }
 						style={ localStyles.globalText }><Icon name={ o.icon } style={ localStyles.globalText } /> { o.label }
-					</Text></TouchableHighlight>
+					</Text>
 				) }
-			</Animated.View>
+				</ScrollView>
+			</View>
 		);
 	}
 
@@ -101,13 +66,18 @@ class MenuBar extends ComponentAbstract {
  * Local styles
  */
 const localStyles = StyleSheet.create({
+	containerStyle: {
+		flex: 1,
+		backgroundColor: '#FFFFFF'
+	},
 	touchHighligh: {
 		paddingTop: 18
 	},
 	globalText: {
-		color: '#FFFFFF',
+		paddingTop: 18,
 		fontSize: 20,
-		textAlign: 'left'
+		textAlign: 'left',
+		paddingLeft: 20
 	}
 });
 
