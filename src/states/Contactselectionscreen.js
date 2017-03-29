@@ -41,8 +41,10 @@ class Contactselectionscreen extends ComponentAbstract {
 	setContactList()
 	{
 		var _that = this;
+		_that.rootComponent.setLoading(true);
 		this.lendyooRegistry.contactCollection.setRemoteContactsFromUser( this.user._id ).then(
-			function(d){
+			function(d) {
+				_that.rootComponent.setLoading(false);
 				_that.setState({contactCollectionModels: _that.lendyooRegistry.contactCollection.models });
 			}
 		);

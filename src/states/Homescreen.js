@@ -23,10 +23,11 @@ class Authenticationscreen extends ComponentAbstract {
 	constructor(props) {
 		super(props);
 		this.state = {
-			//email: 'arnaud@antidot.ca',
-			//password: 'test'
-			email: '',
-			password: ''
+			email: 'arnaud@antidot.ca',
+			password: 'test'
+
+			//email: '',
+			//password: ''
 		};
 		this.console.log('Authenticationscreen.constructor()', props);
 		// if (this.lendyooRegistry.isAuthenticated) this.lendyooRegistry.routes.gotTo('history');
@@ -49,10 +50,12 @@ class Authenticationscreen extends ComponentAbstract {
 		}
 		else
 		{
+			_that.rootComponent.setLoading(true);
 			this.user.authenticate(this.state.email, this.state.password).then(
 				function(data){
 					if (data === true)
 					{
+						_that.rootComponent.setLoading(false);
 						_that.lendyooRegistry.isAuthenticated = true;
 						_that.lendyooRegistry.User_id = _that.user._id;
 						_that.lendyooRegistry.routes.gotTo("lend");
@@ -147,21 +150,19 @@ class Authenticationscreen extends ComponentAbstract {
 
 
 						<Form>
-							<Item floatingLabel>
+							<Item >
 								<Label>e-mail</Label>
 								<Input
 									ref="1"
 									spellCheck={false}
 									keyboardType="email-address"
-									returnKeyType="next"
 									onChangeText={(email) => this.setState({email})}
 									value={this.state.email}
 									blurOnSubmit={false}
 									autoCapitalize="none"
-									onSubmitEditing={() => this.focusNextField('2')}
 								/>
 							</Item>
-							<Item floatingLabel last>
+							<Item  last>
 								<Label>Password</Label>
 								<Input
 									ref="2"

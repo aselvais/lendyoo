@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import Loan from '../shared/models/frontend/Loan';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Content, Form, Item, Input, Label } from 'native-base';
 
 
 /**
@@ -66,39 +67,64 @@ class Makeloanscreen extends ComponentAbstract {
 
 	/**
 	 *
+	 * @param msg
+	 */
+	displayErrorAlert(msg='')
+	{
+		Alert.alert(
+			'Error',
+			msg,
+			[{text: 'OK', onPress: () => console.log('OK Pressed')}],
+			{ cancelable: false }
+		);
+	}
+
+	/**
+	 *
 	 * @param e
 	 */
 	onPressSave() {
-		var _that = this;
-		this.console.log('Makeloanscreen.onPressSave()');
-		var _loan = _that.loan;
-		_loan.Group_id = this.user.Group_id;
-		_loan.User_id = this.user._id;
-		_loan.Contact_id = this.activeContact._id;
-		_loan.photo = '';
-		_loan.isSaved = true;
-		_loan.detail = '';
-		_loan.dateCreated = new Date();
-		_loan.save().then(
-			function(d){
-				if (d === true)
-				{
-					try {
-						_that.loanCollection.addModel(_loan);
-						_that.loanCollection.setActiveModel(_loan);
-					} catch(e)
+
+		if (!this.activeContact || !this.activeContact._id || !this.user || !this.user.Group_id)
+		{
+			this.displayErrorAlert('Please choose a contact');
+		}
+		else
+		{
+			var _that = this;
+			this.console.log('Makeloanscreen.onPressSave()');
+			var _loan = _that.loan;
+			_loan.Group_id = this.user.Group_id;
+			_loan.User_id = this.user._id;
+			_loan.Contact_id = this.activeContact._id;
+			_loan.photo = '';
+			_loan.isSaved = true;
+			_loan.detail = '';
+			_loan.dateCreated = new Date();
+			_that.rootComponent.setLoading(true);
+			_loan.save().then(
+				function(d){
+					if (d === true)
 					{
-						//console.error(_loan);
+						_that.rootComponent.setLoading(false);
+						try {
+							_that.loanCollection.addModel(_loan);
+							_that.loanCollection.setActiveModel(_loan);
+						} catch(e)
+						{
+							//console.error(_loan);
+						}
+						_that.routes.gotTo("detail");
 					}
-					_that.routes.gotTo("detail");
-				}
-				//else
+					//else
 					//console.error('Error saving loan', d);
-			},
-			function(e){
-				//console.error('Error saving loan', e);
-			}
-		);
+				},
+				function(e){
+					_that.rootComponent.setLoading(false);
+					//console.error('Error saving loan', e);
+				}
+			);
+		}
 	}
 
 	/**
@@ -150,6 +176,8 @@ class Makeloanscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Makeloanscreen.render()');
 		return (
+			<Content>
+
 			<View style={ localStyles.globalContainer }>
 				<View style={localStyles.toFromBar}>
 					<View style={{flex: 1, flexDirection: 'row'}}>
@@ -171,6 +199,8 @@ class Makeloanscreen extends ComponentAbstract {
 						</View>
 					</View>
 				</View>
+
+
 				<View style={localStyles.imageSpace}>
 					{
 						this.state.photo ?
@@ -188,25 +218,27 @@ class Makeloanscreen extends ComponentAbstract {
 					}
 				</View>
 				<View style={localStyles.adddetailSpace}>
-					<Text style={ localStyles.detailText }>{ this.loan._id }</Text>
-					<TextInput
-						ref="1"
-						spellCheck={true}
-						style={localStyles.formTextField}
-						placeholder="Description"
-						returnKeyType="next"
-						onChangeText={ (title) => this.changeTitle(title) }
-						value={this.loan.title}
-						blurOnSubmit={false}
-						autoCapitalize="none"
-						onSubmitEditing={() => this.focusNextField('2')}
-					/>
+					<Form>
+						<Item floatingLabel>
+							<Label>Description</Label>
+							<Input
+								ref="1"
+								spellCheck={true}
+								onChangeText={ (title) => this.changeTitle(title) }
+								value={this.loan.title}
+								blurOnSubmit={false}
+								autoCapitalize="none"
+							/>
+						</Item>
+					</Form>
+
 				</View>
 				<View style={ localStyles.saveButtonContainer }>
 					<Icon.Button ref="2" name="thumbs-o-up" style={localStyles.buttonSaveLend} backgroundColor="#FF9100"
 								 onPress={ () => this.onPressSave() } title="Lend an item">Lend an item</Icon.Button>
 				</View>
 			</View>
+			</Content>
 		);
 	}
 }
@@ -250,14 +282,14 @@ const localStyles = StyleSheet.create({
 	},
 	imageSpace: {
 		flex: .5,
-		backgroundColor: '#000000',
+		backgroundColor: '#444444',
 		alignItems: 'center',
 		justifyContent: 'center',
 		overflow: 'hidden'
 	},
 	adddetailSpace: {
 		flex: .13,
-		backgroundColor: '#212121'
+//		backgroundColor: '#212121'
 	},
 	addDetailButton: {
 		padding: 7,
@@ -277,7 +309,7 @@ const localStyles = StyleSheet.create({
 	},
 	saveButtonContainer: {
 		flex: .07,
-		backgroundColor: '#212121',
+// 		backgroundColor: '#212121',
 		alignItems: 'center',
 		justifyContent: 'center'
 	},

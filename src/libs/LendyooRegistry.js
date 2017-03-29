@@ -39,6 +39,7 @@ class LendyooRegistry {
 		this.platform = Platform.OS;
 		this.appVersion = this.config.APP_VERSION;
 		this.isAuthenticated = false;
+		this.rootComponent = null;
 		this.User_id = false;
 		this.instanceTime = new Date();
 		this.user = new User();
@@ -89,7 +90,12 @@ class LendyooRegistry {
 			return false;
 		}
 	}
-3
+
+	setRootComponent(r)
+	{
+		this.rootComponent = r;
+	}
+
 
 }
 

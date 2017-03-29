@@ -14,6 +14,7 @@ class ComponentAbstract extends Component
 	constructor(props) {
 		super(props);
 		this.lendyooRegistry = new LendyooRegistry();
+		this.rootComponent = this.lendyooRegistry.rootComponent;
 		this.console = this.lendyooRegistry.Console;
 		this.user = this.lendyooRegistry.user;
 		this.group = this.lendyooRegistry.group;

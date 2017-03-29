@@ -2,10 +2,15 @@ import React, {Component} from 'react';
 import {
 	AppRegistry,
 	StyleSheet,
-	Text
+	Text,
+	View
 } from 'react-native';
 
-import { Container, Header, Title, Button, Left, Right, Body, Icon, Drawer } from 'native-base';
+import { Spinner, Container, Header, Title, Button, Left, Right, Body, Icon, Drawer } from 'native-base';
+import Dimensions from 'Dimensions';
+
+// We can use this to make the overlay fill the entire width
+var { width, height } = Dimensions.get('window');
 
 import LendyooRegistry from '../libs/LendyooRegistry';
 import MenuBar from './MenuBar';
@@ -23,13 +28,15 @@ class Mainscreen extends Component {
 	constructor(props) {
 		super(props);
 		this.lendyooRegistry = new LendyooRegistry();
+		this.lendyooRegistry.setRootComponent(this);
 		this.console = this.lendyooRegistry.Console;
 		this.console.log('Mainscreen.constructor()', props);
 		this.routes = this.lendyooRegistry.routes;
 		this.routes.setGlobalContainer(this);
 
 		this.state = {
-			selectedView: this.routes._currentView
+			selectedView: this.routes._currentView,
+			loading: false
 		};
 		this.menuItems = this.routes.getRoutes();
 	}
@@ -67,21 +74,31 @@ class Mainscreen extends Component {
 	 *
 	 * @returns {XML}
 	 */
-	getNavigationItem() {
+	getNavigationItem()
+	{
 		this.console.log('Mainscreen.getNavigationItem()');
 		if (this.state.selectedView.showBackButton)
 			return <Text style={ localStyles.topBarText } onPress={ () => this.routes.goBack() }><IconAwesome
 				name="chevron-left" style={ localStyles.topBarIcon }/></Text>;
 		else
-			return <Text style={ localStyles.topBarText } onPress={ () => this.showMenu() }><IconAwesome name="bars"
-																								  style={ localStyles.topBarIcon }/></Text>;
+			return <Text style={ localStyles.topBarText } onPress={ () => this.showMenu() }><IconAwesome name="bars" style={ localStyles.topBarIcon }/></Text>;
+	}
+
+	setLoading(l=false)
+	{
+		this.setState({ loading: l });
 	}
 
 	/**
 	 *
 	 * @returns {XML}
 	 */
-	render() {
+	render()
+	{
+		var spinner;
+		if (this.state.loading)
+			spinner = <View style={ localStyles.overlay }><Spinner color='black' /></View>;
+
 		return (
 			<Container>
 				<Header>
@@ -96,7 +113,8 @@ class Mainscreen extends Component {
 					<Right />
 				</Header>
 				<Drawer ref={(ref) => { this._drawer = ref; }} content={<MenuBar menuItems={this.menuItems} parentComponent={this}></MenuBar>} onClose={() => this.hideMenu()}>
-						{ this.state.selectedView.component }
+					{ spinner }
+					{ this.state.selectedView.component }
 				</Drawer>
 			</Container>
 
@@ -121,6 +139,20 @@ const localStyles = StyleSheet.create({
 		backgroundColor: '#000000',
 		alignItems: 'center',
 		flexDirection: 'row'
+	},
+	overlay: {
+		alignItems: 'center',
+		flex: 1,
+		//opacity: 0.5,
+		//backgroundColor: '#000000',
+		flexDirection:'row',
+		alignItems:'center',
+		justifyContent:'center',
+		position: 'absolute',
+		left: 0,
+		top: 0,
+		width: width,
+		height: height
 	}
 });
 
