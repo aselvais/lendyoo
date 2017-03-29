@@ -23,13 +23,22 @@ class MenuBar extends ComponentAbstract {
 	constructor(props) {
 		super(props);
 		this.props.parentComponent = props.parentComponent;
+		this.state = {
+			isAuthenticated: false
+		};
 	}
 
 	/**
 	 *
 	 */
 	componentDidMount() {
+		this.lendyooRegistry.setMenuBarComponent(this);
 		this.console.log('MenuBar.componentDidMount()');
+	}
+
+	setAuthState(st=false)
+	{
+		this.setState({isAuthenticated:st});
 	}
 
 	/**
@@ -47,13 +56,23 @@ class MenuBar extends ComponentAbstract {
 	 * @returns {XML}
 	 */
 	render() {
+		var _that = this;
 		return (
 			<View style={ localStyles.containerStyle }>
 				<ScrollView>
-				{ this.props.parentComponent.menuItems/* .filter(function(e) { return !e.showBackButton; } ) */.map(
-					(o, i) => <Text key={ i } onPress={ () => this.onPressTextbox(i) }
-						style={ localStyles.globalText }><Icon name={ o.icon } style={ localStyles.globalText } /> { o.label }
-					</Text>
+				{ this.props.parentComponent.menuItems.map((o, i) => {
+						var _show = true;
+						if (!_that.state.isAuthenticated)
+							_show = !o.showWhenAuth;
+						else
+							_show = o.showWhenAuth;
+						if (_show)
+							return <Text key={ i } onPress={ () => this.onPressTextbox(i) }
+							  style={ localStyles.globalText }><Icon name={ o.icon }
+								style={ localStyles.globalText }/> { o.label }</Text>;
+						else
+							return null;
+					}
 				) }
 				</ScrollView>
 			</View>

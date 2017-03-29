@@ -5,17 +5,14 @@ import {
 	Dimensions,
 	StyleSheet,
 	Text,
-	TextInput,
-	ScrollView,
 	View,
 	Image,
 	TouchableHighlight,
-	Alert,
-	AlertIOS
+	Alert
 } from 'react-native';
 import Loan from '../shared/models/frontend/Loan';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Content, Form, Item, Input, Label } from 'native-base';
+import { Content, Form, Item, Input, Label, Button, Footer, FooterTab } from 'native-base';
 
 
 /**
@@ -233,11 +230,14 @@ class Makeloanscreen extends ComponentAbstract {
 					</Form>
 
 				</View>
-				<View style={ localStyles.saveButtonContainer }>
-					<Icon.Button ref="2" name="thumbs-o-up" style={localStyles.buttonSaveLend} backgroundColor="#FF9100"
-								 onPress={ () => this.onPressSave() } title="Lend an item">Lend an item</Icon.Button>
+				<View style={localStyles.buttonView}>
+					<Button ref="2" primary block onPress={ () => this.onPressSave() }>
+						<Text style={localStyles.buttonText}>Lend item</Text>
+					</Button>
+
 				</View>
 			</View>
+
 			</Content>
 		);
 	}
@@ -256,6 +256,14 @@ const localStyles = StyleSheet.create({
 	globalContainer: {
 		flex: 1,
 		flexDirection: 'column'
+	},
+	buttonView: {
+		padding: 30
+	},
+	buttonText: {
+		textAlign: 'center',
+		fontSize: 20,
+		color: '#FFFFFF'
 	},
 	toFromBar: {
 		flex: .1,

@@ -74,7 +74,7 @@ class Loandetailscreen extends ComponentAbstract {
 			<View style={ localStyles.globalContainer }>
 				<View style={localStyles.welcomeContainer}>
 					<Text style={localStyles.welcomeText}>
-						Loan saved { "\n\"" + this.loan.title + "\"" }
+						Loan saved { (this.loan && this.loan.title) ? "\n\"" + this.loan.title + "\"" : "" }
 					</Text>
 				</View>
 				<ScrollView>

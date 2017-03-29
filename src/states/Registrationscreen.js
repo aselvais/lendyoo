@@ -92,7 +92,7 @@ class Registrationscreen extends ComponentAbstract {
 			this.user.save(this.state.email, this.state.password).then(
 				function (data) {
 					if (data === true) {
-						_that.lendyooRegistry.isAuthenticated = true;
+						_that.lendyooRegistry.setAuthStatus(true);
 						_that.lendyooRegistry.User_id = _that.user._id;
 						_that.displayErrorAlert('Account created');
 //						_that.lendyooRegistry.routes.gotTo("lend");

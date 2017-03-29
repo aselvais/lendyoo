@@ -4,13 +4,11 @@ import {
 	AppRegistry,
 	StyleSheet,
 	ScrollView,
-	TouchableHighlight,
-	Text,
-	View,
-	Button
+	View
 } from 'react-native';
 import styles from '../styles/Mainstyle';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Container, Content, Left, Body, Right, ListItem, Thumbnail, Text, H1, H2, Badge } from 'native-base';
 
 /**
  * Loans history/list
@@ -68,6 +66,17 @@ class Loanhistoryscreen extends ComponentAbstract {
 
 	/**
 	 *
+	 * @param d
+	 * @returns {string}
+	 */
+	getFormatedDate(d)
+	{
+		var d = new Date(d);
+		return d.toLocaleDateString();
+	}
+
+	/**
+	 *
 	 * @returns {XML}
 	 */
 	render() {
@@ -75,32 +84,39 @@ class Loanhistoryscreen extends ComponentAbstract {
 		return (
 			<View style={ localStyles.globalContainer }>
 
-				<View style={localStyles.welcomeContainer}>
-					<Text style={localStyles.welcomeText}>
+				<View >
+					<H1>
 						Items you've lent
-					</Text>
+					</H1>
 				</View>
 
 				<View style={localStyles.RegisterContainer}>
 					{
 						(!this.state.loanCollectionModels || this.state.loanCollectionModels.length <= 0) ?
 							(<View>
-								<Text style={localStyles.welcomeText2}>
+								<H2>
 									No active loan for the moment ...
-								</Text>
+								</H2>
 							</View>)
 							:
 							(<ScrollView style={localStyles.RegisterContainer}>
 								{
 									this.state.loanCollectionModels.map((loan) =>
-										<View key={'view-'+loan._id} style={localStyles.element}>
-											<TouchableHighlight key={'touch-'+loan._id} onPress={ () => this.onPressLoan(loan) }>
-												<Text key={'text-'+loan._id} style={localStyles.data}>
-													<Icon key={'icon-'+loan._id} name="pencil" style={localStyles.dataIcon}/>
-													{ "  " + loan.title } { "\n      <" + loan.dateCreated + ">" }
-												</Text>
-											</TouchableHighlight>
-										</View>
+									<ListItem key={loan._id} onPress={ () => this.onPressLoan(loan) } avatar>
+										<Left>
+											<Thumbnail source={require('../assets/images/bigstock-attractive-young-business-man-43103578.jpg')} small/>
+										</Left>
+										<Body>
+										<Text>{ loan.title }</Text>
+										<Text note>{ this.getFormatedDate(loan.dateCreated) }</Text>
+										</Body>
+										<Right>
+											<Badge danger>
+												<Text>{ loan.status }</Text>
+											</Badge>
+										</Right>
+									</ListItem>
+
 									)
 								}
 							</ScrollView>)

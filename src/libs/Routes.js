@@ -31,15 +31,16 @@ class Routes
 			this.instanceTime = new Date();
 			this.isAuthenticated = false;
 			this._routes = [
-				{ name: 'home', icon: 'home', label: 'Home', component: <Homescreen/>, showBackButton: false },
-				{ name: 'reg', icon: 'check', label: 'Registration', component: <Registrationscreen/>, showBackButton: false },
-				{ name: 'profile', icon: 'user', label: 'Profile', component: <Profilescreen/>, showBackButton: false },
-				{ name: 'settings', icon: 'cog', label: 'Settings', component: <Settingsscreen/>, showBackButton: false },
-				{ name: 'lend', icon: 'thumbs-o-up', label: 'Make Loan', component: <Makeloanscreen/>, showBackButton: false },
-				{ name: 'detail', icon: 'info', label: 'Loan Detail', component: <Loandetailscreen/>, showBackButton: true },
-				{ name: 'history', icon: 'file-text', label: 'Loans History', component: <Loanhistoryscreen/>, showBackButton: false },
-				{ name: 'contacts', icon: 'address-book', label: 'Contact Selection', component: <Contactselectionscreen/>, showBackButton: true },
-				{ name: 'help', icon: 'question-circle', label: 'About / Help', component: <Helpscreen/>, showBackButton: false }
+				{ name: 'home', icon: 'home', label: 'Home', component: <Homescreen/>, showBackButton: false, showWhenAuth: false },
+				{ name: 'reg', icon: 'check', label: 'Registration', component: <Registrationscreen/>, showBackButton: false, showWhenAuth: false },
+				{ name: 'lend', icon: 'thumbs-o-up', label: 'Make Loan', component: <Makeloanscreen/>, showBackButton: false, showWhenAuth: true },
+				{ name: 'history', icon: 'file-text', label: 'Loans History', component: <Loanhistoryscreen/>, showBackButton: false, showWhenAuth: true },
+				{ name: 'profile', icon: 'user', label: 'Profile', component: <Profilescreen/>, showBackButton: false, showWhenAuth: true },
+				{ name: 'settings', icon: 'cog', label: 'Settings', component: <Settingsscreen/>, showBackButton: false, showWhenAuth: true },
+				{ name: 'detail', icon: 'info', label: 'Loan Detail', component: <Loandetailscreen/>, showBackButton: true, showWhenAuth: true },
+				{ name: 'contacts', icon: 'address-book', label: 'Contact Selection', component: <Contactselectionscreen/>, showBackButton: true, showWhenAuth: true },
+				{ name: 'help', icon: 'question-circle', label: 'About / Help', component: <Helpscreen/>, showBackButton: false, showWhenAuth: false },
+				{ name: 'helpAuth', icon: 'question-circle', label: 'About / Help', component: <Helpscreen/>, showBackButton: false, showWhenAuth: true }
 			];
 			this._currentView = null;
 			// @todo Create a stack instead of only one value

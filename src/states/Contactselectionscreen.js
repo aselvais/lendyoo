@@ -3,13 +3,10 @@ import ComponentAbstract from './ComponentAbstract';
 import {
 	AppRegistry,
 	StyleSheet,
-	//Text,
-	ScrollView,
-	TouchableHighlight,
 	View
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Container, Content, Left, Body, Right, ListItem, Thumbnail, Text } from 'native-base';
+import { Content, Left, Body, ListItem, Thumbnail, Text } from 'native-base';
 
 /**
  * Contact selection view

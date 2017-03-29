@@ -40,6 +40,7 @@ class LendyooRegistry {
 		this.appVersion = this.config.APP_VERSION;
 		this.isAuthenticated = false;
 		this.rootComponent = null;
+		this.menuBarComponent = null;
 		this.User_id = false;
 		this.instanceTime = new Date();
 		this.user = new User();
@@ -53,7 +54,7 @@ class LendyooRegistry {
 				var _d = JSON.parse(sd);
 				if (_d && _d.User_id)
 				{
-					_that.isAuthenticated = true;
+					_that.setAuthStatus(true);
 					_that.User_id = _d.User_id;
 					_that.user.populateDataFromRemote(_that.User_id).then((d) => _that.group.populateDataFromRemote(_that.user.Group_id));
 				}
@@ -63,7 +64,7 @@ class LendyooRegistry {
 				}
 			},
 			function(se) {
-				_that.isAuthenticated = false;
+				_that.setAuthStatus(false);
 				// console.error(se);
 			},
 		);
@@ -91,9 +92,22 @@ class LendyooRegistry {
 		}
 	}
 
+	setAuthStatus(s)
+	{
+
+		if (this.menuBarComponent && this.menuBarComponent.setAuthState)
+			this.menuBarComponent.setAuthState(s);
+		this.isAuthenticated = s;
+	}
+
 	setRootComponent(r)
 	{
 		this.rootComponent = r;
+	}
+
+	setMenuBarComponent(c)
+	{
+		this.menuBarComponent = c;
 	}
 
 
