@@ -60,3 +60,20 @@ https://github.com/oblador/react-native-vector-icons
     
 
 
+# Build release
+
+## Android
+
+Run the following command:
+
+    cd android && ./gradlew assembleRelease 
+    
+Then your package is available at:
+
+    ./android/app/build/outputs/apk/
+
+## iOS
+
+You will have to run Xcode then go to Product > archive; this will build an
+archive and open a GUI for you to upload it to TestFlight ... 
+

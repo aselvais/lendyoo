@@ -4,10 +4,9 @@ import {
 	AppRegistry,
 	Text,
 	View,
-	StyleSheet,
-	ScrollView
+	StyleSheet
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Content, Picker, Button, CheckBox, Form, Item, Input, Label, H1, H2, H3 } from 'native-base';
 
 /**
  *
@@ -26,6 +25,9 @@ class Profilescreen extends ComponentAbstract {
 		};
 	}
 
+	/**
+	 *
+	 */
 	componentDidMount()
 	{
 		var _that = this;
@@ -62,7 +64,7 @@ class Profilescreen extends ComponentAbstract {
 	 */
 	editUser()
 	{
-
+		console.log(this.user._schema.gender.enum);
 	}
 
 	/**
@@ -73,20 +75,56 @@ class Profilescreen extends ComponentAbstract {
 	{
 		this.console.log('Profilescreen.render()');
 		return (
-
+<Content>
 		<View style={ localStyles.globalContainer }>
 
-			<View style={localStyles.welcomeContainer}>
-				<Text style={localStyles.welcomeText}>
-					Hello { this.state.user.fullName }
-				</Text>
-			</View>
-			<ScrollView>
+
 			<View style={localStyles.RegisterContainer}>
+
 				<View>
-					<Text style={localStyles.dataTitle}>
-						Company / Group
-					</Text>
+					<H2>Profile</H2>
+
+					<Form>
+						<Item ><Label>Registered</Label><CheckBox checked={this.state.user.isRegistered}/></Item>
+						<Item ><Label>Authentication Type</Label>
+							<Picker mode="dropdown"
+									selectedValue={this.state.user.authType}
+									onValueChange={(authType) => this.setState({authType: authType})}>
+								{ this.user._schema.authType.enum.map((v) => <Item key={v} label={v} value={v} />) }
+							</Picker>
+						</Item>
+						<Item ><Label>Username</Label><Input value={this.state.user.username}/></Item>
+						<Item ><Label>First Name</Label><Input value={this.state.user.fname}/></Item>
+						<Item ><Label>Last Name</Label><Input value={this.state.user.lname}/></Item>
+						<Item ><Label>Gender</Label>
+							<Picker mode="dropdown"
+									selectedValue={this.state.user.gender}
+									onValueChange={(gender) => this.setState({gender: gender})}>
+								{ this.user._schema.gender.enum.map((v) => <Item key={v} label={v} value={v} />) }
+							</Picker>
+						</Item>
+						<Item ><Label>E-mail</Label><Input value={this.state.user.email}/></Item>
+						<Item ><Label>Date of birth</Label><Input value={this.state.user.dateOfBirth}/></Item>
+						<Item ><Label>Created at</Label><Input value={this.state.user.dateCreated}/></Item>
+						<Item ><Label>Updated at</Label><Input value={this.state.user.dateUpdated}/></Item>
+						<Item ><Label>Role</Label>
+							<Picker mode="dropdown"
+									selectedValue={this.state.user.role}
+									onValueChange={(role) => this.setState({role: role})}>
+								{ this.user._schema.role.enum.map((v) => <Item key={v} label={v} value={v} />) }
+							</Picker>
+
+						</Item>
+
+					</Form>
+
+					<Button primary block name="pencil" onPress={ () => this.editUser() }>
+						<Text style={localStyles.buttonText}>Update user</Text>
+					</Button>
+				</View>
+
+				<View>
+					<H2>Company / Group</H2>
 					<Text style={localStyles.data}>{
 					"isActive: " + this.state.group.isActive + "\n" +
 					"name: " + this.state.group.name + "\n" +
@@ -99,34 +137,17 @@ class Profilescreen extends ComponentAbstract {
 					"dateUpdated: " + this.state.group.dateUpdated + "\n" +
 					"type: " + this.state.group.type
 					}</Text>
-					<Icon.Button name="pencil" style={localStyles.socialButton} backgroundColor="#FF9100"
-								 onPress={ () => this.editGroup() }>Edit group</Icon.Button>
+
+					<Button primary block name="pencil" onPress={ () => this.editGroup() }>
+						<Text style={localStyles.buttonText}>Update group</Text>
+					</Button>
 				</View>
 
-				<View>
-					<Text style={localStyles.dataTitle}>
-						Profile
-					</Text>
-					<Text style={localStyles.data}>{
-						"authType: " + this.state.user.authType + "\n" +
-						"isRegistered: " + this.state.user.isRegistered + "\n" +
-						"username: " + this.state.user.username + "\n" +
-						"fname: " + this.state.user.fname + "\n" +
-						"lname: " + this.state.user.lname + "\n" +
-						"gender: " + this.state.user.gender + "\n" +
-						"email: " + this.state.user.email + "\n" +
-						"dateOfBirth: " + this.state.user.dateOfBirth + "\n" +
-						"dateCreated: " + this.state.user.dateCreated + "\n" +
-						"dateUpdated: " + this.state.user.dateUpdated + "\n" +
-						"role: " + this.state.user.role + "\n"
-					}</Text>
-					<Icon.Button name="pencil" style={localStyles.socialButton} backgroundColor="#FF9100"
-								 onPress={ () => this.editUser() }>Edit user</Icon.Button>
-				</View>
+
 			</View>
-			</ScrollView>
-		</View>
 
+		</View>
+</Content>
 		);
 	}
 }
@@ -165,6 +186,11 @@ const localStyles = StyleSheet.create({
 	},
 	socialViews: {
 		padding: 50
+	},
+	buttonText: {
+		textAlign: 'center',
+		fontSize: 20,
+		color: '#FFFFFF'
 	},
 	socialButton: {
 		margin: 3

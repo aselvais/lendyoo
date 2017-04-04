@@ -8,8 +8,6 @@ import {
 	Alert
 } from 'react-native';
 import { Content, Button, Icon, Form, Item, Input, Label, H1, H2, H3 } from 'native-base';
-import styles from '../styles/Mainstyle';
-// import Icon from 'react-native-vector-icons/FontAwesome';
 
 /**
  * Authentication
@@ -150,7 +148,7 @@ class Authenticationscreen extends ComponentAbstract {
 
 
 						<Form>
-							<Item >
+							<Item>
 								<Label>e-mail</Label>
 								<Input
 									ref="1"
@@ -251,39 +249,3 @@ const localStyles = StyleSheet.create({
 AppRegistry.registerComponent('Authenticationscreen', () => Authenticationscreen);
 
 export default Authenticationscreen;
-
-
-/**
- <View style={localStyles.socialViews}>
- <TextInput
- ref="1"
- spellCheck={false}
- style={localStyles.formTextField}
- keyboardType="email-address"
- placeholder="e-mail"
- returnKeyType="next"
- onChangeText={(email) => this.setState({email})}
- value={this.state.email}
- blurOnSubmit={false}
- autoCapitalize="none"
- onSubmitEditing={() => this.focusNextField('2')}
- />
- </View>
- <View style={localStyles.socialViews}>
- <TextInput
- ref="2"
- style={localStyles.formTextField}
- spellCheck={false}
- keyboardType="default"
- placeholder="Password"
- returnKeyType="next"
- autoCapitalize="none"
- secureTextEntry={true}
- onChangeText={(password) => this.setState({password})}
- value={this.state.password}
- blurOnSubmit={false}
- onSubmitEditing={() => this.logIn()}
- />
- </View>
-
- */
