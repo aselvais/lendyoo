@@ -10,10 +10,11 @@ import {
 	TouchableHighlight,
 	Alert
 } from 'react-native';
+import {Content, Form, Item, Input, Label, Button} from 'native-base';
+import Camera from 'react-native-camera';
+
 import Loan from '../shared/models/frontend/Loan';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Content, Form, Item, Input, Label, Button, Footer, FooterTab } from 'native-base';
-
 
 /**
  * Make loan screen (with pict)
@@ -28,8 +29,7 @@ class Makeloanscreen extends ComponentAbstract {
 		super(props);
 		this.console.log('Makeloanscreen.constructor()', props);
 		this.contactCollection = this.lendyooRegistry.contactCollection;
-		if (!this.loan || (this.routes.getPreviousViewName() != 'contacts' && this.routes.getPreviousViewName() != 'detail'))
-		{
+		if (!this.loan || (this.routes.getPreviousViewName() != 'contacts' && this.routes.getPreviousViewName() != 'detail')) {
 			this.loan = new Loan();
 			this.loanCollection.setActiveModel(this.loan);
 			this.contactCollection.setActiveModel(null);
@@ -66,13 +66,12 @@ class Makeloanscreen extends ComponentAbstract {
 	 *
 	 * @param msg
 	 */
-	displayErrorAlert(msg='')
-	{
+	displayErrorAlert(msg = '') {
 		Alert.alert(
 			'Error',
 			msg,
 			[{text: 'OK', onPress: () => console.log('OK Pressed')}],
-			{ cancelable: false }
+			{cancelable: false}
 		);
 	}
 
@@ -82,12 +81,10 @@ class Makeloanscreen extends ComponentAbstract {
 	 */
 	onPressSave() {
 
-		if (!this.activeContact || !this.activeContact._id || !this.user || !this.user.Group_id)
-		{
+		if (!this.activeContact || !this.activeContact._id || !this.user || !this.user.Group_id) {
 			this.displayErrorAlert('Please choose a contact');
 		}
-		else
-		{
+		else {
 			var _that = this;
 			this.console.log('Makeloanscreen.onPressSave()');
 			var _loan = _that.loan;
@@ -100,15 +97,13 @@ class Makeloanscreen extends ComponentAbstract {
 			_loan.dateCreated = new Date();
 			_that.rootComponent.setLoading(true);
 			_loan.save().then(
-				function(d){
-					if (d === true)
-					{
+				function (d) {
+					if (d === true) {
 						_that.rootComponent.setLoading(false);
 						try {
 							_that.loanCollection.addModel(_loan);
 							_that.loanCollection.setActiveModel(_loan);
-						} catch(e)
-						{
+						} catch (e) {
 							//console.error(_loan);
 						}
 						_that.routes.gotTo("detail");
@@ -116,7 +111,7 @@ class Makeloanscreen extends ComponentAbstract {
 					//else
 					//console.error('Error saving loan', d);
 				},
-				function(e){
+				function (e) {
 					_that.rootComponent.setLoading(false);
 					//console.error('Error saving loan', e);
 				}
@@ -152,17 +147,15 @@ class Makeloanscreen extends ComponentAbstract {
 	/**
 	 *
 	 */
-	takePicture()
-	{
-		this.setState({ photo: true });
+	takePicture() {
+		this.setState({photo: true});
 	}
 
 	/**
 	 *
 	 * @param title
 	 */
-	changeTitle(title)
-	{
+	changeTitle(title) {
 		this.loan.title = title;
 	}
 
@@ -175,68 +168,71 @@ class Makeloanscreen extends ComponentAbstract {
 		return (
 			<Content>
 
-			<View style={ localStyles.globalContainer }>
-				<View style={localStyles.toFromBar}>
-					<View style={{flex: 1, flexDirection: 'row'}}>
-						<View style={{flex: .4, alignItems: 'center'}}>
-							<TouchableHighlight onPress={ () => this.onPressFrom() }>
-								<Text style={ localStyles.fromToText }>{ this.user.fullName }</Text>
-							</TouchableHighlight>
-						</View>
-						<View style={{flex: .2, alignItems: 'center'}}>
-							<TouchableHighlight onPress={ () => this.onPressLoadDirection() }>
-								<Icon name={ this.getIconeDirectionName( this.state.direction ) }
-									  style={ localStyles.arrow }/>
-							</TouchableHighlight>
-						</View>
-						<View style={{flex: .4, alignItems: 'center'}}>
-							<TouchableHighlight onPress={ () => this.routes.gotTo("contacts") }>
-								<Text style={ localStyles.fromToText }>{ this.getContactName() }</Text>
-							</TouchableHighlight>
+				<View style={ localStyles.globalContainer }>
+					<View style={localStyles.toFromBar}>
+						<View style={{flex: 1, flexDirection: 'row'}}>
+							<View style={{flex: .4, alignItems: 'center'}}>
+								<TouchableHighlight onPress={ () => this.onPressFrom() }>
+									<Text style={ localStyles.fromToText }>{ this.user.fullName }</Text>
+								</TouchableHighlight>
+							</View>
+							<View style={{flex: .2, alignItems: 'center'}}>
+								<TouchableHighlight onPress={ () => this.onPressLoadDirection() }>
+									<Icon name={ this.getIconeDirectionName(this.state.direction) }
+										  style={ localStyles.arrow }/>
+								</TouchableHighlight>
+							</View>
+							<View style={{flex: .4, alignItems: 'center'}}>
+								<TouchableHighlight onPress={ () => this.routes.gotTo("contacts") }>
+									<Text style={ localStyles.fromToText }>{ this.getContactName() }</Text>
+								</TouchableHighlight>
+							</View>
 						</View>
 					</View>
-				</View>
 
+					<View style={localStyles.imageSpace}>
+						{
+							this.state.photo ?
+								(
+									<Image
+										source={require('../assets/images/bigstock-attractive-young-business-man-43103578.jpg')}
+										style={localStyles.imageSpace}></Image>
+								)
+								:
+								(
 
-				<View style={localStyles.imageSpace}>
-					{
-						this.state.photo ?
-							(
-								<Image source={require('../assets/images/bigstock-attractive-young-business-man-43103578.jpg')} style={styles.backgroundImage}></Image>
-							)
-							:
-							(
-								<View style={styles.container}>
-									<TouchableHighlight onPress={ () => this.takePicture() }>
-										<Icon name="camera" style={ localStyles.photoText } />
-									</TouchableHighlight>
-								</View>
-							)
-					}
-				</View>
-				<View style={localStyles.adddetailSpace}>
-					<Form>
-						<Item floatingLabel>
-							<Label>Description</Label>
-							<Input
-								ref="1"
-								spellCheck={true}
-								onChangeText={ (title) => this.changeTitle(title) }
-								value={this.loan.title}
-								blurOnSubmit={false}
-								autoCapitalize="none"
-							/>
-						</Item>
-					</Form>
+									<Camera
+										ref={(cam) => { this.camera = cam; }}
+										aspect={Camera.constants.Aspect.fill}>
+											<Icon name="camera" style={ localStyles.photoText }
+												  onPress={ () => this.takePicture() }/>
+									</Camera>
+								)
+						}
+					</View>
+					<View style={localStyles.adddetailSpace}>
+						<Form>
+							<Item floatingLabel>
+								<Label>Description</Label>
+								<Input
+									ref="1"
+									spellCheck={true}
+									onChangeText={ (title) => this.changeTitle(title) }
+									value={this.loan.title}
+									blurOnSubmit={false}
+									autoCapitalize="none"
+								/>
+							</Item>
+						</Form>
 
-				</View>
-				<View style={localStyles.buttonView}>
-					<Button ref="2" primary block onPress={ () => this.onPressSave() }>
-						<Text style={localStyles.buttonText}>Lend item</Text>
-					</Button>
+					</View>
+					<View style={localStyles.buttonView}>
+						<Button ref="2" primary block onPress={ () => this.onPressSave() }>
+							<Text style={localStyles.buttonText}>Lend item</Text>
+						</Button>
 
+					</View>
 				</View>
-			</View>
 
 			</Content>
 		);
@@ -275,7 +271,8 @@ const localStyles = StyleSheet.create({
 		color: '#FFFFFF'
 	},
 	photoText: {
-		paddingTop: 300,
+		textAlign: 'center',
+	//	paddingTop: 300,
 		fontSize: 40,
 		color: '#FFFFFF'
 	},
@@ -289,11 +286,11 @@ const localStyles = StyleSheet.create({
 		color: '#FFFFFF'
 	},
 	imageSpace: {
-		flex: .5,
-		backgroundColor: '#444444',
+		height: Dimensions.get('window').height - 300,
 		alignItems: 'center',
 		justifyContent: 'center',
-		overflow: 'hidden'
+		overflow: 'hidden',
+		backgroundColor: '#000000'
 	},
 	adddetailSpace: {
 		flex: .13,
@@ -329,7 +326,7 @@ const localStyles = StyleSheet.create({
 		backgroundColor: '#F57F17',
 		borderRadius: 5
 	},
-	formTextField : {
+	formTextField: {
 		fontSize: 16,
 		padding: 7,
 		height: 35,
@@ -339,26 +336,6 @@ const localStyles = StyleSheet.create({
 	}
 });
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1
-	},
-	preview: {
-		flex: 1,
-		justifyContent: 'flex-end',
-		alignItems: 'center',
-		height: Dimensions.get('window').height,
-		width: Dimensions.get('window').width
-	},
-	capture: {
-		flex: 0,
-		backgroundColor: '#fff',
-		borderRadius: 5,
-		color: '#000',
-		padding: 10,
-		margin: 40
-	}
-});
 
 AppRegistry.registerComponent('Makeloanscreen', () => Makeloanscreen);
 
