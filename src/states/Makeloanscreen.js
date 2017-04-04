@@ -38,8 +38,9 @@ class Makeloanscreen extends ComponentAbstract {
 		this.state = {
 			direction: '>',
 			loan: this.loan,
-			photo: false
+			photo: this.loan.photo ? this.loan.photo : false
 		};
+
 	}
 
 	/**
@@ -70,7 +71,7 @@ class Makeloanscreen extends ComponentAbstract {
 		Alert.alert(
 			'Error',
 			msg,
-			[{text: 'OK', onPress: () => console.log('OK Pressed')}],
+			[{text: 'OK', onPress: () => this.console.log('OK Pressed')}],
 			{cancelable: false}
 		);
 	}
@@ -91,7 +92,7 @@ class Makeloanscreen extends ComponentAbstract {
 			_loan.Group_id = this.user.Group_id;
 			_loan.User_id = this.user._id;
 			_loan.Contact_id = this.activeContact._id;
-			_loan.photo = '';
+			// _loan.photo = '';
 			_loan.isSaved = true;
 			_loan.detail = '';
 			_loan.dateCreated = new Date();
@@ -148,7 +149,33 @@ class Makeloanscreen extends ComponentAbstract {
 	 *
 	 */
 	takePicture() {
-		this.setState({photo: true});
+		const options = {};
+		var _that = this;
+		if (this.camera && this.camera.capture) {
+			try {
+				this.camera.capture({metadata: options}).then(
+					function(data) {
+						_that.displayErrorAlert('SUCCESS!');
+						if (data.path)
+						{
+							_that.loan.photo = data.path;
+							_that.setState({photo: data.path});
+						} else {
+							_that.setState({photo: false});
+						}
+					},
+					function(err) {
+						_that.setState({photo: false});
+						_that.displayErrorAlert('ERROR!');
+						//console.log(JSON.stringify(err));
+					}
+				);
+			} catch(err) {
+				_that.setState({photo: false});
+				// console.log(err);
+			}
+
+		}
 	}
 
 	/**
@@ -190,24 +217,20 @@ class Makeloanscreen extends ComponentAbstract {
 						</View>
 					</View>
 
-					<View style={localStyles.imageSpace}>
+					<View >
 						{
-							this.state.photo ?
+							(this.state.photo !== false) ?
 								(
-									<Image
-										source={require('../assets/images/bigstock-attractive-young-business-man-43103578.jpg')}
-										style={localStyles.imageSpace}></Image>
+									<Image source={{uri: this.state.photo}} style={localStyles.imageSpace}></Image>
 								)
 								:
-								(
-
-									<Camera
+								(<Camera
 										ref={(cam) => { this.camera = cam; }}
+										captureTarget={Camera.constants.CaptureTarget.disk}
+										style={localStyles.imageSpace}
 										aspect={Camera.constants.Aspect.fill}>
-											<Icon name="camera" style={ localStyles.photoText }
-												  onPress={ () => this.takePicture() }/>
-									</Camera>
-								)
+										<Icon name="camera" style={ localStyles.photoText } onPress={ () => this.takePicture() }/>
+									</Camera>)
 						}
 					</View>
 					<View style={localStyles.adddetailSpace}>
@@ -243,12 +266,6 @@ class Makeloanscreen extends ComponentAbstract {
  * Local styles
  */
 const localStyles = StyleSheet.create({
-	backgroundImage: {
-		flex: 1,
-		// remove width and height to override fixed static size
-		width: null,
-		height: null,
-	},
 	globalContainer: {
 		flex: 1,
 		flexDirection: 'column'
@@ -270,18 +287,12 @@ const localStyles = StyleSheet.create({
 		fontSize: 20,
 		color: '#FFFFFF'
 	},
-	photoText: {
-		textAlign: 'center',
-	//	paddingTop: 300,
+	arrow: {
 		fontSize: 40,
 		color: '#FFFFFF'
 	},
-	directionText: {
-		fontSize: 50,
-		color: '#FFFFFF'
-	},
-	arrow: {
-		padding: 15,
+	photoText: {
+		textAlign: 'center',
 		fontSize: 40,
 		color: '#FFFFFF'
 	},
@@ -289,54 +300,12 @@ const localStyles = StyleSheet.create({
 		height: Dimensions.get('window').height - 300,
 		alignItems: 'center',
 		justifyContent: 'center',
-		overflow: 'hidden',
-		backgroundColor: '#000000'
+		overflow: 'hidden'
 	},
 	adddetailSpace: {
-		flex: .13,
-//		backgroundColor: '#212121'
-	},
-	addDetailButton: {
-		padding: 7,
-		textAlign: 'center',
-		color: '#FFFFFF',
-		backgroundColor: '#FFA726',
-		borderRadius: 5
-	},
-	detailText: {
-		padding: 15,
-		color: '#E65100',
-		fontSize: 17
-	},
-	guyImage: {
-		resizeMode: 'contain',
-		opacity: .1
-	},
-	saveButtonContainer: {
-		flex: .07,
-// 		backgroundColor: '#212121',
-		alignItems: 'center',
-		justifyContent: 'center'
-	},
-	buttonSaveLend: {
-		padding: 10,
-		width: 200,
-		//textAlign: 'center',
-		//color: '#FFFFFF',
-		backgroundColor: '#F57F17',
-		borderRadius: 5
-	},
-	formTextField: {
-		fontSize: 16,
-		padding: 7,
-		height: 35,
-		borderColor: '#666',
-		borderWidth: 0,
-		color: '#E65100'
+		flex: .13
 	}
 });
 
-
 AppRegistry.registerComponent('Makeloanscreen', () => Makeloanscreen);
-
 export default Makeloanscreen;

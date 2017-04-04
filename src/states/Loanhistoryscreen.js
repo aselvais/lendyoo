@@ -31,6 +31,7 @@ class Loanhistoryscreen extends ComponentAbstract {
 	 */
 	componentDidMount()
 	{
+		this.rootComponent.setLoading(false);
 		this.setLoansList();
 	}
 

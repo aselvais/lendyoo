@@ -12,7 +12,7 @@ class Console
 	 * @param debug
 	 * @returns {*}
 	 */
-	constructor(debug=true)
+	constructor(debug=false)
 	{
 		if(!instance){
 			// super(data);
@@ -38,7 +38,7 @@ class Console
 				+ d.getSeconds() + '.' +
 				+ d.getMilliseconds();
 			var params = [...arguments];
-			// console.log('[' + dd + ']', ((params.length > 1) ? params : params[0] ) );
+			console.log('[' + dd + ']', ((params.length > 1) ? params : params[0] ) );
 		}
 	}
 

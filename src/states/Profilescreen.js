@@ -30,6 +30,7 @@ class Profilescreen extends ComponentAbstract {
 	 */
 	componentDidMount()
 	{
+		this.rootComponent.setLoading(false);
 		var _that = this;
 		_that.rootComponent.setLoading(true);
 		this.user.populateDataFromRemote(this.lendyooRegistry.User_id).then(

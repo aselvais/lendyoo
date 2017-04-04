@@ -80,9 +80,10 @@ class Loandetailscreen extends ComponentAbstract {
 				<ScrollView>
 
 				<View style={localStyles.RegisterContainer}>
-					<Image source={require('../assets/images/bigstock-attractive-young-business-man-43103578.jpg')} style={styles.backgroundImage}></Image>
+					{ this.loan.photo ? (<Image source={{uri: this.loan.photo}}></Image>) : ''}
 					<Text style={localStyles.data}>{
 						"Loan Title : " + this.loan.title + "\n" +
+						"Loan photo : " + this.loan.photo + "\n" +
 						"Loan from : " + this.getFromName() + "\n" +
 						"Loan to : " + this.getContactName() + "\n\n" +
 						"Loan isSaved : " + this.loan.isSaved + "\n" +

@@ -36,6 +36,10 @@ class MenuBar extends ComponentAbstract {
 		this.console.log('MenuBar.componentDidMount()');
 	}
 
+	/**
+	 *
+	 * @param st
+	 */
 	setAuthState(st=false)
 	{
 		this.setState({isAuthenticated:st});
@@ -47,6 +51,7 @@ class MenuBar extends ComponentAbstract {
 	 * @param elemId
 	 */
 	onPressTextbox(elemId = 0) {
+		this.rootComponent.setLoading(true);
 		this.console.log('MenuBar.onPressTextbox()', elemId);
 		this.props.parentComponent.onPressTextbox(elemId);
 	}

@@ -29,6 +29,7 @@ class Contactselectionscreen extends ComponentAbstract {
 	 */
 	componentDidMount()
 	{
+		this.rootComponent.setLoading(false);
 		this.setContactList();
 	}
 

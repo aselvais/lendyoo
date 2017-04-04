@@ -14,6 +14,7 @@ class Logoutscreen extends ComponentAbstract {
 
 
 	componentDidMount() {
+		this.rootComponent.setLoading(false);
 		this.lendyooRegistry.setAuthStatus(false);
 		this.routes.gotTo('home');
 	}

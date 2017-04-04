@@ -24,6 +24,17 @@ class ComponentAbstract extends Component
 		this.loan = this.lendyooRegistry.loanCollection.getActiveModel();
 	}
 
+	/**
+	 *
+	 */
+	componentDidMount()
+	{
+		this.rootComponent.setLoading(false);
+	}
+
+
+
+
 }
 
 export default ComponentAbstract
