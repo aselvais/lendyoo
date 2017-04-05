@@ -111,7 +111,7 @@ class Makeloanscreen extends ComponentAbstract {
 						if (_loan.photo)
 						{
 							_that.photo.Loan_id = _loan._id;
-							_that.photo.fullpath = _loan.photo;
+							_that.photo.localpath = _loan.photo;
 							_that.photo.filename = 'someRandomName.jpg';
 							_that.photo.save().then(
 								function(photodata) {
@@ -170,7 +170,7 @@ class Makeloanscreen extends ComponentAbstract {
 	 *
 	 */
 	takePicture() {
-		const options = {};
+		const options = {location: true};
 		var _that = this;
 		if (this.camera && this.camera.capture) {
 			try {
@@ -180,6 +180,10 @@ class Makeloanscreen extends ComponentAbstract {
 						if (data.path)
 						{
 							_that.loan.photo = data.path;
+							_that.photo.cameradata = data;
+							_that.photo.localpath = data.path;
+							_that.photo.initImage();
+
 							_that.setState({photo: data.path});
 						} else {
 							_that.setState({photo: false});
