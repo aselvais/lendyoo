@@ -252,6 +252,7 @@ class Makeloanscreen extends ComponentAbstract {
 								(<Camera
 										ref={(cam) => { this.camera = cam; }}
 										captureTarget={Camera.constants.CaptureTarget.disk}
+										captureQuality={Camera.constants.CaptureQuality["720p"]}
 										style={localStyles.imageSpace}
 										aspect={Camera.constants.Aspect.fill}>
 										<Icon name="camera" style={ localStyles.photoText } onPress={ () => this.takePicture() }/>

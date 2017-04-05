@@ -6,11 +6,12 @@ import {
 	ScrollView,
 	Text,
 	View,
-	Button,
 	Image
 } from 'react-native';
-import styles from '../styles/Mainstyle';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import Contact from '../shared/models/frontend/Contact';
+import Photo from '../shared/models/frontend/Photo';
 
 /**
  * Load detailed information
@@ -25,6 +26,49 @@ class Loandetailscreen extends ComponentAbstract {
 		super(props);
 		this.console.log('Loandetailscreen.constructor()', props);
 		this.contactCollection = this.lendyooRegistry.contactCollection;
+		this.state = {
+			contact: null,
+			photo: null,
+			base64image: null
+		};
+	}
+
+	/**
+	 *
+	 */
+	componentDidMount()
+	{
+		this.rootComponent.setLoading(false);
+		this.init();
+	}
+
+	/**
+	 *
+	 */
+	init()
+	{
+		var _that = this;
+		_that.rootComponent.setLoading(true);
+		var _contact = new Contact();
+		var _photo = new Photo();
+		_contact.populateDataFromRemote(this.loan.Contact_id).then(
+			function(d) {
+				_that.setState({ contact: _contact});
+			}
+		);
+		_photo.populateDataFromRemoteByLoanId(_that.loan._id).then(
+			function(d) {
+				_that.rootComponent.setLoading(false);
+				_that.setState({ photo: _photo});
+				_that.setState({ base64image: 'data:image/jpg;base64,'+_photo.data});
+
+			},
+			function(errr)
+			{
+				// console.log(errr);
+			}
+		);
+
 	}
 
 	/**
@@ -55,14 +99,6 @@ class Loandetailscreen extends ComponentAbstract {
 		this.routes.gotTo("history");
 	}
 
-	getContactName()
-	{
-		if (this.contactCollection.models && this.contactCollection.models.length > 0)
-			return this.contactCollection.getModelById(this.loan.Contact_id).getFullName();
-		else
-			return '@TODO@ get name here';
-	}
-
 	/**
 	 *
 	 * @returns {XML}
@@ -80,12 +116,20 @@ class Loandetailscreen extends ComponentAbstract {
 				<ScrollView>
 
 				<View style={localStyles.RegisterContainer}>
-					{ this.loan.photo ? (<Image source={{uri: this.loan.photo}}></Image>) : ''}
+					{
+						(this.state.base64image) ?
+							(<Image style={{overflow: 'visible',
+								width: this.state.photo.width,
+								height: this.state.photo.height
+							}} source={{uri: this.state.base64image }}></Image>)
+							:
+							(<Text>No Image ...</Text>)
+					}
 					<Text style={localStyles.data}>{
 						"Loan Title : " + this.loan.title + "\n" +
 						"Loan photo : " + this.loan.photo + "\n" +
 						"Loan from : " + this.getFromName() + "\n" +
-						"Loan to : " + this.getContactName() + "\n\n" +
+						"Loan to : " + ((this.state.contact && this.state.contact.getFullName) ? this.state.contact.getFullName() : '' ) + "\n\n" +
 						"Loan isSaved : " + this.loan.isSaved + "\n" +
 						"Loan detail : " + this.loan.detail + "\n" +
 						"Loan sendReminders : " + this.loan.sendReminders + "\n" +
