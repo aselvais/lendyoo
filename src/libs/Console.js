@@ -15,12 +15,12 @@ class Console
 	constructor(debug=false)
 	{
 		if(!instance){
-			// super(data);
 			this.debug = debug;
 			instance = this;
 		}
 		return instance;
 	}
+
 
 	/**
 	 *
@@ -41,7 +41,6 @@ class Console
 			console.log('[' + dd + ']', ((params.length > 1) ? params : params[0] ) );
 		}
 	}
-
 
 
 }

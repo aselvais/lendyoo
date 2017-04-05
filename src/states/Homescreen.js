@@ -121,6 +121,7 @@ class Authenticationscreen extends ComponentAbstract {
 					<H1>
 						Welcome to Lendyoo v{ this.lendyooRegistry.appVersion } !
 					</H1>
+					<Text style={localStyles.h3s}>Environemnt: { this.lendyooRegistry.config._env}</Text>
 				</View>
 					<View style={localStyles.RegisterContainer}>
 						<H3>
@@ -193,6 +194,9 @@ class Authenticationscreen extends ComponentAbstract {
 
 
 const localStyles = StyleSheet.create({
+	h3s: {
+		padding: 20
+	},
 	globalContainer: {
 		flex: 1,
 		flexDirection: 'column'

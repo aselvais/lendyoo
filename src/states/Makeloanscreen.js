@@ -14,6 +14,7 @@ import {Content, Form, Item, Input, Label, Button} from 'native-base';
 import Camera from 'react-native-camera';
 
 import Loan from '../shared/models/frontend/Loan';
+import Photo from '../shared/models/frontend/Photo';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 /**
@@ -31,6 +32,7 @@ class Makeloanscreen extends ComponentAbstract {
 		this.contactCollection = this.lendyooRegistry.contactCollection;
 		if (!this.loan || (this.routes.getPreviousViewName() != 'contacts' && this.routes.getPreviousViewName() != 'detail')) {
 			this.loan = new Loan();
+			this.photo = new Photo();
 			this.loanCollection.setActiveModel(this.loan);
 			this.contactCollection.setActiveModel(null);
 		}
@@ -100,14 +102,33 @@ class Makeloanscreen extends ComponentAbstract {
 			_loan.save().then(
 				function (d) {
 					if (d === true) {
-						_that.rootComponent.setLoading(false);
 						try {
 							_that.loanCollection.addModel(_loan);
 							_that.loanCollection.setActiveModel(_loan);
 						} catch (e) {
 							//console.error(_loan);
 						}
-						_that.routes.gotTo("detail");
+						if (_loan.photo)
+						{
+							_that.photo.Loan_id = _loan._id;
+							_that.photo.fullpath = _loan.photo;
+							_that.photo.filename = 'someRandomName.jpg';
+							_that.photo.save().then(
+								function(photodata) {
+									_that.rootComponent.setLoading(false);
+									_that.routes.gotTo("detail");
+								},
+								function (e) {
+									_that.rootComponent.setLoading(false);
+									this.console.log('Error saving loan', e);
+								}
+							);
+						}
+						else
+						{
+							_that.rootComponent.setLoading(false);
+							_that.routes.gotTo("detail");
+						}
 					}
 					//else
 					//console.error('Error saving loan', d);
@@ -155,7 +176,7 @@ class Makeloanscreen extends ComponentAbstract {
 			try {
 				this.camera.capture({metadata: options}).then(
 					function(data) {
-						_that.displayErrorAlert('SUCCESS!');
+						// _that.displayErrorAlert('SUCCESS!');
 						if (data.path)
 						{
 							_that.loan.photo = data.path;
@@ -166,7 +187,7 @@ class Makeloanscreen extends ComponentAbstract {
 					},
 					function(err) {
 						_that.setState({photo: false});
-						_that.displayErrorAlert('ERROR!');
+						_that.displayErrorAlert('Problem with the camera...');
 						//console.log(JSON.stringify(err));
 					}
 				);
