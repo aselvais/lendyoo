@@ -170,21 +170,24 @@ class Makeloanscreen extends ComponentAbstract {
 	 *
 	 */
 	takePicture() {
-		const options = {location: true};
+		const options = {};
 		var _that = this;
 		if (this.camera && this.camera.capture) {
 			try {
 				this.camera.capture({metadata: options}).then(
 					function(data) {
-						// _that.displayErrorAlert('SUCCESS!');
 						if (data.path)
 						{
-							_that.loan.photo = data.path;
-							_that.photo.cameradata = data;
-							_that.photo.localpath = data.path;
-							_that.photo.initImage();
-
-							_that.setState({photo: data.path});
+							try {
+								_that.loan.photo = data.path;
+								_that.photo.cameradata = data;
+								_that.photo.localpath = data.path;
+								_that.photo.initImage();
+								_that.setState({photo: data.path});
+							} catch (err)
+							{
+								_that.setState({photo: false});
+							}
 						} else {
 							_that.setState({photo: false});
 						}

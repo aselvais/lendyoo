@@ -3,6 +3,7 @@ import ComponentAbstract from './ComponentAbstract';
 import {
 	AppRegistry,
 	StyleSheet,
+	Dimensions,
 	ScrollView,
 	Text,
 	View,
@@ -116,15 +117,9 @@ class Loandetailscreen extends ComponentAbstract {
 				<ScrollView>
 
 				<View style={localStyles.RegisterContainer}>
-					{
-						(this.state.base64image) ?
-							(<Image style={{overflow: 'visible',
-								width: this.state.photo.width,
-								height: this.state.photo.height
-							}} source={{uri: this.state.base64image }}></Image>)
-							:
-							(<Text>No Image ...</Text>)
-					}
+					<Image style={{overflow: 'hidden',width: Dimensions.get('window').width, height: 400 }}
+						source={{uri: this.lendyooRegistry.config.API_URL + '/api-v2/photo/getloanimage/'+this.loan._id+'/' + Dimensions.get('window').width }}></Image>
+
 					<Text style={localStyles.data}>{
 						"Loan Title : " + this.loan.title + "\n" +
 						"Loan photo : " + this.loan.photo + "\n" +

@@ -128,7 +128,8 @@ class Loanhistoryscreen extends ComponentAbstract {
 									this.state.loanCollectionModels.map((loan) =>
 									<ListItem key={loan._id} onPress={ () => this.onPressLoan(loan) } avatar>
 										<Left>
-											<Thumbnail square size={80} source={require('../assets/images/bigstock-attractive-young-business-man-43103578.jpg')}/>
+											<Thumbnail defaultSource={require('../assets/images/loading.png')}
+												size={80} source={{uri: this.lendyooRegistry.config.API_URL + '/api-v2/photo/getloanimage/'+loan._id+'/80'}}/>
 										</Left>
 										<Body>
 										<Text>{ loan.title }</Text>
