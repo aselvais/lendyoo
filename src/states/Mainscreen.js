@@ -102,7 +102,11 @@ class Mainscreen extends Component {
 	{
 		var spinner;
 		if (this.state.loading)
-			spinner = <View style={ localStyles.overlay }><Spinner color='black' /></View>;
+			spinner = <View style={ localStyles.overlay }>
+				<View style={ localStyles.spinner }>
+					<Spinner color='black' />
+				</View>
+			</View>;
 
 		return (
 			<Container>
@@ -157,7 +161,15 @@ const localStyles = StyleSheet.create({
 		left: 0,
 		top: 0,
 		width: width,
-		height: height
+		height: height,
+		zIndex: 999
+	},
+	spinner:
+	{
+		width: 80,
+		height: 80,
+		borderRadius: 5,
+		backgroundColor: 'rgba(255, 255, 255, 0.2)'
 	}
 });
 

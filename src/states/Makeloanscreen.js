@@ -12,10 +12,10 @@ import {
 } from 'react-native';
 import {Content, Form, Item, Input, Label, Button} from 'native-base';
 import Camera from 'react-native-camera';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Loan from '../shared/models/frontend/Loan';
 import Photo from '../shared/models/frontend/Photo';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 /**
  * Make loan screen (with pict)
@@ -30,19 +30,14 @@ class Makeloanscreen extends ComponentAbstract {
 		super(props);
 		this.console.log('Makeloanscreen.constructor()', props);
 		this.contactCollection = this.lendyooRegistry.contactCollection;
-		if (!this.loan || (this.routes.getPreviousViewName() != 'contacts' && this.routes.getPreviousViewName() != 'detail')) {
-			this.loan = new Loan();
-			this.photo = new Photo();
-			this.loanCollection.setActiveModel(this.loan);
-			this.contactCollection.setActiveModel(null);
-		}
 		this.activeContact = this.contactCollection.getActiveModel();
 		this.state = {
 			direction: '>',
-			loan: this.loan,
-			photo: this.loan.photo ? this.loan.photo : false
+			loan: this.newloan,
+			photo: this.newphoto.data ? this.newphoto.data : false,
+			title: this.newloan.title ? this.newloan.title : '',
+			saving: false
 		};
-
 	}
 
 	/**
@@ -90,15 +85,16 @@ class Makeloanscreen extends ComponentAbstract {
 		else {
 			var _that = this;
 			this.console.log('Makeloanscreen.onPressSave()');
-			var _loan = _that.loan;
+			var _loan = _that.newloan;
 			_loan.Group_id = this.user.Group_id;
 			_loan.User_id = this.user._id;
 			_loan.Contact_id = this.activeContact._id;
-			// _loan.photo = '';
+			// _loan.newphoto = '';
 			_loan.isSaved = true;
 			_loan.detail = '';
 			_loan.dateCreated = new Date();
 			_that.rootComponent.setLoading(true);
+			_that.setState({ saving: true });
 			_loan.save().then(
 				function (d) {
 					if (d === true) {
@@ -110,16 +106,18 @@ class Makeloanscreen extends ComponentAbstract {
 						}
 						if (_loan.photo)
 						{
-							_that.photo.Loan_id = _loan._id;
-							_that.photo.localpath = _loan.photo;
-							_that.photo.filename = 'someRandomName.jpg';
-							_that.photo.save().then(
+							_that.newphoto.Loan_id = _loan._id;
+							_that.newphoto.localpath = _loan.photo;
+							_that.newphoto.filename = 'someRandomName.jpg';
+							_that.newphoto.save().then(
 								function(photodata) {
 									_that.rootComponent.setLoading(false);
+									_that.setState({ saving: false });
 									_that.routes.gotTo("detail");
 								},
 								function (e) {
 									_that.rootComponent.setLoading(false);
+									_that.setState({ saving: false });
 									this.console.log('Error saving loan', e);
 								}
 							);
@@ -127,6 +125,9 @@ class Makeloanscreen extends ComponentAbstract {
 						else
 						{
 							_that.rootComponent.setLoading(false);
+							_that.newloan = new Loan();
+							_that.newphoto = new Photo();
+							// _that.setState({ saving: false });
 							_that.routes.gotTo("detail");
 						}
 					}
@@ -135,6 +136,7 @@ class Makeloanscreen extends ComponentAbstract {
 				},
 				function (e) {
 					_that.rootComponent.setLoading(false);
+					_that.setState({ saving: false });
 					//console.error('Error saving loan', e);
 				}
 			);
@@ -179,11 +181,14 @@ class Makeloanscreen extends ComponentAbstract {
 						if (data.path)
 						{
 							try {
-								_that.loan.photo = data.path;
-								_that.photo.cameradata = data;
-								_that.photo.localpath = data.path;
-								_that.photo.initImage();
-								_that.setState({photo: data.path});
+								_that.newloan.photo = data.path;
+								_that.newphoto.cameradata = data;
+								_that.newphoto.localpath = data.path;
+								_that.newphoto.initImage().then(
+									function(d) {
+										_that.setState({photo: _that.newphoto.data});
+									}
+								);
 							} catch (err)
 							{
 								_that.setState({photo: false});
@@ -211,7 +216,8 @@ class Makeloanscreen extends ComponentAbstract {
 	 * @param title
 	 */
 	changeTitle(title) {
-		this.loan.title = title;
+		this.newloan.title = title;
+		this.setState({ title: title });
 	}
 
 	/**
@@ -249,7 +255,7 @@ class Makeloanscreen extends ComponentAbstract {
 						{
 							(this.state.photo !== false) ?
 								(
-									<Image source={{uri: this.state.photo}} style={localStyles.imageSpace}></Image>
+									<Image source={{uri: 'data:image/png;base64,'+this.state.photo}} style={localStyles.imageSpace}></Image>
 								)
 								:
 								(<Camera
@@ -264,13 +270,13 @@ class Makeloanscreen extends ComponentAbstract {
 					</View>
 					<View style={localStyles.adddetailSpace}>
 						<Form>
-							<Item floatingLabel>
+							<Item stackedLabel>
 								<Label>Description</Label>
 								<Input
 									ref="1"
 									spellCheck={true}
 									onChangeText={ (title) => this.changeTitle(title) }
-									value={this.loan.title}
+									value={ this.state.title }
 									blurOnSubmit={false}
 									autoCapitalize="none"
 								/>
@@ -279,10 +285,11 @@ class Makeloanscreen extends ComponentAbstract {
 
 					</View>
 					<View style={localStyles.buttonView}>
-						<Button ref="2" primary block onPress={ () => this.onPressSave() }>
-							<Text style={localStyles.buttonText}>Lend item</Text>
-						</Button>
-
+						{
+							this.state.saving ?
+								(<Button ref="2" light block><Text style={localStyles.buttonText}>Lend item</Text></Button>) :
+								(<Button ref="2" primary block onPress={ () => this.onPressSave() }><Text style={localStyles.buttonText}>Lend item</Text></Button>)
+						}
 					</View>
 				</View>
 

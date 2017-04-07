@@ -55,6 +55,7 @@ class Contactselectionscreen extends ComponentAbstract {
 	onPressContact(contact)
 	{
 		this.console.log('Contactselectionscreen.onPressContact()');
+		this.rootComponent.setLoading(true);
 		this.lendyooRegistry.contactCollection.setActiveModel(contact);
 		this.routes.gotTo("lend");
 	}

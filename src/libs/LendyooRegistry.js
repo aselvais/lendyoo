@@ -5,6 +5,8 @@ import User from '../shared/models/frontend/User';
 import Group from '../shared/models/frontend/Group';
 import ContactCollection from '../shared/models/frontend/ContactCollection';
 import LoanCollection from '../shared/models/frontend/LoanCollection';
+import Loan from '../shared/models/frontend/Loan';
+import Photo from '../shared/models/frontend/Photo';
 import Config from '../shared/models/frontend/Config';
 import LendyooStorage from './LendyooStorage';
 
@@ -41,12 +43,14 @@ class LendyooRegistry {
 		if (useLocalStorageAuth) {
 			this.config = new Config();
 			this.Console = new Console(this.config.debug);
+			this.newphoto = new Photo();
 			this.platform = Platform.OS;
 			this.appVersion = this.config.APP_VERSION;
 			this.rootComponent = null;
 			this.menuBarComponent = null;
 			this.instanceTime = new Date();
 			this.storage = new LendyooStorage();
+			this.newloan = new Loan();
 		}
 		this.User_id = false;
 		this.user = new User();
