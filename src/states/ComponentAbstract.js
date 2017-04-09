@@ -18,12 +18,12 @@ class ComponentAbstract extends Component
 		this.menuBarComponent = this.lendyooRegistry.menuBarComponent;
 		this.console = this.lendyooRegistry.Console;
 		this.user = this.lendyooRegistry.user;
-		this.newphoto = this.lendyooRegistry.newphoto;
 		this.group = this.lendyooRegistry.group;
 		this.routes = this.lendyooRegistry.routes;
 		this.loanCollection = this.lendyooRegistry.loanCollection;
 		this.loan = this.lendyooRegistry.loanCollection.getActiveModel();
 		this.newloan = this.lendyooRegistry.newloan;
+		this.newphoto = this.lendyooRegistry.newphoto;
 	}
 
 	/**

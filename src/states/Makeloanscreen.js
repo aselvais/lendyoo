@@ -113,6 +113,8 @@ class Makeloanscreen extends ComponentAbstract {
 								function(photodata) {
 									_that.rootComponent.setLoading(false);
 									_that.setState({ saving: false });
+									_that.lendyooRegistry.newloan = new Loan();
+									_that.lendyooRegistry.newphoto = new Photo();
 									_that.routes.gotTo("detail");
 								},
 								function (e) {
@@ -125,8 +127,8 @@ class Makeloanscreen extends ComponentAbstract {
 						else
 						{
 							_that.rootComponent.setLoading(false);
-							_that.newloan = new Loan();
-							_that.newphoto = new Photo();
+							_that.lendyooRegistry.newloan = new Loan();
+							_that.lendyooRegistry.newphoto = new Photo();
 							// _that.setState({ saving: false });
 							_that.routes.gotTo("detail");
 						}
@@ -287,7 +289,7 @@ class Makeloanscreen extends ComponentAbstract {
 					<View style={localStyles.buttonView}>
 						{
 							this.state.saving ?
-								(<Button ref="2" light block><Text style={localStyles.buttonText}>Lend item</Text></Button>) :
+								(<Button ref="2" light block><Text style={localStyles.buttonText}>...</Text></Button>) :
 								(<Button ref="2" primary block onPress={ () => this.onPressSave() }><Text style={localStyles.buttonText}>Lend item</Text></Button>)
 						}
 					</View>

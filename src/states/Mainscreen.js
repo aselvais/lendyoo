@@ -33,7 +33,7 @@ class Mainscreen extends Component {
 		this.console.log('Mainscreen.constructor()', props);
 		this.routes = this.lendyooRegistry.routes;
 		this.routes.setGlobalContainer(this);
-
+		this.iOS = this.lendyooRegistry.isIOS();
 		this.state = {
 			selectedView: this.routes._currentView,
 			loading: false
@@ -101,12 +101,8 @@ class Mainscreen extends Component {
 	render()
 	{
 		var spinner;
-		if (this.state.loading)
-			spinner = <View style={ localStyles.overlay }>
-				<View style={ localStyles.spinner }>
-					<Spinner color='black' />
-				</View>
-			</View>;
+		if (this.iOS && this.state.loading)
+			spinner = <View style={ localStyles.overlay }><View style={ localStyles.spinner }><Spinner color='black' /></View></View>;
 
 		return (
 			<Container>
@@ -119,7 +115,9 @@ class Mainscreen extends Component {
 					<Body>
 					<Title><IconAwesome name={ this.state.selectedView.icon } style={ localStyles.topBarIcon } /> { this.state.selectedView.label }</Title>
 					</Body>
-					<Right />
+					<Right>
+						{ (!this.iOS && this.state.loading) ? (<Spinner color='white' />) : null }
+					</Right>
 				</Header>
 				<Drawer ref={(ref) => { this._drawer = ref; }} content={<MenuBar menuItems={this.menuItems} parentComponent={this}></MenuBar>} onClose={() => this.hideMenu()}>
 					{ spinner }
@@ -152,8 +150,6 @@ const localStyles = StyleSheet.create({
 	overlay: {
 		alignItems: 'center',
 		flex: 1,
-		//opacity: 0.5,
-		//backgroundColor: '#000000',
 		flexDirection:'row',
 		alignItems:'center',
 		justifyContent:'center',
@@ -170,8 +166,7 @@ const localStyles = StyleSheet.create({
 		height: 80,
 		borderRadius: 5,
 		backgroundColor: 'rgba(255, 255, 255, 0.2)'
-	}
-});
+	}});
 
 
 AppRegistry.registerComponent('Mainscreen', () => Mainscreen);
