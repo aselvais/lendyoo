@@ -5,8 +5,18 @@ import {
 	StyleSheet,
 	View
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Content, Left, Body, ListItem, Thumbnail, Text } from 'native-base';
+import {
+	Content,
+	Left,
+	Body,
+	ListItem,
+	Thumbnail,
+	Text,
+	Button
+} from 'native-base';
+import ContactsWrapper from 'react-native-contacts-wrapper';
+
+import Contact from '../shared/models/frontend/Contact';
 
 /**
  * Contact selection view
@@ -27,8 +37,7 @@ class Contactselectionscreen extends ComponentAbstract {
 	/**
 	 *
 	 */
-	componentDidMount()
-	{
+	componentDidMount() {
 		this.rootComponent.setLoading(false);
 		this.setContactList();
 	}
@@ -36,14 +45,13 @@ class Contactselectionscreen extends ComponentAbstract {
 	/**
 	 *
 	 */
-	setContactList()
-	{
+	setContactList() {
 		var _that = this;
 		_that.rootComponent.setLoading(true);
-		this.lendyooRegistry.contactCollection.setRemoteContactsFromUser( this.user._id ).then(
-			function(d) {
+		this.lendyooRegistry.contactCollection.setRemoteContactsFromUser(this.user._id).then(
+			function (d) {
 				_that.rootComponent.setLoading(false);
-				_that.setState({contactCollectionModels: _that.lendyooRegistry.contactCollection.models });
+				_that.setState({contactCollectionModels: _that.lendyooRegistry.contactCollection.models});
 			}
 		);
 	}
@@ -52,8 +60,7 @@ class Contactselectionscreen extends ComponentAbstract {
 	 *
 	 * @param id
 	 */
-	onPressContact(contact)
-	{
+	onPressContact(contact) {
 		this.console.log('Contactselectionscreen.onPressContact()');
 		this.rootComponent.setLoading(true);
 		this.lendyooRegistry.contactCollection.setActiveModel(contact);
@@ -62,50 +69,75 @@ class Contactselectionscreen extends ComponentAbstract {
 
 	/**
 	 *
+	 */
+	onPressAddressbook()
+	{
+		var _that = this;
+		ContactsWrapper.getContact()
+			.then((contact) => {
+				_that.rootComponent.setLoading(true);
+
+				var _fc = _that.lendyooRegistry.contactCollection.getModelByName(contact.name);
+				if (!_fc)
+				{
+					var _c = new Contact();
+					_c.Group_id = this.user.Group_id;
+					_c.User_id = this.user._id;
+					_c.name = contact.name;
+					_c.email = contact.email;
+					_c.phone = contact.phone;
+					_c.save().then(
+						function(c) {
+							_that.lendyooRegistry.contactCollection.addModel(_c);
+							_that.lendyooRegistry.contactCollection.setActiveModel(_c);
+							_that.setState({contactCollectionModels: _that.lendyooRegistry.contactCollection.models});
+							_that.rootComponent.setLoading(false);
+							_that.routes.gotTo("lend");
+						}
+					);
+				} else {
+					_that.lendyooRegistry.contactCollection.setActiveModel(_fc);
+					_that.rootComponent.setLoading(false);
+					_that.routes.gotTo("lend");
+				}
+			})
+			.catch((error) => {
+				this.console.log("ERROR CODE: ", error.code);
+				this.console.log("ERROR MESSAGE: ", error.message);
+			});
+	}
+
+	/**
+	 *
 	 * @returns {XML}
 	 */
-	render()
-	{
+	render() {
 		this.console.log('Contactselectionscreen.render()');
 		return (
 			<Content>
-			<View style={ localStyles.globalContainer }>
-
-				{
-					this.state.contactCollectionModels.map((contact) =>
-						<ListItem key={contact._id} onPress={ () => this.onPressContact(contact) } avatar>
-							<Left>
-								<Thumbnail source={require('../assets/images/bigstock-attractive-young-business-man-43103578.jpg')} small/>
-							</Left>
-							<Body>
-							<Text>{ contact.getFullName() }</Text>
-							<Text note>{ contact.email }</Text>
-							</Body>
-						</ListItem>
-					)
-				}
-			</View>
+				<View>
+					<Button success onPress={ () => this.onPressAddressbook() } full>
+						<Text> Get contact from address book </Text>
+					</Button>
+				</View>
+				<View style={ localStyles.globalContainer }>
+					{
+						this.state.contactCollectionModels.map((contact) =>
+							<ListItem key={contact._id} onPress={ () => this.onPressContact(contact) } avatar>
+								{ (false) ? (<Left><Thumbnail source={require('../assets/images/bigstock-attractive-young-business-man-43103578.jpg')} small/></Left>) : null }
+								<Body>
+								<Text>{ contact.getFullName() }</Text>
+								<Text note>{ contact.email }</Text>
+								</Body>
+							</ListItem>
+						)
+					}
+				</View>
 			</Content>
 		);
 	}
 }
 
-/*
- <ScrollView style={localStyles.RegisterContainer}>
- {
- this.state.contactCollectionModels.map((contact) =>
- <View key={contact._id} style={localStyles.element} >
- <TouchableHighlight key={contact._id} onPress={ () => this.onPressContact(contact) }>
- <Text key={contact._id} style={localStyles.data}>
- <Icon name="user" style={localStyles.dataIcon} />
- { "  " + contact.getFullName() } { "\n      <" + contact.email + ">" }
- </Text>
- </TouchableHighlight>
- </View>
- )
- }
- </ScrollView>
-*/
 const localStyles = StyleSheet.create({
 	globalContainer: {
 		flex: 1,

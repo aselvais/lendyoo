@@ -58,9 +58,13 @@ class Authenticationscreen extends ComponentAbstract {
 						_that.lendyooRegistry.User_id = _that.user._id;
 						_that.lendyooRegistry.routes.gotTo("lend");
 					} else
+					{
+						_that.rootComponent.setLoading(false);
 						_that.displayErrorAlert('Wrong username or password');
+					}
 				},
 				function(err){
+					_that.rootComponent.setLoading(false);
 					_that.displayErrorAlert('Unexpected error');
 				}
 			);
