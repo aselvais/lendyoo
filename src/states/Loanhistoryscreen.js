@@ -3,12 +3,20 @@ import ComponentAbstract from './ComponentAbstract';
 import {
 	AppRegistry,
 	StyleSheet,
-	ScrollView,
 	View
 } from 'react-native';
-import styles from '../styles/Mainstyle';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Container, Content, Left, Body, Right, ListItem, Thumbnail, Text, H1, H2, Badge } from 'native-base';
+import {
+	Content,
+	Button,
+	Left,
+	Body,
+	Right,
+	ListItem,
+	Thumbnail,
+	Text,
+	H2,
+	Badge
+} from 'native-base';
 
 /**
  * Loans history/list
@@ -22,15 +30,15 @@ class Loanhistoryscreen extends ComponentAbstract {
 		super(props);
 		this.console.log('Contactselectionscreen.constructor()', props);
 		this.state = {
-			loanCollectionModels: this.lendyooRegistry.loanCollection.models
+			loanCollectionModels: this.lendyooRegistry.loanCollection.models,
+			noitemtext: 'Loading...'
 		};
 	}
 
 	/**
 	 *
 	 */
-	componentDidMount()
-	{
+	componentDidMount() {
 		this.rootComponent.setLoading(false);
 		this.setLoansList();
 	}
@@ -45,9 +53,11 @@ class Loanhistoryscreen extends ComponentAbstract {
 		this.lendyooRegistry.loanCollection.setRemoteLoansFromUser(this.user._id).then(
 			function (d) {
 				_that.setState({loanCollectionModels: _that.lendyooRegistry.loanCollection.models});
+				_that.setState({ noitemtext: 'No loan yet ...'});
 				_that.rootComponent.setLoading(false);
 			},
 			function (d) {
+				_that.setState({ noitemtext: 'No loan yet ...'});
 				_that.rootComponent.setLoading(false);
 			}
 		);
@@ -66,7 +76,7 @@ class Loanhistoryscreen extends ComponentAbstract {
 	 * @param loan
 	 */
 	onPressLoan(loan) {
-		this.lendyooRegistry.loanCollection.setActiveModel( loan );
+		this.lendyooRegistry.loanCollection.setActiveModel(loan);
 		this.routes.gotTo('detail');
 	}
 
@@ -75,8 +85,7 @@ class Loanhistoryscreen extends ComponentAbstract {
 	 * @param d
 	 * @returns {string}
 	 */
-	getFormatedDate(d)
-	{
+	getFormatedDate(d) {
 		var d = new Date(d);
 		return d.toLocaleDateString();
 	}
@@ -85,8 +94,7 @@ class Loanhistoryscreen extends ComponentAbstract {
 	 * @todo Put this thing somewhere else
 	 * @returns {*}
 	 */
-	getContactName(_loan)
-	{
+	getContactName(_loan) {
 		if (_loan && _loan.Contact_id && this.lendyooRegistry.contactCollection.models && this.lendyooRegistry.contactCollection.models.length > 0) {
 			var toret = this.lendyooRegistry.contactCollection.getModelById(_loan.Contact_id);
 			console.log(toret);
@@ -106,53 +114,52 @@ class Loanhistoryscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Loanhistoryscreen.render()');
 		return (
-			<View style={ localStyles.globalContainer }>
-
-				<View >
-					<H1>
-						Items you've lent
-					</H1>
-				</View>
-
-				<View style={localStyles.RegisterContainer}>
-					{
-						(!this.state.loanCollectionModels || this.state.loanCollectionModels.length <= 0) ?
-							(<View>
-								<H2>
-									No active loan for the moment ...
-								</H2>
-							</View>)
-							:
-							(<ScrollView style={localStyles.RegisterContainer}>
-								{
-									this.state.loanCollectionModels.map((loan) =>
-									<ListItem key={loan._id} onPress={ () => this.onPressLoan(loan) } avatar>
-										<Left>
-											<Thumbnail defaultSource={require('../assets/images/loading.png')}
-												size={80} source={{uri: this.lendyooRegistry.config.API_URL + '/api-v2/photo/getloanimage/'+loan._id+'/80'}}/>
-										</Left>
-										<Body>
-										<Text>{ loan.title }</Text>
-										<Text note>{ this.getContactName(loan) }</Text>
-										</Body>
-										<Right>
-											<Badge danger>
-												<Text>{ loan.status }</Text>
-											</Badge>
-											<Text note>{ this.getFormatedDate(loan.dateCreated) }</Text>
-										</Right>
-									</ListItem>
-
-									)
-								}
-							</ScrollView>)
-					}
-					<View style={localStyles.socialViews}>
-						<Icon.Button name="thumbs-o-up" style={localStyles.socialButton} backgroundColor="#FF9100"
-									 onPress={ () => this.lendItem() } title="Lend an item">Lend an item</Icon.Button>
+			<Content>
+				<View>
+					<View>
+						<Button primary full name="thumbs-o-up" onPress={ () => this.lendItem() }>
+							<Text>Lend an item</Text>
+						</Button>
+					</View>
+					<View style={localStyles.RegisterContainer}>
+						{
+							(!this.state.loanCollectionModels || this.state.loanCollectionModels.length <= 0) ?
+								(<View>
+									<H2>{ this.state.noitemtext }</H2>
+								</View>)
+								:
+								(<View>
+									{
+										this.state.loanCollectionModels.map((loan) =>
+											<ListItem key={loan._id} onPress={ () => this.onPressLoan(loan) } avatar>
+												<Left>
+													{
+														loan.photo ?
+															(<Thumbnail defaultSource={require('../assets/images/loading.png')}
+																		source={{uri: this.lendyooRegistry.config.API_URL + '/api-v2/photo/getloanimage/' + loan._id + '/80'}}/>)
+															:
+															(<Thumbnail defaultSource={require('../assets/images/loading.png')} size={80}
+																	   source={require('../assets/images/no-image-half-landscape.png')}/>)
+													}
+												</Left>
+												<Body>
+												<Text>{ loan.title }</Text>
+												<Text note>{ this.getContactName(loan) }</Text>
+												</Body>
+												<Right>
+													<Badge danger>
+														<Text>{ loan.status }</Text>
+													</Badge>
+													<Text note>{ this.getFormatedDate(loan.dateCreated) }</Text>
+												</Right>
+											</ListItem>
+										)
+									}
+								</View>)
+						}
 					</View>
 				</View>
-			</View>
+			</Content>
 		);
 	}
 }

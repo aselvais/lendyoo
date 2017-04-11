@@ -185,7 +185,7 @@ class Authenticationscreen extends ComponentAbstract {
 
 
 						<View style={localStyles.socialViews}>
-							<Button ref="3" primary block onPress={ () => this.logIn() }>
+							<Button ref="3" primary full onPress={ () => this.logIn() }>
 								<Text style={localStyles.buttonText}>Log-in</Text>
 							</Button>
 						</View>
@@ -238,7 +238,7 @@ const localStyles = StyleSheet.create({
 		flexDirection: 'row'
 	},
 	socialViews: {
-		padding: 10
+		paddingTop: 20
 	},
 	socialButton: {
 		margin: 5,

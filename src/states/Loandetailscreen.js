@@ -4,13 +4,23 @@ import {
 	AppRegistry,
 	StyleSheet,
 	Dimensions,
-	ScrollView,
+	TouchableHighlight,
 	Text,
 	View,
 	Image
 } from 'react-native';
+import {
+	Content,
+	Picker,
+	Button,
+	CheckBox,
+	Form,
+	Item,
+	Input,
+	Label,
+	H2
+} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 import Contact from '../shared/models/frontend/Contact';
 import Photo from '../shared/models/frontend/Photo';
 
@@ -37,8 +47,7 @@ class Loandetailscreen extends ComponentAbstract {
 	/**
 	 *
 	 */
-	componentDidMount()
-	{
+	componentDidMount() {
 		this.rootComponent.setLoading(false);
 		this.init();
 	}
@@ -46,26 +55,24 @@ class Loandetailscreen extends ComponentAbstract {
 	/**
 	 *
 	 */
-	init()
-	{
+	init() {
 		var _that = this;
 		_that.rootComponent.setLoading(true);
 		var _contact = new Contact();
 		var _photo = new Photo();
 		_contact.populateDataFromRemote(this.loan.Contact_id).then(
-			function(d) {
-				_that.setState({ contact: _contact});
+			function (d) {
+				_that.setState({contact: _contact});
 			}
 		);
 		_photo.populateDataFromRemoteByLoanId(_that.loan._id).then(
-			function(d) {
+			function (d) {
 				_that.rootComponent.setLoading(false);
-				_that.setState({ photo: _photo});
-				_that.setState({ base64image: 'data:image/jpg;base64,'+_photo.data});
+				_that.setState({photo: _photo});
+				_that.setState({base64image: 'data:image/jpg;base64,' + _photo.data});
 
 			},
-			function(errr)
-			{
+			function (errr) {
 				// console.log(errr);
 			}
 		);
@@ -76,15 +83,12 @@ class Loandetailscreen extends ComponentAbstract {
 	 *
 	 * @returns {*}
 	 */
-	getFromName()
-	{
+	getFromName() {
 		this.console.log('Loandetailscreen.getFromName()');
-		if (!this.loan.fromId)
-		{
+		if (!this.loan.fromId) {
 			return this.user.fullName;
 		}
-		else
-		{
+		else {
 			return '???';
 		}
 	}
@@ -92,55 +96,63 @@ class Loandetailscreen extends ComponentAbstract {
 	/**
 	 *
 	 */
-	save()
-	{
+	save() {
 		this.console.log('Loandetailscreen.save()');
 		// this.loan.save();
 		// redirect
 		this.routes.gotTo("history");
 	}
 
+	takePicture()
+	{
+
+	}
+
 	/**
 	 *
 	 * @returns {XML}
 	 */
-	render()
-	{
+	render() {
 		this.console.log('Loandetailscreen.render()');
 		return (
-			<View style={ localStyles.globalContainer }>
-				<View style={localStyles.welcomeContainer}>
-					<Text style={localStyles.welcomeText}>
-						Loan saved { (this.loan && this.loan.title) ? "\n\"" + this.loan.title + "\"" : "" }
-					</Text>
-				</View>
-				<ScrollView>
+			<Content>
+				<View style={ localStyles.globalContainer }>
+					<View style={localStyles.RegisterContainer}>
+						<Form>
+							<Item><Label>Title</Label><Input value={this.loan.title}/></Item>
+							<Item><Label>Type</Label>
+								<Picker mode="dropdown"
+										selectedValue={this.loan.status}
+										onValueChange={(status) => this.setState({type: status})}>
+									{ this.loan._schema.status.enum.map((v) => <Item key={v} label={v} value={v}/>) }
+								</Picker>
+							</Item>
+							<Item><Label>Loan Date</Label><Input value={this.loan.dateCreated}/></Item>
+							<Item><Label>To</Label><Input value={((this.state.contact && this.state.contact.getFullName) ? this.state.contact.getFullName() : '' )}/></Item>
+							{
+								this.loan.photo ? (
+									<Image
+										defaultSource={require('../assets/images/loading.png')}
+										style={{overflow: 'hidden', width: Dimensions.get('window').width, height: 400}}
+										source={{uri: this.lendyooRegistry.config.API_URL + '/api-v2/photo/getloanimage/' + this.loan._id + '/' + Dimensions.get('window').width}}></Image>)
+									: <TouchableHighlight onPress={ () => this.takePicture() }><Icon name="camera" style={ localStyles.photoText }/></TouchableHighlight>
+							}
 
-				<View style={localStyles.RegisterContainer}>
-					<Image style={{overflow: 'hidden',width: Dimensions.get('window').width, height: 400 }}
-						source={{uri: this.lendyooRegistry.config.API_URL + '/api-v2/photo/getloanimage/'+this.loan._id+'/' + Dimensions.get('window').width }}></Image>
+							<Item><Label>Detail</Label><Input value={this.loan.detail}/></Item>
+							<Item><Label>Reminders frequency</Label><Input value={this.loan.remindersFrequency}/></Item>
+							<Item><Label>Expiration date</Label><Input value={this.loan.dateExpiration}/></Item>
 
-					<Text style={localStyles.data}>{
-						"Loan Title : " + this.loan.title + "\n" +
-						"Loan photo : " + this.loan.photo + "\n" +
-						"Loan from : " + this.getFromName() + "\n" +
-						"Loan to : " + ((this.state.contact && this.state.contact.getFullName) ? this.state.contact.getFullName() : '' ) + "\n\n" +
-						"Loan isSaved : " + this.loan.isSaved + "\n" +
-						"Loan detail : " + this.loan.detail + "\n" +
-						"Loan sendReminders : " + this.loan.sendReminders + "\n" +
-						"Loan remindersFrequency : " + this.loan.remindersFrequency + " days \n\n" +
-						"Loan loanDate : " + "\n" + this.loan.loanDate + "\n" +
-						"Loan loanExpirationDate : " + "\n" + this.loan.loanExpirationDate + "\n" +
-						"Loan lastReminderSent : " + "\n" + this.loan.lastReminderSent + "\n"
-					}</Text>
+						</Form>
 
-					<View style={localStyles.socialViews}>
-						<Icon.Button ref="2" name="thumbs-o-up" style={localStyles.buttonSaveLend} backgroundColor="#FF9100"
-									 onPress={ () => this.save() } title="Lend an item">Confirm / update loan</Icon.Button>
+
+						<View style={localStyles.socialViews}>
+							<Button primary full ref="2" name="thumbs-o-up" onPress={ () => this.save() }>
+								<Text style={localStyles.buttonText}>Update loan</Text>
+							</Button>
+						</View>
 					</View>
 				</View>
-			</ScrollView>
-			</View>
+			</Content>
 		);
 	}
 }
@@ -151,6 +163,12 @@ const localStyles = StyleSheet.create({
 		// remove width and height to override fixed static size
 		width: null,
 		height: null,
+	},
+	photoText: {
+		textAlign: 'center',
+		fontSize: 40,
+		color: '#555555',
+		padding: 40
 	},
 	globalContainer: {
 		flex: 1,
@@ -176,7 +194,12 @@ const localStyles = StyleSheet.create({
 		color: '#FFFFFF'
 	},
 	socialViews: {
-		padding: 50
+		paddingTop: 20
+	},
+	buttonText: {
+		textAlign: 'center',
+		fontSize: 20,
+		color: '#FFFFFF'
 	},
 	socialButton: {
 		margin: 5

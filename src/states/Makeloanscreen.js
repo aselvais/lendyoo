@@ -10,10 +10,16 @@ import {
 	TouchableHighlight,
 	Alert
 } from 'react-native';
-import {Content, Form, Item, Input, Label, Button} from 'native-base';
+import {
+	Content,
+	Form,
+	Item,
+	Input,
+	Label,
+	Button
+} from 'native-base';
 import Camera from 'react-native-camera';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 import Loan from '../shared/models/frontend/Loan';
 import Photo from '../shared/models/frontend/Photo';
 
@@ -82,6 +88,9 @@ class Makeloanscreen extends ComponentAbstract {
 		if (!this.activeContact || !this.activeContact._id || !this.user || !this.user.Group_id) {
 			this.displayErrorAlert('Please choose a contact');
 		}
+		else if ( (!this.newloan.title || this.newloan.title == '') && (!this.newloan.photo || this.newloan.photo == '') ) {
+			this.displayErrorAlert('Please add a description or take a picture');
+		}
 		else {
 			var _that = this;
 			this.console.log('Makeloanscreen.onPressSave()');
@@ -89,9 +98,9 @@ class Makeloanscreen extends ComponentAbstract {
 			_loan.Group_id = this.user.Group_id;
 			_loan.User_id = this.user._id;
 			_loan.Contact_id = this.activeContact._id;
-			// _loan.newphoto = '';
 			_loan.isSaved = true;
 			_loan.detail = '';
+			// @todo: do that on the server side
 			_loan.dateCreated = new Date();
 			_that.rootComponent.setLoading(true);
 			_that.setState({ saving: true });
@@ -150,8 +159,8 @@ class Makeloanscreen extends ComponentAbstract {
 	 * @param d
 	 * @returns {*}
 	 */
-	getIconeDirectionName(d) {
-		this.console.log('Makeloanscreen.getIconeDirectionName()', d);
+	getIconDirectionName(d) {
+		this.console.log('Makeloanscreen.getIconDirectionName()', d);
 		if (d == '>')
 			return 'arrow-right';
 		else
@@ -241,7 +250,7 @@ class Makeloanscreen extends ComponentAbstract {
 							</View>
 							<View style={{flex: .2, alignItems: 'center'}}>
 								<TouchableHighlight onPress={ () => this.onPressLoadDirection() }>
-									<Icon name={ this.getIconeDirectionName(this.state.direction) }
+									<Icon name={ this.getIconDirectionName(this.state.direction) }
 										  style={ localStyles.arrow }/>
 								</TouchableHighlight>
 							</View>
@@ -289,8 +298,8 @@ class Makeloanscreen extends ComponentAbstract {
 					<View style={localStyles.buttonView}>
 						{
 							this.state.saving ?
-								(<Button ref="2" light block><Text style={localStyles.buttonText}>...</Text></Button>) :
-								(<Button ref="2" primary block onPress={ () => this.onPressSave() }><Text style={localStyles.buttonText}>Lend item</Text></Button>)
+								(<Button ref="2" success full><Text style={localStyles.buttonText}>...</Text></Button>) :
+								(<Button ref="2" onPress={ () => this.onPressSave() } success full><Text style={localStyles.buttonText}>Lend item</Text></Button>)
 						}
 					</View>
 				</View>
@@ -309,7 +318,7 @@ const localStyles = StyleSheet.create({
 		flexDirection: 'column'
 	},
 	buttonView: {
-		padding: 30
+		paddingTop: 30
 	},
 	buttonText: {
 		textAlign: 'center',
