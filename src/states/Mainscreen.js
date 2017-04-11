@@ -6,7 +6,20 @@ import {
 	View
 } from 'react-native';
 
-import { Spinner, Container, Header, Title, Button, Left, Right, Body, Icon, Drawer } from 'native-base';
+import {
+	Spinner,
+	Container,
+	Header,
+	Title,
+	Button,
+	Left,
+	Right,
+	Body,
+	Icon,
+	Drawer,
+	Footer,
+	FooterTab
+} from 'native-base';
 import Dimensions from 'Dimensions';
 
 // We can use this to make the overlay fill the entire width
@@ -35,8 +48,10 @@ class Mainscreen extends Component {
 		this.routes.setGlobalContainer(this);
 		this.iOS = this.lendyooRegistry.isIOS();
 		this.state = {
+			isAuth: false,
 			selectedView: this.routes._currentView,
-			loading: false
+			loading: false,
+			routeName: null
 		};
 		this.menuItems = this.routes.getRoutes();
 	}
@@ -48,6 +63,9 @@ class Mainscreen extends Component {
 	onPressTextbox(elemId = 0) {
 		this.console.log('Mainscreen.onPressTextbox()', elemId);
 		this.routes.getViewById(elemId);
+		if (elemId.name) {
+			this.setState({routeName: elemId.name});
+		}
 		this.setState({selectedView: this.routes.getCurrentView()});
 		this.hideMenu();
 	}
@@ -59,6 +77,9 @@ class Mainscreen extends Component {
 		this._drawer._root.open();
 	}
 
+	/**
+	 *
+	 */
 	hideMenu()
 	{
 		try {
@@ -69,11 +90,13 @@ class Mainscreen extends Component {
 		}
 	}
 
+	/**
+	 *
+	 */
 	toggleMenu()
 	{
 		this._drawer._root.toggle();
 	}
-
 
 	/**
 	 *
@@ -89,9 +112,22 @@ class Mainscreen extends Component {
 			return <Text style={ localStyles.topBarText } onPress={ () => this.showMenu() }><IconAwesome name="bars" style={ localStyles.topBarIcon }/></Text>;
 	}
 
+	/**
+	 *
+	 * @param l
+	 */
 	setLoading(l=false)
 	{
 		this.setState({ loading: l });
+	}
+
+	/**
+	 *
+	 * @param v
+	 */
+	setAuth(v)
+	{
+		this.setState({isAuth: v});
 	}
 
 	/**
@@ -108,9 +144,11 @@ class Mainscreen extends Component {
 			<Container>
 				<Header>
 					<Left>
+
 						<Button transparent onPress={() => this.toggleMenu()}>
 							<Icon name='menu'/>
 						</Button>
+
 					</Left>
 					<Body>
 					<Title><IconAwesome name={ this.state.selectedView.icon } style={ localStyles.topBarIcon } /> { this.state.selectedView.label }</Title>
@@ -123,6 +161,33 @@ class Mainscreen extends Component {
 					{ spinner }
 					{ this.state.selectedView.component }
 				</Drawer>
+				{
+					this.state.isAuth ? <Footer>
+						<FooterTab>
+							<Button onPress={ () => this.routes.gotTo('history') }>
+								<Icon name="list"/>
+								<Text>Loans</Text>
+							</Button>
+
+							<Button onPress={ () => this.routes.gotTo('lend') }>
+								<Icon name="camera"/>
+								<Text>Lend</Text>
+							</Button>
+							<Button onPress={ () => this.routes.gotTo('profile') }>
+								<Icon name="person" />
+								<Text>Account</Text>
+							</Button>
+							<Button onPress={ () => this.routes.gotTo('settings') }>
+								<Icon name="settings" />
+								<Text>Settings</Text>
+							</Button>
+						</FooterTab>
+					</Footer>
+						:
+						null
+				}
+
+
 			</Container>
 
 		);

@@ -40,7 +40,12 @@ class Loandetailscreen extends ComponentAbstract {
 		this.state = {
 			contact: null,
 			photo: null,
-			base64image: null
+			base64image: null,
+			title: null,
+			dateCreated: null,
+			detail: null,
+			remindersFrequency: null,
+			dateExpiration: null
 		};
 	}
 
@@ -58,6 +63,15 @@ class Loandetailscreen extends ComponentAbstract {
 	init() {
 		var _that = this;
 		_that.rootComponent.setLoading(true);
+
+		_that.setState({
+			title: _that.loan.title,
+			dateCreated: _that.loan.dateCreated,
+			detail: _that.loan.detail,
+			remindersFrequency: _that.loan.remindersFrequency,
+			dateExpiration: _that.loan.dateExpiration
+		});
+
 		var _contact = new Contact();
 		var _photo = new Photo();
 		_contact.populateDataFromRemote(this.loan.Contact_id).then(
@@ -98,14 +112,37 @@ class Loandetailscreen extends ComponentAbstract {
 	 */
 	save() {
 		this.console.log('Loandetailscreen.save()');
+		this.console.log(this.loan);
+
 		// this.loan.save();
 		// redirect
-		this.routes.gotTo("history");
+		// this.routes.gotTo("history");
 	}
 
+	/**
+	 * @todo put the models where they should be
+	 */
 	takePicture()
 	{
+		this.lendyooRegistry.newloan = this.loan;
+		this.lendyooRegistry.contactCollection.setActiveModel(this.state.contact);
+		this.routes.gotTo("lend");
+	}
 
+	/**
+	 *
+	 * @param key
+	 * @param val
+	 */
+	onFormElementChange(key, val)
+	{
+		var _o = {};
+		_o[key] = val;
+
+		this.console.log(JSON.stringify(_o));
+
+		this.loan[key] = val;
+		this.setState(_o);
 	}
 
 	/**
@@ -119,15 +156,15 @@ class Loandetailscreen extends ComponentAbstract {
 				<View style={ localStyles.globalContainer }>
 					<View style={localStyles.RegisterContainer}>
 						<Form>
-							<Item><Label>Title</Label><Input value={this.loan.title}/></Item>
+							<Item><Label>Title</Label><Input value={this.state.title} onValueChange={(val) => this.onFormElementChange('title', val)}/></Item>
 							<Item><Label>Type</Label>
 								<Picker mode="dropdown"
-										selectedValue={this.loan.status}
-										onValueChange={(status) => this.setState({type: status})}>
+										selectedValue={this.state.status}
+										onValueChange={(val) => this.onFormElementChange('status', val)}>
 									{ this.loan._schema.status.enum.map((v) => <Item key={v} label={v} value={v}/>) }
 								</Picker>
 							</Item>
-							<Item><Label>Loan Date</Label><Input value={this.loan.dateCreated}/></Item>
+							<Item><Label>Loan Date</Label><Input value={this.state.dateCreated} onValueChange={(val) => this.onFormElementChange('dateCreated', val)}/></Item>
 							<Item><Label>To</Label><Input value={((this.state.contact && this.state.contact.getFullName) ? this.state.contact.getFullName() : '' )}/></Item>
 							{
 								this.loan.photo ? (
@@ -137,10 +174,9 @@ class Loandetailscreen extends ComponentAbstract {
 										source={{uri: this.lendyooRegistry.config.API_URL + '/api-v2/photo/getloanimage/' + this.loan._id + '/' + Dimensions.get('window').width}}></Image>)
 									: <TouchableHighlight onPress={ () => this.takePicture() }><Icon name="camera" style={ localStyles.photoText }/></TouchableHighlight>
 							}
-
-							<Item><Label>Detail</Label><Input value={this.loan.detail}/></Item>
-							<Item><Label>Reminders frequency</Label><Input value={this.loan.remindersFrequency}/></Item>
-							<Item><Label>Expiration date</Label><Input value={this.loan.dateExpiration}/></Item>
+							<Item><Label>Detail</Label><Input value={this.state.detail} onValueChange={(val) => this.onFormElementChange('detail', val)}/></Item>
+							<Item><Label>Reminders frequency</Label><Input value={this.state.remindersFrequency} onValueChange={(val) => this.onFormElementChange('remindersFrequency', val)}/></Item>
+							<Item><Label>Expiration date</Label><Input value={this.state.dateExpiration} onValueChange={(val) => this.onFormElementChange('dateExpiration', val)}/></Item>
 
 						</Form>
 

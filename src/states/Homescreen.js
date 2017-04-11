@@ -54,6 +54,7 @@ class Authenticationscreen extends ComponentAbstract {
 					if (data === true)
 					{
 						_that.rootComponent.setLoading(false);
+						_that.rootComponent.setAuth(true);
 						_that.lendyooRegistry.setAuthStatus(true);
 						_that.lendyooRegistry.User_id = _that.user._id;
 						_that.lendyooRegistry.routes.gotTo("lend");
