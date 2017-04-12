@@ -137,12 +137,12 @@ export default {
 
     // Footer
   footerHeight: 55,
-  footerDefaultBg: (platform === 'ios') ? '#F8F8F8' : '#4179F7',
+  footerDefaultBg: (platform === 'ios') ? '#FFF' : '#FFF',
 
 
     // FooterTab
   tabBarTextColor: (platform === 'ios') ? '#6b6b6b' : '#b3c7f9',
-  tabBarTextSize: (platform === 'ios') ? 14 : 11,
+  tabBarTextSize: (platform === 'ios') ? 11 : 11,
   activeTab: (platform === 'ios') ? '#007aff' : '#fff',
   sTabBarActiveTextColor: '#007aff',
   tabBarActiveTextColor: (platform === 'ios') ? '#007aff' : '#fff',
@@ -166,9 +166,9 @@ export default {
   toolbarInputColor: (platform === 'ios') ? '#CECDD2' : '#fff',
   searchBarHeight: (platform === 'ios') ? 30 : 40,
   toolbarInverseBg: '#222',
-  toolbarTextColor: (platform === 'ios') ? '#000' : '#fff',
+  toolbarTextColor: (platform === 'ios') ? '#fff' : '#fff',
   toolbarDefaultBorder: (platform === 'ios') ? '#a7a6ab' : '#3F51B5',
-  iosStatusbar: (platform === 'ios') ? 'dark-content' : 'light-content',
+  iosStatusbar: (platform === 'ios') ? 'light-content' : 'light-content',
   get statusBarColor() {
     return color(this.toolbarDefaultBg).darken(0.2).hexString();
   },
@@ -271,7 +271,7 @@ export default {
   subtitleColor: (platform === 'ios') ? '#8e8e93' : '#FFF',
 
     // New Variable
-  titleFontColor: (platform === 'ios') ? '#000' : '#FFF',
+  titleFontColor: (platform === 'ios') ? '#fff' : '#FFF',
 
 
     // Other
