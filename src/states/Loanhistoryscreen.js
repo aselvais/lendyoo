@@ -126,21 +126,16 @@ class Loanhistoryscreen extends ComponentAbstract {
 											<Text note>{ this.getFormatedDate(loan.dateCreated) }</Text>
 										</Right>
 									</CardItem>
-									<CardItem>
+									<CardItem onPress={ () => this.onPressLoan(loan) }>
 										<Body>
 										{
 											loan.photo ?
 												(<Image
-													defaultSource={require('../assets/images/loading.png')}
-													style={{resizeMode: 'cover', overflow: 'hidden', width: Dimensions.get('window').width-60, height: 200}}
-													source={{uri: this.lendyooRegistry.config.API_URL + '/api-v2/photo/getloanimage/' + loan._id + '/' + (Dimensions.get('window').width-60)}}></Image>
-												)
-												:
-												(<Image
 														defaultSource={require('../assets/images/loading.png')}
-														style={{resizeMode: 'cover'}}
-														source={require('../assets/images/no-image-half-landscape.png')}/>
+														style={{resizeMode: 'cover', overflow: 'hidden', width: Dimensions.get('window').width-60, height: 200}}
+														source={{uri: this.lendyooRegistry.config.API_URL + '/api-v2/photo/getloanimage/' + loan._id + '/' + (Dimensions.get('window').width-60)}}></Image>
 												)
+												: null
 										}
 										</Body>
 									</CardItem>

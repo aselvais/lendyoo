@@ -14,10 +14,10 @@ import {
 	Item,
 	Input,
 	Label,
-	Button
+	Button,
+	Icon
 } from 'native-base';
 import Camera from 'react-native-camera';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Loan from '../shared/models/frontend/Loan';
 import Photo from '../shared/models/frontend/Photo';
 
@@ -158,9 +158,9 @@ class Makeloanscreen extends ComponentAbstract {
 	getIconDirectionName(d) {
 		this.console.log('Makeloanscreen.getIconDirectionName()', d);
 		if (d == '>')
-			return 'arrow-right';
+			return 'arrow-dropright';
 		else
-			return 'arrow-left';
+			return 'arrow-round-back';
 	}
 
 	/**
@@ -241,12 +241,6 @@ class Makeloanscreen extends ComponentAbstract {
 									<Text style={ this.css.makeloanfromToText }>{ this.user.fullName }</Text>
 								</TouchableHighlight>
 							</View>
-							<View style={{flex: .2, alignItems: 'center'}}>
-								<TouchableHighlight onPress={ () => this.onPressLoadDirection() }>
-									<Icon name={ this.getIconDirectionName(this.state.direction) }
-										  style={ this.css.makeloanarrow }/>
-								</TouchableHighlight>
-							</View>
 							<View style={{flex: .4, alignItems: 'center'}}>
 								<TouchableHighlight onPress={ () => this.routes.gotTo("contacts") }>
 									<Text style={ this.css.makeloanfromToText }>{ this.getContactName() }</Text>
@@ -258,21 +252,15 @@ class Makeloanscreen extends ComponentAbstract {
 					<View >
 						{
 							(this.state.photo !== false) ?
-								(
-									<Image source={{uri: 'data:image/png;base64,' + this.state.photo}}
-										   style={this.css.makeloanimageSpace}></Image>
-								)
+								(<Image source={{uri: 'data:image/png;base64,' + this.state.photo}} style={this.css.makeloanimageSpace}></Image>)
 								:
 								(<Camera
-									ref={(cam) => {
-										this.camera = cam;
-									}}
+									ref={(cam) => { this.camera = cam; }}
 									captureTarget={Camera.constants.CaptureTarget.disk}
 									captureQuality={Camera.constants.CaptureQuality["720p"]}
 									style={this.css.makeloanimageSpace}
 									aspect={Camera.constants.Aspect.fill}>
-									<Icon name="camera" style={ this.css.makeloanphotoText }
-										  onPress={ () => this.takePicture() }/>
+									<Icon name="camera" style={{color: '#FFF', fontSize: 55}} onPress={ () => this.takePicture() }/>
 								</Camera>)
 						}
 					</View>

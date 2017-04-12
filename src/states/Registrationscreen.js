@@ -9,9 +9,9 @@ import {
 	Alert
 } from 'react-native';
 import {
-	Content
+	Content,
+	Icon
 } from 'native-base';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 /**
  * Registration
@@ -129,16 +129,13 @@ class Registrationscreen extends ComponentAbstract {
 							Register using
 						</Text>
 						<View style={this.css.regsocialViews}>
-							<Icon.Button name="facebook" backgroundColor="#3b5998" style={this.css.regsocialButton}
-										 onPress={ () => this.facebookLogin() }>My Facebook Account</Icon.Button>
+							<Icon.Button name="facebook" backgroundColor="#3b5998" style={this.css.regsocialButton} onPress={ () => this.facebookLogin() }>My Facebook Account</Icon.Button>
 						</View>
 						<View style={this.css.regsocialViews}>
-							<Icon.Button name="twitter" style={this.css.regsocialButton} backgroundColor="#1a8bf0"
-										 onPress={ () => this.twitterLogin() }>My Twitter Account</Icon.Button>
+							<Icon.Button name="twitter" style={this.css.regsocialButton} backgroundColor="#1a8bf0" onPress={ () => this.twitterLogin() }>My Twitter Account</Icon.Button>
 						</View>
 						<View style={this.css.regsocialViews}>
-							<Icon.Button name="google" style={this.css.regsocialButton} backgroundColor="#DF4A32"
-										 onPress={ () => this.googleLogin() }>My Google Account</Icon.Button>
+							<Icon.Button name="google" style={this.css.regsocialButton} backgroundColor="#DF4A32" onPress={ () => this.googleLogin() }>My Google Account</Icon.Button>
 						</View>
 
 						<View style={this.css.regsocialViews}>

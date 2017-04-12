@@ -22,8 +22,6 @@ import getTheme from '../native-base-theme/components';
 import LendyooRegistry from '../libs/LendyooRegistry';
 import MenuBar from './MenuBar';
 import Mainstyle from '../styles/Mainstyle';
-// @todo Get rid of this module, uninstall it and unlink it
-import IconAwesome from 'react-native-vector-icons/FontAwesome';
 
 /**
  * Welcome/help screen
@@ -99,11 +97,9 @@ class Mainscreen extends Component {
 	getNavigationItem() {
 		this.console.log('Mainscreen.getNavigationItem()');
 		if (this.state.selectedView.showBackButton)
-			return <Text style={ this.css.maintopBarText } onPress={ () => this.routes.goBack() }><IconAwesome
-				name="chevron-left" style={ this.css.maintopBarIcon }/></Text>;
+			return <Text style={ this.css.maintopBarText } onPress={ () => this.routes.goBack() }><Icon name="chevron-left" /></Text>;
 		else
-			return <Text style={ this.css.maintopBarText } onPress={ () => this.showMenu() }><IconAwesome name="bars"
-																										  style={ this.css.maintopBarIcon }/></Text>;
+			return <Text style={ this.css.maintopBarText } onPress={ () => this.showMenu() }><Icon name="bars"/></Text>;
 	}
 
 	/**
@@ -142,7 +138,6 @@ class Mainscreen extends Component {
 					<Header>
 						<Body>
 						<Title>
-							<IconAwesome name={ this.state.selectedView.icon } style={ this.css.maintopBarIcon }/>
 							{ this.state.selectedView.label }
 						</Title>
 						</Body>

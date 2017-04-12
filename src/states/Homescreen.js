@@ -6,7 +6,18 @@ import {
 	View,
 	Alert
 } from 'react-native';
-import {Content, Button, Icon, Form, Item, Input, Label, H1, H2, H3} from 'native-base';
+import {
+	Content,
+	Button,
+	Icon,
+	Form,
+	Item,
+	Input,
+	Label,
+	H1,
+	H2,
+	H3
+} from 'native-base';
 
 /**
  * Authentication
@@ -124,16 +135,13 @@ class Authenticationscreen extends ComponentAbstract {
 						</H3>
 						<View style={this.css.homesocialViewsCntr}>
 							<View style={this.css.homesocialViews}>
-								<Icon name="logo-facebook" style={{color: '#3b5998'}}
-									  onPress={ () => this.facebookLogin() }/>
+								<Icon name="logo-facebook" onPress={ () => this.facebookLogin() }/>
 							</View>
 							<View style={this.css.homesocialViews}>
-								<Icon name="logo-twitter" style={{color: '#1a8bf0'}}
-									  onPress={ () => this.twitterLogin() }/>
+								<Icon name="logo-twitter" onPress={ () => this.twitterLogin() }/>
 							</View>
 							<View style={this.css.homesocialViews}>
-								<Icon name="logo-googleplus" style={{color: '#d34836'}}
-									  onPress={ () => this.googleLogin() }/>
+								<Icon name="logo-googleplus" onPress={ () => this.googleLogin() }/>
 							</View>
 						</View>
 						<View style={this.css.homesocialViews}>

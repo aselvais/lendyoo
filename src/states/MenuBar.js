@@ -6,7 +6,9 @@ import {
 	View,
 	ScrollView
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {
+	Icon
+} from 'native-base';
 
 /**
  * Make loan screen (with pict)
@@ -69,8 +71,7 @@ class MenuBar extends ComponentAbstract {
 								_show = o.showWhenAuth;
 							if (_show)
 								return <Text key={ i } onPress={ () => this.onPressTextbox(i) }
-											 style={ this.css.menubarglobalText }><Icon name={ o.icon }
-																						style={ this.css.menubarglobalText }/> { o.label }
+											 style={ this.css.menubarglobalText }><Icon name={ o.icon }/> { o.label }
 								</Text>;
 							else
 								return null;
