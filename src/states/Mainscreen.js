@@ -141,8 +141,10 @@ class Mainscreen extends Component {
 				<Container>
 					<Header>
 						<Body>
-						<Title><IconAwesome name={ this.state.selectedView.icon } style={ this.css.maintopBarIcon }/> { this.state.selectedView.label }</Title>
-						{ (!this.iOS && this.state.loading) ? (<Right><Spinner color='white'/></Right>) : null }
+						<Title>
+							<IconAwesome name={ this.state.selectedView.icon } style={ this.css.maintopBarIcon }/>
+							{ this.state.selectedView.label }
+						</Title>
 						</Body>
 					</Header>
 					{ spinner }
