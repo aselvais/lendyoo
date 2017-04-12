@@ -1,15 +1,13 @@
 /**
  * Internationalization class
  */
-class i18n
-{
+class i18n {
 	/**
 	 *
 	 * @param str
 	 * @returns {string}
 	 */
-	translate( str='' )
-	{
+	translate(str = '') {
 		return str;
 	}
 

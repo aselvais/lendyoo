@@ -10,13 +10,10 @@ let _instance = null;
 /**
  * Wrapper for AsyncStorage
  */
-class LendyooStorage
-{
+class LendyooStorage {
 
-	constructor()
-	{
-		if (!_instance)
-		{
+	constructor() {
+		if (!_instance) {
 			_instance = this;
 		}
 		return _instance;
@@ -36,10 +33,8 @@ class LendyooStorage
 	 * @returns {*|Promise}
 	 */
 	setData(_data) {
-		return AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(_data) );
+		return AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(_data));
 	}
-
-
 
 
 }

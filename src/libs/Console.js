@@ -1,20 +1,17 @@
-
 let instance = null;
 
 /**
  * Wrapper for the console for debugging
  */
-class Console
-{
+class Console {
 
 	/**
 	 *
 	 * @param debug
 	 * @returns {*}
 	 */
-	constructor(debug=false)
-	{
-		if(!instance){
+	constructor(debug = false) {
+		if (!instance) {
 			this.debug = debug;
 			instance = this;
 		}
@@ -25,20 +22,18 @@ class Console
 	/**
 	 *
 	 */
-	log()
-	{
-		if (this.debug)
-		{
+	log() {
+		if (this.debug) {
 			var d = new Date();
 			var dd = d.getFullYear() + '-'
-				+ (d.getMonth()+1) + '-'
+				+ (d.getMonth() + 1) + '-'
 				+ d.getDate() + ' ' +
-				+ d.getHours() + ':' +
-				+ d.getMinutes() + ':' +
-				+ d.getSeconds() + '.' +
-				+ d.getMilliseconds();
+				+d.getHours() + ':' +
+				+d.getMinutes() + ':' +
+				+d.getSeconds() + '.' +
+				+d.getMilliseconds();
 			var params = [...arguments];
-			console.log('[' + dd + ']', ((params.length > 1) ? params : params[0] ) );
+			console.log('[' + dd + ']', ((params.length > 1) ? params : params[0] ));
 		}
 	}
 

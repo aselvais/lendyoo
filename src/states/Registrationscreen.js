@@ -2,15 +2,12 @@ import React from 'react';
 import ComponentAbstract from './ComponentAbstract';
 import {
 	AppRegistry,
-	StyleSheet,
 	Text,
 	TextInput,
 	View,
-	Button,
 	ScrollView,
 	Alert
 } from 'react-native';
-import styles from '../styles/Mainstyle';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 /**
@@ -114,46 +111,46 @@ class Registrationscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Registrationscreen.render()');
 		return (
-			<View style={ localStyles.globalContainer }>
+			<View style={ this.css.regglobalContainer }>
 
-				<View style={localStyles.welcomeContainer}>
-					<Text style={localStyles.welcomeText}>
+				<View style={this.css.regwelcomeContainer}>
+					<Text style={this.css.regwelcomeText}>
 						Welcome to Lendyoo !
 					</Text>
 				</View>
 				<ScrollView>
-					<View style={localStyles.RegisterContainer}>
-						<Text style={styles.welcome}>
+					<View style={this.css.regRegisterContainer}>
+						<Text style={this.css.welcome}>
 							Register using
 						</Text>
-						<View style={localStyles.socialViews}>
-							<Icon.Button name="facebook" backgroundColor="#3b5998" style={localStyles.socialButton}
+						<View style={this.css.regsocialViews}>
+							<Icon.Button name="facebook" backgroundColor="#3b5998" style={this.css.regsocialButton}
 										 onPress={ () => this.facebookLogin() }>My Facebook Account</Icon.Button>
 						</View>
-						<View style={localStyles.socialViews}>
-							<Icon.Button name="twitter" style={localStyles.socialButton} backgroundColor="#1a8bf0"
+						<View style={this.css.regsocialViews}>
+							<Icon.Button name="twitter" style={this.css.regsocialButton} backgroundColor="#1a8bf0"
 										 onPress={ () => this.twitterLogin() }>My Twitter Account</Icon.Button>
 						</View>
-						<View style={localStyles.socialViews}>
-							<Icon.Button name="google" style={localStyles.socialButton} backgroundColor="#DF4A32"
+						<View style={this.css.regsocialViews}>
+							<Icon.Button name="google" style={this.css.regsocialButton} backgroundColor="#DF4A32"
 										 onPress={ () => this.googleLogin() }>My Google Account</Icon.Button>
 						</View>
 
-						<View style={localStyles.socialViews}>
-							<Text style={localStyles.or}>
+						<View style={this.css.regsocialViews}>
+							<Text style={this.css.regor}>
 								OR
 							</Text>
-							<Text style={styles.welcome}>
+							<Text style={this.css.welcome}>
 								Create an account
 							</Text>
 						</View>
 
 
-						<View style={localStyles.socialViews}>
+						<View style={this.css.regsocialViews}>
 							<TextInput
 								ref="1"
 								spellCheck={false}
-								style={localStyles.formTextField}
+								style={this.css.regformTextField}
 								keyboardType="email-address"
 								placeholder="e-mail"
 								returnKeyType="next"
@@ -164,10 +161,10 @@ class Registrationscreen extends ComponentAbstract {
 								onSubmitEditing={() => this.focusNextField('2')}
 							/>
 						</View>
-						<View style={localStyles.socialViews}>
+						<View style={this.css.regsocialViews}>
 							<TextInput
 								ref="2"
-								style={localStyles.formTextField}
+								style={this.css.regformTextField}
 								spellCheck={false}
 								keyboardType="default"
 								placeholder="Password"
@@ -180,10 +177,10 @@ class Registrationscreen extends ComponentAbstract {
 								onSubmitEditing={() => this.focusNextField('3')}
 							/>
 						</View>
-						<View style={localStyles.socialViews}>
+						<View style={this.css.regsocialViews}>
 							<TextInput
 								ref="3"
-								style={localStyles.formTextField}
+								style={this.css.regformTextField}
 								spellCheck={false}
 								keyboardType="default"
 								placeholder="Re-type password"
@@ -198,8 +195,8 @@ class Registrationscreen extends ComponentAbstract {
 						</View>
 
 
-						<View style={localStyles.socialViews}>
-							<Icon.Button name="thumbs-o-up" style={localStyles.socialButton} backgroundColor="#FF9100"
+						<View style={this.css.regsocialViews}>
+							<Icon.Button name="thumbs-o-up" style={this.css.regsocialButton} backgroundColor="#FF9100"
 										 onPress={ () => this.createAccount() }>Create Lendyoo account</Icon.Button>
 						</View>
 					</View>
@@ -209,48 +206,6 @@ class Registrationscreen extends ComponentAbstract {
 		);
 	}
 }
-
-
-const localStyles = StyleSheet.create({
-	globalContainer: {
-		flex: 1,
-		flexDirection: 'column'
-	},
-	welcomeContainer: {
-		flex: .1,
-		backgroundColor: '#FF9100'
-	},
-	socialViews: {
-		padding: 5
-	},
-	socialButton: {
-		margin: 5
-	},
-	welcomeText: {
-		textAlign: 'center',
-		paddingTop: 25,
-		fontSize: 20,
-		color: '#FFFFFF'
-	},
-	RegisterContainer: {
-		flex: .7
-	},
-	or: {
-		textAlign: 'center',
-		paddingTop: 25,
-		fontSize: 20,
-		color: '#BDBDBD'
-	},
-	formTextField: {
-		fontSize: 16,
-		padding: 7,
-		height: 35,
-		borderColor: '#E0E0E0',
-		borderWidth: 1,
-		color: '#757575'
-	}
-});
-
 
 AppRegistry.registerComponent('Registrationscreen', () => Registrationscreen);
 

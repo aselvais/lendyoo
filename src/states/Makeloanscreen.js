@@ -2,8 +2,6 @@ import React from 'react';
 import ComponentAbstract from './ComponentAbstract';
 import {
 	AppRegistry,
-	Dimensions,
-	StyleSheet,
 	Text,
 	View,
 	Image,
@@ -88,7 +86,7 @@ class Makeloanscreen extends ComponentAbstract {
 		if (!this.activeContact || !this.activeContact._id || !this.user || !this.user.Group_id) {
 			this.displayErrorAlert('Please choose a contact');
 		}
-		else if ( (!this.newloan.title || this.newloan.title == '') && (!this.newloan.photo || this.newloan.photo == '') ) {
+		else if ((!this.newloan.title || this.newloan.title == '') && (!this.newloan.photo || this.newloan.photo == '')) {
 			this.displayErrorAlert('Please add a description or take a picture');
 		}
 		else {
@@ -103,7 +101,7 @@ class Makeloanscreen extends ComponentAbstract {
 			// @todo: do that on the server side
 			_loan.dateCreated = new Date();
 			_that.rootComponent.setLoading(true);
-			_that.setState({ saving: true });
+			_that.setState({saving: true});
 			_loan.save().then(
 				function (d) {
 					if (d === true) {
@@ -113,28 +111,26 @@ class Makeloanscreen extends ComponentAbstract {
 						} catch (e) {
 							//console.error(_loan);
 						}
-						if (_loan.photo)
-						{
+						if (_loan.photo) {
 							_that.newphoto.Loan_id = _loan._id;
 							_that.newphoto.localpath = _loan.photo;
 							_that.newphoto.filename = 'someRandomName.jpg';
 							_that.newphoto.save().then(
-								function(photodata) {
+								function (photodata) {
 									_that.rootComponent.setLoading(false);
-									_that.setState({ saving: false });
+									_that.setState({saving: false});
 									_that.lendyooRegistry.newloan = new Loan();
 									_that.lendyooRegistry.newphoto = new Photo();
 									_that.routes.gotTo("detail");
 								},
 								function (e) {
 									_that.rootComponent.setLoading(false);
-									_that.setState({ saving: false });
+									_that.setState({saving: false});
 									this.console.log('Error saving loan', e);
 								}
 							);
 						}
-						else
-						{
+						else {
 							_that.rootComponent.setLoading(false);
 							_that.lendyooRegistry.newloan = new Loan();
 							_that.lendyooRegistry.newphoto = new Photo();
@@ -147,7 +143,7 @@ class Makeloanscreen extends ComponentAbstract {
 				},
 				function (e) {
 					_that.rootComponent.setLoading(false);
-					_that.setState({ saving: false });
+					_that.setState({saving: false});
 					//console.error('Error saving loan', e);
 				}
 			);
@@ -188,33 +184,31 @@ class Makeloanscreen extends ComponentAbstract {
 		if (this.camera && this.camera.capture) {
 			try {
 				this.camera.capture({metadata: options}).then(
-					function(data) {
-						if (data.path)
-						{
+					function (data) {
+						if (data.path) {
 							try {
 								_that.newloan.photo = data.path;
 								_that.newphoto.cameradata = data;
 								_that.newphoto.localpath = data.path;
 								_that.newphoto.initImage().then(
-									function(d) {
+									function (d) {
 										_that.setState({photo: _that.newphoto.data});
 									}
 								);
-							} catch (err)
-							{
+							} catch (err) {
 								_that.setState({photo: false});
 							}
 						} else {
 							_that.setState({photo: false});
 						}
 					},
-					function(err) {
+					function (err) {
 						_that.setState({photo: false});
 						_that.displayErrorAlert('Problem with the camera...');
 						//console.log(JSON.stringify(err));
 					}
 				);
-			} catch(err) {
+			} catch (err) {
 				_that.setState({photo: false});
 				// console.log(err);
 			}
@@ -228,7 +222,7 @@ class Makeloanscreen extends ComponentAbstract {
 	 */
 	changeTitle(title) {
 		this.newloan.title = title;
-		this.setState({ title: title });
+		this.setState({title: title});
 	}
 
 	/**
@@ -238,25 +232,25 @@ class Makeloanscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Makeloanscreen.render()');
 		return (
-			<Content>
+			<Content padder={true}>
 
-				<View style={ localStyles.globalContainer }>
-					<View style={localStyles.toFromBar}>
+				<View style={ this.css.makeloanglobalContainer }>
+					<View style={this.css.makeloantoFromBar}>
 						<View style={{flex: 1, flexDirection: 'row'}}>
 							<View style={{flex: .4, alignItems: 'center'}}>
 								<TouchableHighlight onPress={ () => this.onPressFrom() }>
-									<Text style={ localStyles.fromToText }>{ this.user.fullName }</Text>
+									<Text style={ this.css.makeloanfromToText }>{ this.user.fullName }</Text>
 								</TouchableHighlight>
 							</View>
 							<View style={{flex: .2, alignItems: 'center'}}>
 								<TouchableHighlight onPress={ () => this.onPressLoadDirection() }>
 									<Icon name={ this.getIconDirectionName(this.state.direction) }
-										  style={ localStyles.arrow }/>
+										  style={ this.css.makeloanarrow }/>
 								</TouchableHighlight>
 							</View>
 							<View style={{flex: .4, alignItems: 'center'}}>
 								<TouchableHighlight onPress={ () => this.routes.gotTo("contacts") }>
-									<Text style={ localStyles.fromToText }>{ this.getContactName() }</Text>
+									<Text style={ this.css.makeloanfromToText }>{ this.getContactName() }</Text>
 								</TouchableHighlight>
 							</View>
 						</View>
@@ -266,20 +260,24 @@ class Makeloanscreen extends ComponentAbstract {
 						{
 							(this.state.photo !== false) ?
 								(
-									<Image source={{uri: 'data:image/png;base64,'+this.state.photo}} style={localStyles.imageSpace}></Image>
+									<Image source={{uri: 'data:image/png;base64,' + this.state.photo}}
+										   style={this.css.makeloanimageSpace}></Image>
 								)
 								:
 								(<Camera
-										ref={(cam) => { this.camera = cam; }}
-										captureTarget={Camera.constants.CaptureTarget.disk}
-										captureQuality={Camera.constants.CaptureQuality["720p"]}
-										style={localStyles.imageSpace}
-										aspect={Camera.constants.Aspect.fill}>
-										<Icon name="camera" style={ localStyles.photoText } onPress={ () => this.takePicture() }/>
-									</Camera>)
+									ref={(cam) => {
+										this.camera = cam;
+									}}
+									captureTarget={Camera.constants.CaptureTarget.disk}
+									captureQuality={Camera.constants.CaptureQuality["720p"]}
+									style={this.css.makeloanimageSpace}
+									aspect={Camera.constants.Aspect.fill}>
+									<Icon name="camera" style={ this.css.makeloanphotoText }
+										  onPress={ () => this.takePicture() }/>
+								</Camera>)
 						}
 					</View>
-					<View style={localStyles.adddetailSpace}>
+					<View style={this.css.makeloanadddetailSpace}>
 						<Form>
 							<Item stackedLabel>
 								<Label>Description</Label>
@@ -295,11 +293,13 @@ class Makeloanscreen extends ComponentAbstract {
 						</Form>
 
 					</View>
-					<View style={localStyles.buttonView}>
+					<View style={this.css.makeloanbuttonView}>
 						{
 							this.state.saving ?
-								(<Button ref="2" success full><Text style={localStyles.buttonText}>...</Text></Button>) :
-								(<Button ref="2" onPress={ () => this.onPressSave() } success full><Text style={localStyles.buttonText}>Lend item</Text></Button>)
+								(<Button ref="2" success full><Text
+									style={this.css.makeloanbuttonText}>...</Text></Button>) :
+								(<Button ref="2" onPress={ () => this.onPressSave() } success full><Text
+									style={this.css.makeloanbuttonText}>Lend item</Text></Button>)
 						}
 					</View>
 				</View>
@@ -308,51 +308,6 @@ class Makeloanscreen extends ComponentAbstract {
 		);
 	}
 }
-
-/**
- * Local styles
- */
-const localStyles = StyleSheet.create({
-	globalContainer: {
-		flex: 1,
-		flexDirection: 'column'
-	},
-	buttonView: {
-		paddingTop: 30
-	},
-	buttonText: {
-		textAlign: 'center',
-		fontSize: 20,
-		color: '#FFFFFF'
-	},
-	toFromBar: {
-		flex: .1,
-		backgroundColor: '#FF9100'
-	},
-	fromToText: {
-		paddingTop: 20,
-		fontSize: 20,
-		color: '#FFFFFF'
-	},
-	arrow: {
-		fontSize: 40,
-		color: '#FFFFFF'
-	},
-	photoText: {
-		textAlign: 'center',
-		fontSize: 40,
-		color: '#FFFFFF'
-	},
-	imageSpace: {
-		height: Dimensions.get('window').height - 300,
-		alignItems: 'center',
-		justifyContent: 'center',
-		overflow: 'hidden'
-	},
-	adddetailSpace: {
-		flex: .13
-	}
-});
 
 AppRegistry.registerComponent('Makeloanscreen', () => Makeloanscreen);
 export default Makeloanscreen;

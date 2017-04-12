@@ -5,7 +5,6 @@ import {
 	Text,
 	View
 } from 'react-native';
-import styles from '../styles/Mainstyle';
 
 /**
  *
@@ -15,12 +14,11 @@ class Settingsscreen extends ComponentAbstract {
 	 *
 	 * @returns {XML}
 	 */
-	render()
-	{
+	render() {
 		this.console.log('Settingsscreen.render()');
 		return (
-			<View style={styles.container}>
-				<Text style={styles.welcome}>
+			<View style={this.css.container}>
+				<Text style={this.css.welcome}>
 					Settingsscreen
 				</Text>
 			</View>

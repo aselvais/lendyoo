@@ -5,14 +5,15 @@ import {
 	Text,
 	View
 } from 'react-native';
-import styles from '../styles/Mainstyle';
 
 /**
  *
  */
 class Logoutscreen extends ComponentAbstract {
 
-
+	/**
+	 *
+	 */
 	componentDidMount() {
 		this.rootComponent.setLoading(false);
 		this.lendyooRegistry.setAuthStatus(false);
@@ -23,12 +24,11 @@ class Logoutscreen extends ComponentAbstract {
 	 *
 	 * @returns {XML}
 	 */
-	render()
-	{
+	render() {
 		this.console.log('Logoutscreen.render()');
 		return (
-			<View style={styles.container}>
-				<Text style={styles.welcome}>
+			<View style={this.css.container}>
+				<Text style={this.css.welcome}>
 					Bye bye :)
 				</Text>
 			</View>

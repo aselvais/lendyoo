@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import LendyooRegistry from '../libs/LendyooRegistry';
+import Mainstyle from '../styles/Mainstyle';
 
 /**
  *
@@ -13,6 +14,7 @@ class ComponentAbstract extends Component
 	 */
 	constructor(props) {
 		super(props);
+		this.css = Mainstyle;
 		this.lendyooRegistry = new LendyooRegistry();
 		this.rootComponent = this.lendyooRegistry.rootComponent;
 		this.menuBarComponent = this.lendyooRegistry.menuBarComponent;

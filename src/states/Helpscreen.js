@@ -5,7 +5,6 @@ import {
 	Text,
 	View
 } from 'react-native';
-import styles from '../styles/Mainstyle';
 
 /**
  *
@@ -19,8 +18,8 @@ class Helpscreen extends ComponentAbstract {
 	{
 		this.console.log('Helpscreen.render()');
 		return (
-			<View style={styles.container}>
-				<Text style={styles.welcome}>
+			<View style={this.css.container}>
+				<Text style={this.css.welcome}>
 					Helpscreen
 				</Text>
 			</View>

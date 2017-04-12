@@ -2,7 +2,6 @@ import React from 'react';
 import ComponentAbstract from './ComponentAbstract';
 import {
 	AppRegistry,
-	StyleSheet,
 	View
 } from 'react-native';
 import {
@@ -53,11 +52,11 @@ class Loanhistoryscreen extends ComponentAbstract {
 		this.lendyooRegistry.loanCollection.setRemoteLoansFromUser(this.user._id).then(
 			function (d) {
 				_that.setState({loanCollectionModels: _that.lendyooRegistry.loanCollection.models});
-				_that.setState({ noitemtext: 'No loan yet ...'});
+				_that.setState({noitemtext: 'No loan yet ...'});
 				_that.rootComponent.setLoading(false);
 			},
 			function (d) {
-				_that.setState({ noitemtext: 'No loan yet ...'});
+				_that.setState({noitemtext: 'No loan yet ...'});
 				_that.rootComponent.setLoading(false);
 			}
 		);
@@ -114,14 +113,14 @@ class Loanhistoryscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Loanhistoryscreen.render()');
 		return (
-			<Content>
+			<Content padder={true}>
 				<View>
 					<View>
 						<Button primary full name="thumbs-o-up" onPress={ () => this.lendItem() }>
 							<Text>Lend an item</Text>
 						</Button>
 					</View>
-					<View style={localStyles.RegisterContainer}>
+					<View style={this.css.loanhistRegisterContainer}>
 						{
 							(!this.state.loanCollectionModels || this.state.loanCollectionModels.length <= 0) ?
 								(<View>
@@ -135,11 +134,14 @@ class Loanhistoryscreen extends ComponentAbstract {
 												<Left>
 													{
 														loan.photo ?
-															(<Thumbnail defaultSource={require('../assets/images/loading.png')}
-																		source={{uri: this.lendyooRegistry.config.API_URL + '/api-v2/photo/getloanimage/' + loan._id + '/80'}}/>)
+															(<Thumbnail
+																defaultSource={require('../assets/images/loading.png')}
+																source={{uri: this.lendyooRegistry.config.API_URL + '/api-v2/photo/getloanimage/' + loan._id + '/80'}}/>)
 															:
-															(<Thumbnail defaultSource={require('../assets/images/loading.png')} size={80}
-																	   source={require('../assets/images/no-image-half-landscape.png')}/>)
+															(<Thumbnail
+																defaultSource={require('../assets/images/loading.png')}
+																size={80}
+																source={require('../assets/images/no-image-half-landscape.png')}/>)
 													}
 												</Left>
 												<Body>
@@ -164,47 +166,6 @@ class Loanhistoryscreen extends ComponentAbstract {
 	}
 }
 
-const localStyles = StyleSheet.create({
-	globalContainer: {
-		flex: 1,
-		flexDirection: 'column'
-	},
-	welcomeContainer: {
-		flex: .1,
-		backgroundColor: '#FF9100'
-	},
-	RegisterContainer: {
-		flex: .7
-	},
-	data: {
-		textAlign: 'left',
-		padding: 10,
-		fontSize: 15,
-		color: '#666666'
-	},
-	welcomeText: {
-		textAlign: 'center',
-		paddingTop: 25,
-		fontSize: 20,
-		color: '#FFFFFF'
-	},
-	welcomeText2: {
-		textAlign: 'center',
-		paddingTop: 50,
-		fontSize: 20,
-		color: '#000'
-	},
-	socialViews: {
-		padding: 50
-	},
-	socialButton: {
-		margin: 5
-	},
-	element: {
-		borderBottomWidth: 1,
-		borderBottomColor: '#DDDDDD'
-	}
-});
 AppRegistry.registerComponent('Loanhistoryscreen', () => Loanhistoryscreen);
 
 export default Loanhistoryscreen;

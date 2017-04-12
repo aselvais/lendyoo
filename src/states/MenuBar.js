@@ -2,14 +2,11 @@ import React from 'react';
 import ComponentAbstract from './ComponentAbstract';
 import {
 	AppRegistry,
-	StyleSheet,
 	Text,
 	View,
 	ScrollView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Dimensions from 'Dimensions';
-const {width, height} = Dimensions.get('window');
 
 /**
  * Make loan screen (with pict)
@@ -40,9 +37,8 @@ class MenuBar extends ComponentAbstract {
 	 *
 	 * @param st
 	 */
-	setAuthState(st=false)
-	{
-		this.setState({isAuthenticated:st});
+	setAuthState(st = false) {
+		this.setState({isAuthenticated: st});
 	}
 
 	/**
@@ -63,48 +59,28 @@ class MenuBar extends ComponentAbstract {
 	render() {
 		var _that = this;
 		return (
-			<View style={ localStyles.containerStyle }>
+			<View style={ this.css.menubarcontainerStyle }>
 				<ScrollView>
-				{ this.props.parentComponent.menuItems.map((o, i) => {
-						var _show = true;
-						if (!_that.state.isAuthenticated)
-							_show = !o.showWhenAuth;
-						else
-							_show = o.showWhenAuth;
-						if (_show)
-							return <Text key={ i } onPress={ () => this.onPressTextbox(i) }
-							  style={ localStyles.globalText }><Icon name={ o.icon }
-								style={ localStyles.globalText }/> { o.label }</Text>;
-						else
-							return null;
-					}
-				) }
+					{ this.props.parentComponent.menuItems.map((o, i) => {
+							var _show = true;
+							if (!_that.state.isAuthenticated)
+								_show = !o.showWhenAuth;
+							else
+								_show = o.showWhenAuth;
+							if (_show)
+								return <Text key={ i } onPress={ () => this.onPressTextbox(i) }
+											 style={ this.css.menubarglobalText }><Icon name={ o.icon }
+																						style={ this.css.menubarglobalText }/> { o.label }
+								</Text>;
+							else
+								return null;
+						}
+					) }
 				</ScrollView>
 			</View>
 		);
 	}
-
 }
-
-/**
- * Local styles
- */
-const localStyles = StyleSheet.create({
-	containerStyle: {
-		flex: 1,
-		backgroundColor: '#FFFFFF'
-	},
-	touchHighligh: {
-		paddingTop: 22
-	},
-	globalText: {
-		color: '#000000',
-		paddingTop: 22,
-		fontSize: 22,
-		textAlign: 'left',
-		paddingLeft: 25
-	}
-});
 
 AppRegistry.registerComponent('MenuBar', () => MenuBar);
 

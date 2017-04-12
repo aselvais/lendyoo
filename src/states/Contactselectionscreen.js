@@ -2,7 +2,6 @@ import React from 'react';
 import ComponentAbstract from './ComponentAbstract';
 import {
 	AppRegistry,
-	StyleSheet,
 	View
 } from 'react-native';
 import {
@@ -15,7 +14,6 @@ import {
 	Button
 } from 'native-base';
 import ContactsWrapper from 'react-native-contacts-wrapper';
-
 import Contact from '../shared/models/frontend/Contact';
 
 /**
@@ -114,13 +112,13 @@ class Contactselectionscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Contactselectionscreen.render()');
 		return (
-			<Content>
+			<Content padder={true}>
 				<View>
 					<Button success onPress={ () => this.onPressAddressbook() } full>
 						<Text> Get contact from address book </Text>
 					</Button>
 				</View>
-				<View style={ localStyles.globalContainer }>
+				<View style={ this.css.contactsglobalContainer }>
 					{
 						this.state.contactCollectionModels.map((contact) =>
 							<ListItem key={contact._id} onPress={ () => this.onPressContact(contact) } avatar>
@@ -137,46 +135,6 @@ class Contactselectionscreen extends ComponentAbstract {
 		);
 	}
 }
-
-const localStyles = StyleSheet.create({
-	globalContainer: {
-		flex: 1,
-		flexDirection: 'column'
-	},
-	welcomeContainer: {
-		flex: .1,
-		backgroundColor: '#FF9100'
-	},
-	RegisterContainer: {
-		flex: .7
-	},
-	data: {
-		textAlign: 'left',
-		padding: 10,
-		fontSize: 15,
-		color: '#666666'
-	},
-	dataIcon: {
-		fontSize: 25
-	},
-	welcomeText: {
-		textAlign: 'center',
-		paddingTop: 25,
-		fontSize: 20,
-		color: '#FFFFFF'
-	},
-	socialViews: {
-		padding: 50
-	},
-	socialButton: {
-		margin: 5
-	},
-	element: {
-		borderBottomWidth: 1,
-		borderBottomColor: '#DDDDDD'
-	}
-});
-
 
 AppRegistry.registerComponent('Contactselectionscreen', () => Contactselectionscreen);
 

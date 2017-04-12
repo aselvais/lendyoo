@@ -2,7 +2,6 @@ import React from 'react';
 import ComponentAbstract from './ComponentAbstract';
 import {
 	AppRegistry,
-	StyleSheet,
 	Dimensions,
 	TouchableHighlight,
 	Text,
@@ -122,8 +121,7 @@ class Loandetailscreen extends ComponentAbstract {
 	/**
 	 * @todo put the models where they should be
 	 */
-	takePicture()
-	{
+	takePicture() {
 		this.lendyooRegistry.newloan = this.loan;
 		this.lendyooRegistry.contactCollection.setActiveModel(this.state.contact);
 		this.routes.gotTo("lend");
@@ -134,8 +132,7 @@ class Loandetailscreen extends ComponentAbstract {
 	 * @param key
 	 * @param val
 	 */
-	onFormElementChange(key, val)
-	{
+	onFormElementChange(key, val) {
 		var _o = {};
 		_o[key] = val;
 
@@ -152,11 +149,12 @@ class Loandetailscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Loandetailscreen.render()');
 		return (
-			<Content>
-				<View style={ localStyles.globalContainer }>
-					<View style={localStyles.RegisterContainer}>
+			<Content padder={true}>
+				<View style={ this.css.loandetglobalContainer }>
+					<View style={this.css.loandetRegisterContainer}>
 						<Form>
-							<Item><Label>Title</Label><Input value={this.state.title} onValueChange={(val) => this.onFormElementChange('title', val)}/></Item>
+							<Item><Label>Title</Label><Input value={this.state.title}
+															 onValueChange={(val) => this.onFormElementChange('title', val)}/></Item>
 							<Item><Label>Type</Label>
 								<Picker mode="dropdown"
 										selectedValue={this.state.status}
@@ -164,26 +162,32 @@ class Loandetailscreen extends ComponentAbstract {
 									{ this.loan._schema.status.enum.map((v) => <Item key={v} label={v} value={v}/>) }
 								</Picker>
 							</Item>
-							<Item><Label>Loan Date</Label><Input value={this.state.dateCreated} onValueChange={(val) => this.onFormElementChange('dateCreated', val)}/></Item>
-							<Item><Label>To</Label><Input value={((this.state.contact && this.state.contact.getFullName) ? this.state.contact.getFullName() : '' )}/></Item>
+							<Item><Label>Loan Date</Label><Input value={this.state.dateCreated}
+																 onValueChange={(val) => this.onFormElementChange('dateCreated', val)}/></Item>
+							<Item><Label>To</Label><Input
+								value={((this.state.contact && this.state.contact.getFullName) ? this.state.contact.getFullName() : '' )}/></Item>
 							{
 								this.loan.photo ? (
 									<Image
 										defaultSource={require('../assets/images/loading.png')}
 										style={{overflow: 'hidden', width: Dimensions.get('window').width, height: 400}}
 										source={{uri: this.lendyooRegistry.config.API_URL + '/api-v2/photo/getloanimage/' + this.loan._id + '/' + Dimensions.get('window').width}}></Image>)
-									: <TouchableHighlight onPress={ () => this.takePicture() }><Icon name="camera" style={ localStyles.photoText }/></TouchableHighlight>
+									: <TouchableHighlight onPress={ () => this.takePicture() }><Icon name="camera"
+																									 style={ this.css.loandetphotoText }/></TouchableHighlight>
 							}
-							<Item><Label>Detail</Label><Input value={this.state.detail} onValueChange={(val) => this.onFormElementChange('detail', val)}/></Item>
-							<Item><Label>Reminders frequency</Label><Input value={this.state.remindersFrequency} onValueChange={(val) => this.onFormElementChange('remindersFrequency', val)}/></Item>
-							<Item><Label>Expiration date</Label><Input value={this.state.dateExpiration} onValueChange={(val) => this.onFormElementChange('dateExpiration', val)}/></Item>
+							<Item><Label>Detail</Label><Input value={this.state.detail}
+															  onValueChange={(val) => this.onFormElementChange('detail', val)}/></Item>
+							<Item><Label>Reminders frequency</Label><Input value={this.state.remindersFrequency}
+																		   onValueChange={(val) => this.onFormElementChange('remindersFrequency', val)}/></Item>
+							<Item><Label>Expiration date</Label><Input value={this.state.dateExpiration}
+																	   onValueChange={(val) => this.onFormElementChange('dateExpiration', val)}/></Item>
 
 						</Form>
 
 
-						<View style={localStyles.socialViews}>
+						<View style={this.css.loandetsocialViews}>
 							<Button primary full ref="2" name="thumbs-o-up" onPress={ () => this.save() }>
-								<Text style={localStyles.buttonText}>Update loan</Text>
+								<Text style={this.css.loandetbuttonText}>Update loan</Text>
 							</Button>
 						</View>
 					</View>
@@ -192,55 +196,6 @@ class Loandetailscreen extends ComponentAbstract {
 		);
 	}
 }
-
-const localStyles = StyleSheet.create({
-	backgroundImage: {
-		flex: 1,
-		// remove width and height to override fixed static size
-		width: null,
-		height: null,
-	},
-	photoText: {
-		textAlign: 'center',
-		fontSize: 40,
-		color: '#555555',
-		padding: 40
-	},
-	globalContainer: {
-		flex: 1,
-		flexDirection: 'column'
-	},
-	welcomeContainer: {
-		flex: .1,
-		backgroundColor: '#FF9100'
-	},
-	RegisterContainer: {
-		flex: .7
-	},
-	data: {
-		textAlign: 'left',
-		padding: 10,
-		fontSize: 15,
-		color: '#666666'
-	},
-	welcomeText: {
-		textAlign: 'center',
-		paddingTop: 10,
-		fontSize: 20,
-		color: '#FFFFFF'
-	},
-	socialViews: {
-		paddingTop: 20
-	},
-	buttonText: {
-		textAlign: 'center',
-		fontSize: 20,
-		color: '#FFFFFF'
-	},
-	socialButton: {
-		margin: 5
-	}
-});
 
 AppRegistry.registerComponent('Loandetailscreen', () => Loandetailscreen);
 

@@ -3,8 +3,7 @@ import ComponentAbstract from './ComponentAbstract';
 import {
 	AppRegistry,
 	Text,
-	View,
-	StyleSheet
+	View
 } from 'react-native';
 import {
 	Content,
@@ -84,11 +83,10 @@ class Profilescreen extends ComponentAbstract {
 	render() {
 		this.console.log('Profilescreen.render()');
 		return (
-			<Content>
-				<View style={ localStyles.globalContainer }>
+			<Content padder={true}>
+				<View style={ this.css.profileglobalContainer }>
 
-
-					<View style={localStyles.RegisterContainer}>
+					<View style={this.css.profileRegisterContainer}>
 
 						<View>
 							<H2>Profile</H2>
@@ -112,7 +110,7 @@ class Profilescreen extends ComponentAbstract {
 							</Form>
 
 							<Button primary full name="pencil" onPress={ () => this.editUser() }>
-								<Text style={localStyles.buttonText}>Update user</Text>
+								<Text style={this.css.profilebuttonText}>Update user</Text>
 							</Button>
 						</View>
 
@@ -134,7 +132,7 @@ class Profilescreen extends ComponentAbstract {
 								</Item>
 							</Form>
 							<Button primary full name="pencil" onPress={ () => this.editGroup() }>
-								<Text style={localStyles.buttonText}>Update group</Text>
+								<Text style={this.css.profilebuttonText}>Update group</Text>
 							</Button>
 						</View>
 
@@ -146,51 +144,6 @@ class Profilescreen extends ComponentAbstract {
 		);
 	}
 }
-
-
-const localStyles = StyleSheet.create({
-	globalContainer: {
-		flex: 1,
-		flexDirection: 'column'
-	},
-	welcomeContainer: {
-		flex: .1,
-		backgroundColor: '#FF9100'
-	},
-	RegisterContainer: {
-		flex: .7
-	},
-	dataTitle: {
-		textAlign: 'left',
-		padding: 10,
-		fontSize: 18,
-		color: '#FFFFFF',
-		backgroundColor: '#000000'
-	},
-	data: {
-		textAlign: 'left',
-		padding: 10,
-		fontSize: 15,
-		color: '#666666'
-	},
-	welcomeText: {
-		textAlign: 'center',
-		paddingTop: 25,
-		fontSize: 20,
-		color: '#FFFFFF'
-	},
-	socialViews: {
-		padding: 50
-	},
-	buttonText: {
-		textAlign: 'center',
-		fontSize: 20,
-		color: '#FFFFFF'
-	},
-	socialButton: {
-		margin: 3
-	}
-});
 
 AppRegistry.registerComponent('Profilescreen', () => Settingsscreen);
 

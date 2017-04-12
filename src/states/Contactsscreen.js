@@ -5,9 +5,6 @@ import {
 	Text,
 	View
 } from 'react-native';
-import styles from '../styles/Mainstyle';
-
-
 
 /**
  * Connected contact view
@@ -33,8 +30,8 @@ class Contactsscreen extends ComponentAbstract {
 	{
 		this.console.log('Contactsscreen.render()');
 		return (
-			<View style={styles.container}>
-				<Text style={styles.welcome}>
+			<View style={this.css.container}>
+				<Text style={this.css.welcome}>
 					Contactsscreen {"\n"}
 					{ JSON.stringify( this.ContactCollection.models ) }
 				</Text>
