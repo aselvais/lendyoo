@@ -5,7 +5,9 @@ import {
 	Text,
 	View
 } from 'react-native';
-
+import {
+	Content
+} from 'native-base';
 /**
  *
  */
@@ -18,11 +20,13 @@ class Helpscreen extends ComponentAbstract {
 	{
 		this.console.log('Helpscreen.render()');
 		return (
+			<Content padder={true}>
 			<View style={this.css.container}>
 				<Text style={this.css.welcome}>
 					Helpscreen
 				</Text>
 			</View>
+			</Content>
 		);
 	}
 }

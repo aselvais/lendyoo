@@ -2,19 +2,28 @@ import React from 'react';
 import ComponentAbstract from './ComponentAbstract';
 import {
 	AppRegistry,
-	View
+	Image,
+	View,
+	Switch,
+	Dimensions
 } from 'react-native';
 import {
 	Content,
 	Button,
 	Left,
-	Body,
 	Right,
 	ListItem,
 	Thumbnail,
 	Text,
 	H2,
-	Badge
+	Badge,
+	Card,
+	CardItem,
+	Icon,
+	Body,
+	Header,
+	Tabs,
+	Tab
 } from 'native-base';
 
 /**
@@ -90,6 +99,72 @@ class Loanhistoryscreen extends ComponentAbstract {
 	}
 
 	/**
+	 *
+	 * @returns {XML}
+	 */
+	getLoanListView()
+	{
+		return <View style={this.css.loanhistRegisterContainer}>
+			{
+				(!this.state.loanCollectionModels || this.state.loanCollectionModels.length <= 0) ?
+					(<View>
+						<H2>{ this.state.noitemtext }</H2>
+					</View>)
+					:
+					(<View>
+						{
+							this.state.loanCollectionModels.map((loan) =>
+								<Card key={loan._id}>
+									<CardItem>
+										<Left>
+											<Body>
+												<Text>{ loan.title }</Text>
+												<Text note>lent to { this.getContactName(loan) }</Text>
+											</Body>
+										</Left>
+										<Right>
+											<Text note>{ this.getFormatedDate(loan.dateCreated) }</Text>
+										</Right>
+									</CardItem>
+									<CardItem>
+										<Body>
+										{
+											loan.photo ?
+												(<Image
+													defaultSource={require('../assets/images/loading.png')}
+													style={{resizeMode: 'cover', overflow: 'hidden', width: Dimensions.get('window').width-60, height: 200}}
+													source={{uri: this.lendyooRegistry.config.API_URL + '/api-v2/photo/getloanimage/' + loan._id + '/' + (Dimensions.get('window').width-60)}}></Image>
+												)
+												:
+												(<Image
+														defaultSource={require('../assets/images/loading.png')}
+														style={{resizeMode: 'cover'}}
+														source={require('../assets/images/no-image-half-landscape.png')}/>
+												)
+										}
+										</Body>
+									</CardItem>
+									<CardItem>
+										<Left>
+											<Text>{ loan.detail }</Text>
+											<Button transparent onPress={ () => this.onPressLoan(loan) }>
+												<Text>Detail</Text>
+											</Button>
+										</Left>
+										<Right>
+											<Switch value={false}/>
+										</Right>
+									</CardItem>
+
+								</Card>
+							)
+						}
+					</View>)
+			}
+		</View>
+	}
+
+	/**
 	 * @todo Put this thing somewhere else
 	 * @returns {*}
 	 */
@@ -113,48 +188,10 @@ class Loanhistoryscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Loanhistoryscreen.render()');
 		return (
-				<View>
-					<View style={this.css.loanhistRegisterContainer}>
-						{
-							(!this.state.loanCollectionModels || this.state.loanCollectionModels.length <= 0) ?
-								(<View>
-									<H2>{ this.state.noitemtext }</H2>
-								</View>)
-								:
-								(<View>
-									{
-										this.state.loanCollectionModels.map((loan) =>
-											<ListItem key={loan._id} onPress={ () => this.onPressLoan(loan) } avatar>
-												<Left>
-													{
-														loan.photo ?
-															(<Thumbnail
-																defaultSource={require('../assets/images/loading.png')}
-																source={{uri: this.lendyooRegistry.config.API_URL + '/api-v2/photo/getloanimage/' + loan._id + '/80'}}/>)
-															:
-															(<Thumbnail
-																defaultSource={require('../assets/images/loading.png')}
-																size={80}
-																source={require('../assets/images/no-image-half-landscape.png')}/>)
-													}
-												</Left>
-												<Body>
-												<Text>{ loan.title }</Text>
-												<Text note>{ this.getContactName(loan) }</Text>
-												</Body>
-												<Right>
-													<Badge danger>
-														<Text>{ loan.status }</Text>
-													</Badge>
-													<Text note>{ this.getFormatedDate(loan.dateCreated) }</Text>
-												</Right>
-											</ListItem>
-										)
-									}
-								</View>)
-						}
-					</View>
-				</View>
+				<Tabs>
+					<Tab heading="Lent"><Content padder={true}>{ this.getLoanListView() }</Content></Tab>
+					<Tab heading="Returned"><Content padder={true}><Text>Nothing here so far ...</Text></Content></Tab>
+				</Tabs>
 		);
 	}
 }

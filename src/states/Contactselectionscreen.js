@@ -110,6 +110,7 @@ class Contactselectionscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Contactselectionscreen.render()');
 		return (
+			<Content padder={true}>
 			<View>
 				<View>
 					<Button success onPress={ () => this.onPressAddressbook() } full>
@@ -132,6 +133,7 @@ class Contactselectionscreen extends ComponentAbstract {
 					}
 				</View>
 			</View>
+			</Content>
 		);
 	}
 }

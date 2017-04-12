@@ -6,7 +6,7 @@ import {
 	View,
 	Alert
 } from 'react-native';
-import {Button, Icon, Form, Item, Input, Label, H1, H2, H3} from 'native-base';
+import {Content, Button, Icon, Form, Item, Input, Label, H1, H2, H3} from 'native-base';
 
 /**
  * Authentication
@@ -110,6 +110,7 @@ class Authenticationscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Authenticationscreen.render()');
 		return (
+			<Content padder={true}>
 			<View style={ this.css.homeglobalContainer }>
 					<View>
 						<H1>
@@ -181,6 +182,7 @@ class Authenticationscreen extends ComponentAbstract {
 						</View>
 					</View>
 			</View>
+			</Content>
 		);
 	}
 }

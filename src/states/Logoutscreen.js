@@ -5,7 +5,9 @@ import {
 	Text,
 	View
 } from 'react-native';
-
+import {
+	Content
+} from 'native-base';
 /**
  *
  */
@@ -27,11 +29,13 @@ class Logoutscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Logoutscreen.render()');
 		return (
+			<Content padder={true}>
 			<View style={this.css.container}>
 				<Text style={this.css.welcome}>
 					Bye bye :)
 				</Text>
 			</View>
+			</Content>
 		);
 	}
 }

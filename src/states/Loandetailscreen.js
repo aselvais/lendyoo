@@ -9,6 +9,7 @@ import {
 	Image
 } from 'react-native';
 import {
+	Content,
 	Picker,
 	Button,
 	CheckBox,
@@ -148,6 +149,7 @@ class Loandetailscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Loandetailscreen.render()');
 		return (
+			<Content padder={true}>
 				<View style={ this.css.loandetglobalContainer }>
 					<View style={this.css.loandetRegisterContainer}>
 						<Form>
@@ -190,6 +192,7 @@ class Loandetailscreen extends ComponentAbstract {
 						</View>
 					</View>
 				</View>
+			</Content>
 		);
 	}
 }

@@ -8,6 +8,9 @@ import {
 	ScrollView,
 	Alert
 } from 'react-native';
+import {
+	Content
+} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 /**
@@ -111,6 +114,8 @@ class Registrationscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Registrationscreen.render()');
 		return (
+			<Content padder={true}>
+
 			<View style={ this.css.regglobalContainer }>
 
 				<View style={this.css.regwelcomeContainer}>
@@ -203,6 +208,7 @@ class Registrationscreen extends ComponentAbstract {
 				</ScrollView>
 
 			</View>
+			</Content>
 		);
 	}
 }
