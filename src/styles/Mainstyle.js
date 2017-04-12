@@ -3,21 +3,37 @@ import {
 	StyleSheet
 } from 'react-native';
 import Dimensions from 'Dimensions';
-var {width, height} = Dimensions.get('window');
 
-/**
- * Main Styles
- */
-export default StyleSheet.create({
+var {width, height} = Dimensions.get('window');
+var photodimension = Dimensions.get('window').height - 350;
+
+var color = {
+	lightGrey: '#F5FCFF',
+	white: '#F5FCFF',
+	black: '#000000',
+	grey: '#555555',
+	orange: '#FF9100',
+
+	c1: '#16A494',
+	c2: '#107267',
+	c2: '#6EE7D8',
+	c2: '#A5DAD3'
+
+};
+
+var css = {
 	contactsglobalContainer: {
 		flex: 1,
 		flexDirection: 'column'
+	},
+	tabText: {
+		fontSize: 10
 	},
 	container: {
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#F5FCFF',
+		backgroundColor: color.lightGrey,
 	},
 	welcome: {
 		fontSize: 20,
@@ -31,10 +47,6 @@ export default StyleSheet.create({
 		flex: 1,
 		flexDirection: 'column'
 	},
-	homewelcomeContainer: {
-		flex: .1,
-		backgroundColor: '#FF9100'
-	},
 	homeRegisterContainer: {
 		flex: .7
 	},
@@ -42,22 +54,10 @@ export default StyleSheet.create({
 		textAlign: 'center',
 		padding: 20
 	},
-	homedata: {
-		textAlign: 'left',
-		padding: 10,
-		fontSize: 15,
-		color: '#666666'
-	},
-	homewelcomeText: {
-		textAlign: 'center',
-		paddingTop: 25,
-		fontSize: 20,
-		color: '#FFFFFF'
-	},
 	homebuttonText: {
 		textAlign: 'center',
 		fontSize: 20,
-		color: '#FFFFFF'
+		color: color.white
 	},
 	homesocialViewsCntr: {
 		flex: 1,
@@ -66,52 +66,18 @@ export default StyleSheet.create({
 	homesocialViews: {
 		paddingTop: 20
 	},
-	homesocialButton: {
-		margin: 5,
-		marginLeft: 15
-	},
-	homeformTextField: {
-		fontSize: 16,
-		padding: 7,
-		height: 35,
-		borderColor: '#E0E0E0',
-		borderWidth: 1,
-		color: '#757575'
-	},
-	loandetbackgroundImage: {
-		flex: 1,
-		// remove width and height to override fixed static size
-		width: null,
-		height: null,
-	},
 	loandetphotoText: {
 		textAlign: 'center',
 		fontSize: 40,
-		color: '#555555',
+		color: color.grey,
 		padding: 40
 	},
 	loandetglobalContainer: {
 		flex: 1,
 		flexDirection: 'column'
 	},
-	loandetwelcomeContainer: {
-		flex: .1,
-		backgroundColor: '#FF9100'
-	},
 	loandetRegisterContainer: {
 		flex: .7
-	},
-	loandetdata: {
-		textAlign: 'left',
-		padding: 10,
-		fontSize: 15,
-		color: '#666666'
-	},
-	loandetwelcomeText: {
-		textAlign: 'center',
-		paddingTop: 10,
-		fontSize: 20,
-		color: '#FFFFFF'
 	},
 	loandetsocialViews: {
 		paddingTop: 20
@@ -119,49 +85,10 @@ export default StyleSheet.create({
 	loandetbuttonText: {
 		textAlign: 'center',
 		fontSize: 20,
-		color: '#FFFFFF'
-	},
-	loandetsocialButton: {
-		margin: 5
-	},
-	loanhistglobalContainer: {
-		flex: 1,
-		flexDirection: 'column'
-	},
-	loanhistwelcomeContainer: {
-		flex: .1,
-		backgroundColor: '#FF9100'
+		color: color.white
 	},
 	loanhistRegisterContainer: {
 		flex: .7
-	},
-	loanhistdata: {
-		textAlign: 'left',
-		padding: 10,
-		fontSize: 15,
-		color: '#666666'
-	},
-	loanhistwelcomeText: {
-		textAlign: 'center',
-		paddingTop: 25,
-		fontSize: 20,
-		color: '#FFFFFF'
-	},
-	loanhistwelcomeText2: {
-		textAlign: 'center',
-		paddingTop: 50,
-		fontSize: 20,
-		color: '#000'
-	},
-	loanhistsocialViews: {
-		padding: 50
-	},
-	loanhistsocialButton: {
-		margin: 5
-	},
-	loanhistelement: {
-		borderBottomWidth: 1,
-		borderBottomColor: '#DDDDDD'
 	},
 	maintopBarIcon: {
 		paddingTop: 5,
@@ -172,14 +99,7 @@ export default StyleSheet.create({
 		paddingTop: 10,
 		textAlign: 'center'
 	},
-	maintopBarContainer: {
-		height: 45,
-		backgroundColor: '#000000',
-		alignItems: 'center',
-		flexDirection: 'row'
-	},
 	mainoverlay: {
-		alignItems: 'center',
 		flex: 1,
 		flexDirection: 'row',
 		alignItems: 'center',
@@ -207,28 +127,27 @@ export default StyleSheet.create({
 	makeloanbuttonText: {
 		textAlign: 'center',
 		fontSize: 20,
-		color: '#FFFFFF'
+		color: color.white
 	},
 	makeloantoFromBar: {
-		flex: .1,
-//		backgroundColor: '#FF9100'
+		flex: .1
 	},
 	makeloanfromToText: {
 		paddingTop: 20,
 		fontSize: 20,
-		color: '#000000'
+		color: color.black
 	},
 	makeloanarrow: {
 		fontSize: 40,
-		color: '#000000'
+		color: color.black
 	},
 	makeloanphotoText: {
 		textAlign: 'center',
 		fontSize: 40,
-		color: '#FFFFFF'
+		color: color.white
 	},
 	makeloanimageSpace: {
-		height: Dimensions.get('window').height - 350,
+		height: photodimension,
 		alignItems: 'center',
 		justifyContent: 'center',
 		overflow: 'hidden'
@@ -238,13 +157,10 @@ export default StyleSheet.create({
 	},
 	menubarcontainerStyle: {
 		flex: 1,
-		backgroundColor: '#FFFFFF'
-	},
-	menubartouchHighligh: {
-		paddingTop: 22
+		backgroundColor: color.white
 	},
 	menubarglobalText: {
-		color: '#000000',
+		color: color.black,
 		paddingTop: 22,
 		fontSize: 22,
 		textAlign: 'left',
@@ -254,42 +170,13 @@ export default StyleSheet.create({
 		flex: 1,
 		flexDirection: 'column'
 	},
-	profilewelcomeContainer: {
-		flex: .1,
-		backgroundColor: '#FF9100'
-	},
 	profileRegisterContainer: {
 		flex: .7
-	},
-	profiledataTitle: {
-		textAlign: 'left',
-		padding: 10,
-		fontSize: 18,
-		color: '#FFFFFF',
-		backgroundColor: '#000000'
-	},
-	profiledata: {
-		textAlign: 'left',
-		padding: 10,
-		fontSize: 15,
-		color: '#666666'
-	},
-	profilewelcomeText: {
-		textAlign: 'center',
-		paddingTop: 25,
-		fontSize: 20,
-		color: '#FFFFFF'
-	},
-	profilesocialViews: {
-		padding: 50
 	},
 	profilebuttonText: {
 		textAlign: 'center',
 		fontSize: 20,
-		color: '#FFFFFF'
-	},
-	profilesocialButton: {
-		margin: 3
+		color: color.white
 	},
 	regglobalContainer: {
 		flex: 1,
@@ -297,7 +184,7 @@ export default StyleSheet.create({
 	},
 	regwelcomeContainer: {
 		flex: .1,
-		backgroundColor: '#FF9100'
+		backgroundColor: color.orange
 	},
 	regsocialViews: {
 		padding: 5
@@ -309,7 +196,7 @@ export default StyleSheet.create({
 		textAlign: 'center',
 		paddingTop: 25,
 		fontSize: 20,
-		color: '#FFFFFF'
+		color: color.white
 	},
 	regRegisterContainer: {
 		flex: .7
@@ -318,15 +205,19 @@ export default StyleSheet.create({
 		textAlign: 'center',
 		paddingTop: 25,
 		fontSize: 20,
-		color: '#BDBDBD'
+		color: color.lightGrey
 	},
 	regformTextField: {
 		fontSize: 16,
 		padding: 7,
 		height: 35,
-		borderColor: '#E0E0E0',
+		borderColor: color.lightGrey,
 		borderWidth: 1,
-		color: '#757575'
+		color: color.grey
 	}
+};
 
-});
+/**
+ * Main Styles
+ */
+export default StyleSheet.create(css);

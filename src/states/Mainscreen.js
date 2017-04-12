@@ -5,24 +5,26 @@ import {
 	View
 } from 'react-native';
 import {
+	StyleProvider,
 	Spinner,
 	Container,
 	Header,
 	Title,
 	Button,
-	Left,
-	Right,
 	Body,
 	Icon,
 	Drawer,
 	Footer,
-	FooterTab
+	FooterTab,
+	Content
 } from 'native-base';
-
+import getTheme from '../native-base-theme/components';
 import LendyooRegistry from '../libs/LendyooRegistry';
 import MenuBar from './MenuBar';
-import IconAwesome from 'react-native-vector-icons/FontAwesome';
 import Mainstyle from '../styles/Mainstyle';
+// @todo Get rid of this module, uninstall it and unlink it
+import IconAwesome from 'react-native-vector-icons/FontAwesome';
+
 /**
  * Welcome/help screen
  */
@@ -43,10 +45,10 @@ class Mainscreen extends Component {
 		this.routes.setGlobalContainer(this);
 		this.iOS = this.lendyooRegistry.isIOS();
 		this.state = {
-			isAuth: false,
+			isAuth: this.lendyooRegistry.isAuthenticated,
 			selectedView: this.routes._currentView,
 			loading: false,
-			routeName: null
+			routeName: 'lend'
 		};
 		this.menuItems = this.routes.getRoutes();
 	}
@@ -120,6 +122,11 @@ class Mainscreen extends Component {
 		this.setState({isAuth: v});
 	}
 
+	onPressTabElement(routeName) {
+		this.setState({routeName: routeName});
+		this.routes.gotTo(routeName);
+	}
+
 	/**
 	 *
 	 * @returns {XML}
@@ -130,59 +137,56 @@ class Mainscreen extends Component {
 			spinner = <View style={ this.css.mainoverlay }><View style={ this.css.mainspinner }><Spinner color='black'/></View></View>;
 
 		return (
-			<Container>
-				<Header>
-					<Left>
-
-						<Button transparent onPress={() => this.toggleMenu()}>
-							<Icon name='menu'/>
-						</Button>
-
-					</Left>
-					<Body>
-					<Title><IconAwesome name={ this.state.selectedView.icon }
-										style={ this.css.maintopBarIcon }/> { this.state.selectedView.label }</Title>
-					</Body>
-					<Right>
+			<StyleProvider style={getTheme()}>
+				<Container>
+					<Header>
+						<Body>
+						<Title><IconAwesome name={ this.state.selectedView.icon }
+											style={ this.css.maintopBarIcon }/> { this.state.selectedView.label }
+						</Title>
 						{ (!this.iOS && this.state.loading) ? (<Spinner color='white'/>) : null }
-					</Right>
-				</Header>
-				<Drawer ref={(ref) => {
-					this._drawer = ref;
-				}} content={<MenuBar menuItems={this.menuItems} parentComponent={this}></MenuBar>}
-						onClose={() => this.hideMenu()}>
-					{ spinner }
-					{ this.state.selectedView.component }
-				</Drawer>
-				{
-					this.state.isAuth ? <Footer>
-						<FooterTab>
-							<Button onPress={ () => this.routes.gotTo('history') }>
-								<Icon name="list"/>
-								<Text>Loans</Text>
-							</Button>
 
-							<Button onPress={ () => this.routes.gotTo('lend') }>
-								<Icon name="camera"/>
-								<Text>Lend</Text>
-							</Button>
-							<Button onPress={ () => this.routes.gotTo('profile') }>
-								<Icon name="person"/>
-								<Text>Account</Text>
-							</Button>
-							<Button onPress={ () => this.routes.gotTo('settings') }>
-								<Icon name="settings"/>
-								<Text>Settings</Text>
-							</Button>
-						</FooterTab>
-					</Footer>
-						:
-						null
-				}
-
-
-			</Container>
-
+						</Body>
+					</Header>
+					<Drawer ref={(ref) => {
+						this._drawer = ref;
+					}} content={<MenuBar menuItems={this.menuItems} parentComponent={this}></MenuBar>}
+							onClose={() => this.hideMenu()}>
+						{ spinner }
+						<Content padder={true}>
+							{ this.state.selectedView.component }
+						</Content>
+					</Drawer>
+					{
+						this.state.isAuth ? <Footer>
+							<FooterTab>
+								<Button active={(this.state.routeName == 'history')}
+										onPress={ () => this.onPressTabElement('history') }>
+									<Icon name="list"/>
+									<Text style={ this.css.tabText }>Loans</Text>
+								</Button>
+								<Button active={(this.state.routeName == 'lend')}
+										onPress={ () => this.onPressTabElement('lend') }>
+									<Icon name="camera"/>
+									<Text style={ this.css.tabText }>Lend</Text>
+								</Button>
+								<Button active={(this.state.routeName == 'profile')}
+										onPress={ () => this.onPressTabElement('profile') }>
+									<Icon name="person"/>
+									<Text style={ this.css.tabText }>Account</Text>
+								</Button>
+								<Button active={(this.state.routeName == 'settings')}
+										onPress={ () => this.onPressTabElement('settings') }>
+									<Icon name="settings"/>
+									<Text style={ this.css.tabText }>Settings</Text>
+								</Button>
+							</FooterTab>
+						</Footer>
+							:
+							null
+					}
+				</Container>
+			</StyleProvider>
 		);
 	}
 

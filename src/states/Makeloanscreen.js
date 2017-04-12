@@ -232,8 +232,6 @@ class Makeloanscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Makeloanscreen.render()');
 		return (
-			<Content padder={true}>
-
 				<View style={ this.css.makeloanglobalContainer }>
 					<View style={this.css.makeloantoFromBar}>
 						<View style={{flex: 1, flexDirection: 'row'}}>
@@ -303,8 +301,6 @@ class Makeloanscreen extends ComponentAbstract {
 						}
 					</View>
 				</View>
-
-			</Content>
 		);
 	}
 }

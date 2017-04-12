@@ -6,7 +6,7 @@ import {
 	View,
 	Alert
 } from 'react-native';
-import {Content, Button, Icon, Form, Item, Input, Label, H1, H2, H3} from 'native-base';
+import {Button, Icon, Form, Item, Input, Label, H1, H2, H3} from 'native-base';
 
 /**
  * Authentication
@@ -22,7 +22,6 @@ class Authenticationscreen extends ComponentAbstract {
 		this.state = {
 			email: 'arnaud@antidot.ca',
 			password: 'test'
-
 			//email: '',
 			//password: ''
 		};
@@ -112,8 +111,6 @@ class Authenticationscreen extends ComponentAbstract {
 		this.console.log('Authenticationscreen.render()');
 		return (
 			<View style={ this.css.homeglobalContainer }>
-				<Content padder={true}>
-
 					<View>
 						<H1>
 							Welcome to Lendyoo v{ this.lendyooRegistry.appVersion } !
@@ -183,7 +180,6 @@ class Authenticationscreen extends ComponentAbstract {
 							</Button>
 						</View>
 					</View>
-				</Content>
 			</View>
 		);
 	}

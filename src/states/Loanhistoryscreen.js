@@ -113,13 +113,7 @@ class Loanhistoryscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Loanhistoryscreen.render()');
 		return (
-			<Content padder={true}>
 				<View>
-					<View>
-						<Button primary full name="thumbs-o-up" onPress={ () => this.lendItem() }>
-							<Text>Lend an item</Text>
-						</Button>
-					</View>
 					<View style={this.css.loanhistRegisterContainer}>
 						{
 							(!this.state.loanCollectionModels || this.state.loanCollectionModels.length <= 0) ?
@@ -161,7 +155,6 @@ class Loanhistoryscreen extends ComponentAbstract {
 						}
 					</View>
 				</View>
-			</Content>
 		);
 	}
 }

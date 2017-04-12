@@ -6,7 +6,6 @@ import {
 	View
 } from 'react-native';
 import {
-	Content,
 	Picker,
 	Button,
 	CheckBox,
@@ -83,7 +82,6 @@ class Profilescreen extends ComponentAbstract {
 	render() {
 		this.console.log('Profilescreen.render()');
 		return (
-			<Content padder={true}>
 				<View style={ this.css.profileglobalContainer }>
 
 					<View style={this.css.profileRegisterContainer}>
@@ -140,7 +138,6 @@ class Profilescreen extends ComponentAbstract {
 					</View>
 
 				</View>
-			</Content>
 		);
 	}
 }

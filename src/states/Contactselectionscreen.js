@@ -68,16 +68,14 @@ class Contactselectionscreen extends ComponentAbstract {
 	/**
 	 *
 	 */
-	onPressAddressbook()
-	{
+	onPressAddressbook() {
 		var _that = this;
 		ContactsWrapper.getContact()
 			.then((contact) => {
 				_that.rootComponent.setLoading(true);
 
 				var _fc = _that.lendyooRegistry.contactCollection.getModelByName(contact.name);
-				if (!_fc)
-				{
+				if (!_fc) {
 					var _c = new Contact();
 					_c.Group_id = this.user.Group_id;
 					_c.User_id = this.user._id;
@@ -85,7 +83,7 @@ class Contactselectionscreen extends ComponentAbstract {
 					_c.email = contact.email;
 					_c.phone = contact.phone;
 					_c.save().then(
-						function(c) {
+						function (c) {
 							_that.lendyooRegistry.contactCollection.addModel(_c);
 							_that.lendyooRegistry.contactCollection.setActiveModel(_c);
 							_that.setState({contactCollectionModels: _that.lendyooRegistry.contactCollection.models});
@@ -112,7 +110,7 @@ class Contactselectionscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Contactselectionscreen.render()');
 		return (
-			<Content padder={true}>
+			<View>
 				<View>
 					<Button success onPress={ () => this.onPressAddressbook() } full>
 						<Text> Get contact from address book </Text>
@@ -122,7 +120,9 @@ class Contactselectionscreen extends ComponentAbstract {
 					{
 						this.state.contactCollectionModels.map((contact) =>
 							<ListItem key={contact._id} onPress={ () => this.onPressContact(contact) } avatar>
-								{ (false) ? (<Left><Thumbnail source={require('../assets/images/bigstock-attractive-young-business-man-43103578.jpg')} small/></Left>) : null }
+								{ (false) ? (<Left><Thumbnail
+									source={require('../assets/images/bigstock-attractive-young-business-man-43103578.jpg')}
+									small/></Left>) : null }
 								<Body>
 								<Text>{ contact.getFullName() }</Text>
 								<Text note>{ contact.email }</Text>
@@ -131,7 +131,7 @@ class Contactselectionscreen extends ComponentAbstract {
 						)
 					}
 				</View>
-			</Content>
+			</View>
 		);
 	}
 }
