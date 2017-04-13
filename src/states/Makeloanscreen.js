@@ -40,8 +40,18 @@ class Makeloanscreen extends ComponentAbstract {
 			loan: this.newloan,
 			photo: this.newphoto.data ? this.newphoto.data : false,
 			title: this.newloan.title ? this.newloan.title : '',
-			saving: false
+			saving: false,
+			isMounted: false
 		};
+	}
+
+	/**
+	 *
+	 */
+	componentDidMount()
+	{
+		this.rootComponent.setLoading(false);
+		this.setState({ isMounted: true });
 	}
 
 	/**
@@ -226,6 +236,31 @@ class Makeloanscreen extends ComponentAbstract {
 	}
 
 	/**
+	 * Returns the camera widget or the picture taken...
+	 * Or null if the component has not been mounted (to try to speedup Android init)
+	 * @returns {*}
+	 */
+	getCameraWidget()
+	{
+		if (this.state.photo !== false) {
+			return (<Image source={{uri: 'data:image/png;base64,' + this.state.photo}} style={this.css.makeloanimageSpace}></Image>)
+		}
+		else if (this.state.isMounted)
+		{
+			return (<Camera
+				ref={(cam) => { this.camera = cam; }}
+				captureTarget={Camera.constants.CaptureTarget.disk}
+				captureQuality={Camera.constants.CaptureQuality["720p"]}
+				style={this.css.makeloanimageSpace}
+				aspect={Camera.constants.Aspect.fill}>
+				<Icon name="camera" style={{color: '#FFF', fontSize: 55}} onPress={ () => this.takePicture() }/>
+			</Camera>)
+		} else {
+			return null;
+		}
+	}
+
+	/**
 	 *
 	 * @returns {XML}
 	 */
@@ -249,20 +284,8 @@ class Makeloanscreen extends ComponentAbstract {
 						</View>
 					</View>
 
-					<View >
-						{
-							(this.state.photo !== false) ?
-								(<Image source={{uri: 'data:image/png;base64,' + this.state.photo}} style={this.css.makeloanimageSpace}></Image>)
-								:
-								(<Camera
-									ref={(cam) => { this.camera = cam; }}
-									captureTarget={Camera.constants.CaptureTarget.disk}
-									captureQuality={Camera.constants.CaptureQuality["720p"]}
-									style={this.css.makeloanimageSpace}
-									aspect={Camera.constants.Aspect.fill}>
-									<Icon name="camera" style={{color: '#FFF', fontSize: 55}} onPress={ () => this.takePicture() }/>
-								</Camera>)
-						}
+					<View>
+						{ this.getCameraWidget() }
 					</View>
 					<View style={this.css.makeloanadddetailSpace}>
 						<Form>
