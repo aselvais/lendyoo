@@ -1,12 +1,12 @@
 {
   "defaults": {
-	"API_URL": "http://174.143.203.77:3010",
+	"API_URL": "https://lendyoo.antidot.ca",
 	"APP_VERSION": "0.9.9"
   },
   "development": {
-	"API_URL": "http://localhost:3010"
+	"API_URL": "https://localhost"
   },
   "production": {
-	"API_URL": "http://174.143.203.77:3010"
+	"API_URL": "https://lendyoo.antidot.ca"
   }
 }
