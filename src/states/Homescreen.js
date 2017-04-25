@@ -15,7 +15,6 @@ import {
 	Input,
 	Label,
 	H1,
-	H2,
 	H3
 } from 'native-base';
 
@@ -93,7 +92,9 @@ class Authenticationscreen extends ComponentAbstract {
 	 *
 	 */
 	facebookLogin() {
+		var _that = this;
 		this.console.log('Registrationscreen.facebookLogin()');
+
 	}
 
 	/**
@@ -119,6 +120,14 @@ class Authenticationscreen extends ComponentAbstract {
 	 * @returns {XML}
 	 */
 	render() {
+		/**
+		 <View style={this.css.homesocialViews}>
+		 <Icon name="logo-twitter" onPress={ () => this.twitterLogin() }/>
+		 </View>
+		 <View style={this.css.homesocialViews}>
+		 <Icon name="logo-googleplus" onPress={ () => this.googleLogin() }/>
+		 </View>
+		 */
 		this.console.log('Authenticationscreen.render()');
 		return (
 			<Content padder={true}>
@@ -130,18 +139,14 @@ class Authenticationscreen extends ComponentAbstract {
 						<Text style={this.css.homeh3s}>Environemnt: { this.lendyooRegistry.config._env}</Text>
 					</View>
 					<View style={this.css.homeRegisterContainer}>
-						<H3>
-							Authenticate using social medias
-						</H3>
 						<View style={this.css.homesocialViewsCntr}>
 							<View style={this.css.homesocialViews}>
-								<Icon name="logo-facebook" onPress={ () => this.facebookLogin() }/>
-							</View>
-							<View style={this.css.homesocialViews}>
-								<Icon name="logo-twitter" onPress={ () => this.twitterLogin() }/>
-							</View>
-							<View style={this.css.homesocialViews}>
-								<Icon name="logo-googleplus" onPress={ () => this.googleLogin() }/>
+								<Button iconLeft onPress={ () => this.facebookLogin() } style={{ backgroundColor: '#3b5998'}}>
+								<Icon name="logo-facebook"/>
+									<Text style={{color: '#FFF'}}>Sign in with Facebook</Text>
+								</Button>
+
+
 							</View>
 						</View>
 						<View style={this.css.homesocialViews}>
