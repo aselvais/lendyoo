@@ -1,20 +1,20 @@
 import React from 'react';
 
-import Makeloanscreen from '../states/Makeloanscreen';
-import Homescreen from '../states/Homescreen';
-import Profilescreen from '../states/Profilescreen';
-import Settingsscreen from '../states/Settingsscreen';
-import Contactselectionscreen from '../states/Contactselectionscreen';
-import Loandetailscreen from '../states/Loandetailscreen';
-import Loanhistoryscreen from '../states/Loanhistoryscreen';
-import Registrationscreen from '../states/Registrationscreen';
-import Helpscreen from '../states/Helpscreen';
-import Logoutscreen from '../states/Logoutscreen';
+import Makeloanscreen from '../views/Makeloanscreen';
+import Homescreen from '../views/Homescreen';
+import Profilescreen from '../views/Profilescreen';
+import Settingsscreen from '../views/Settingsscreen';
+import Contactselectionscreen from '../views/Contactselectionscreen';
+import Loandetailscreen from '../views/Loandetailscreen';
+import Loanhistoryscreen from '../views/Loanhistoryscreen';
+import Registrationscreen from '../views/Registrationscreen';
+import Helpscreen from '../views/Helpscreen';
+import Logoutscreen from '../views/Logoutscreen';
 
 let instance = null;
 
 /**
- * Singleton containing all the possible states/views of the app.
+ * Singleton containing all the possible views/views of the app.
  *
  */
 class Routes

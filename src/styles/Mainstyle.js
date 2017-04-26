@@ -7,21 +7,19 @@ import Dimensions from 'Dimensions';
 var {width, height} = Dimensions.get('window');
 var photodimension = Dimensions.get('window').height - 350;
 
-var color = {
+var css = {
 	lightGrey: '#F5FCFF',
 	white: '#F5FCFF',
 	black: '#000000',
 	grey: '#555555',
 	orange: '#FF9100',
-
 	c1: '#16A494',
 	c2: '#107267',
 	c2: '#6EE7D8',
 	c2: '#A5DAD3'
-
 };
 
-var css = {
+var cssall = {
 	contactsglobalContainer: {
 		flex: 1,
 		flexDirection: 'column'
@@ -33,7 +31,7 @@ var css = {
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: color.lightGrey,
+		backgroundColor: css.lightGrey,
 	},
 	welcome: {
 		fontSize: 20,
@@ -57,7 +55,7 @@ var css = {
 	homebuttonText: {
 		textAlign: 'center',
 		fontSize: 20,
-		color: color.white
+		color: css.white
 	},
 	homesocialViewsCntr: {
 		flex: 1,
@@ -69,7 +67,7 @@ var css = {
 	loandetphotoText: {
 		textAlign: 'center',
 		fontSize: 40,
-		color: color.grey,
+		color: css.grey,
 		padding: 40
 	},
 	loandetglobalContainer: {
@@ -85,7 +83,7 @@ var css = {
 	loandetbuttonText: {
 		textAlign: 'center',
 		fontSize: 20,
-		color: color.white
+		color: css.white
 	},
 	loanhistRegisterContainer: {
 		flex: .7
@@ -127,7 +125,7 @@ var css = {
 	makeloanbuttonText: {
 		textAlign: 'center',
 		fontSize: 20,
-		color: color.white
+		color: css.white
 	},
 	makeloantoFromBar: {
 		flex: .1
@@ -135,16 +133,16 @@ var css = {
 	makeloanfromToText: {
 		paddingTop: 20,
 		fontSize: 20,
-		color: color.black
+		color: css.black
 	},
 	makeloanarrow: {
 		fontSize: 40,
-		color: color.black
+		color: css.black
 	},
 	makeloanphotoText: {
 		textAlign: 'center',
 		fontSize: 40,
-		color: color.white
+		color: css.white
 	},
 	makeloanimageSpace: {
 		height: photodimension,
@@ -157,10 +155,10 @@ var css = {
 	},
 	menubarcontainerStyle: {
 		flex: 1,
-		backgroundColor: color.white
+		backgroundColor: css.white
 	},
 	menubarglobalText: {
-		color: color.black,
+		color: css.black,
 		paddingTop: 22,
 		fontSize: 22,
 		textAlign: 'left',
@@ -176,7 +174,7 @@ var css = {
 	profilebuttonText: {
 		textAlign: 'center',
 		fontSize: 20,
-		color: color.white
+		color: css.white
 	},
 	regglobalContainer: {
 		flex: 1,
@@ -184,7 +182,7 @@ var css = {
 	},
 	regwelcomeContainer: {
 		flex: .1,
-		backgroundColor: color.orange
+		backgroundColor: css.orange
 	},
 	regsocialViews: {
 		padding: 5
@@ -196,7 +194,7 @@ var css = {
 		textAlign: 'center',
 		paddingTop: 25,
 		fontSize: 20,
-		color: color.white
+		color: css.white
 	},
 	regRegisterContainer: {
 		flex: .7
@@ -205,19 +203,19 @@ var css = {
 		textAlign: 'center',
 		paddingTop: 25,
 		fontSize: 20,
-		color: color.lightGrey
+		color: css.lightGrey
 	},
 	regformTextField: {
 		fontSize: 16,
 		padding: 7,
 		height: 35,
-		borderColor: color.lightGrey,
+		borderColor: css.lightGrey,
 		borderWidth: 1,
-		color: color.grey
+		color: css.grey
 	}
 };
 
 /**
  * Main Styles
  */
-export default StyleSheet.create(css);
+export default StyleSheet.create(cssall);
