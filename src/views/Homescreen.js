@@ -17,6 +17,11 @@ import {
 	H1,
 	H3
 } from 'native-base';
+import {
+	Col,
+	Row,
+	Grid
+} from "react-native-easy-grid";
 
 /**
  * Authentication
@@ -30,6 +35,7 @@ class Authenticationscreen extends ComponentAbstract {
 	constructor(props) {
 		super(props);
 		this.state = {
+			showLendyooLogin: false,
 			email: 'arnaud@antidot.ca',
 			password: 'test'
 			//email: '',
@@ -127,75 +133,90 @@ class Authenticationscreen extends ComponentAbstract {
 		 <View style={this.css.homesocialViews}>
 		 <Icon name="logo-googleplus" onPress={ () => this.googleLogin() }/>
 		 </View>
+		 <Text style={this.css.homeh3s}>Environemnt: { this.lendyooRegistry.config._env} v{ this.lendyooRegistry.appVersion }</Text>
 		 */
 		this.console.log('Authenticationscreen.render()');
 		return (
-			<Content padder={true}>
-			<View style={ this.css.homeglobalContainer }>
-					<View>
-						<H1>
-							Welcome to Lendyoo v{ this.lendyooRegistry.appVersion } !
-						</H1>
-						<Text style={this.css.homeh3s}>Environemnt: { this.lendyooRegistry.config._env}</Text>
-					</View>
-					<View style={this.css.homeRegisterContainer}>
-						<View style={this.css.homesocialViewsCntr}>
-							<View style={this.css.homesocialViews}>
-								<Button iconLeft onPress={ () => this.facebookLogin() } style={{ backgroundColor: '#3b5998'}}>
-								<Icon name="logo-facebook"/>
-									<Text style={{color: '#FFF'}}>Sign in with Facebook</Text>
-								</Button>
+			<Grid style={{backgroundColor: this.colors.c1}}>
 
+				<Row size={20}  style={{ alignItems: 'center'}}>
+					<H1 style={{color: this.colors.white}}>Lendyoo</H1>
+				</Row>
 
-							</View>
-						</View>
-						<View style={this.css.homesocialViews}>
-							<Text style={this.css.homeor}>
-								OR
-							</Text>
-							<H3>
-								Authenticate with a Lendyoo account
-							</H3>
-						</View>
+				<Row size={80}>
+					<Grid>
+						<Row size={80} style={{alignItems: 'center'}}>
+							{
+								(!this.state.showLendyooLogin) ?
+									(
+										<View style={{}}>
+											<Button iconLeft onPress={ () => this.facebookLogin() }
+													style={{backgroundColor: this.colors.fbcolor}}>
+												<Icon name="logo-facebook"/>
+												<Text style={{color: '#FFF'}}>Sign in with Facebook</Text>
+											</Button>
+										</View>
+									) : (
+									<View style={{}}>
+										<Form>
+											<Item>
+												<Label style={{color: this.colors.white}}>e-mail</Label>
+												<Input
+													style={{color: this.colors.white}}
+													ref="1"
+													spellCheck={false}
+													keyboardType="email-address"
+													onChangeText={(email) => this.setState({email})}
+													value={this.state.email}
+													blurOnSubmit={false}
+													autoCapitalize="none"
+												/>
+											</Item>
+											<Item last>
+												<Label style={{color: this.colors.white}}>Password</Label>
+												<Input
+													style={{color: this.colors.white}}
+													ref="2"
+													spellCheck={false}
+													keyboardType="default"
+													returnKeyType="next"
+													autoCapitalize="none"
+													secureTextEntry={true}
+													onChangeText={(password) => this.setState({password})}
+													value={this.state.password}
+													blurOnSubmit={false}
+													onSubmitEditing={() => this.logIn()}
+												/>
+											</Item>
+											<Button ref="3" success full onPress={ () => this.logIn() }>
+												<Text style={this.css.homebuttonText}>Log-in</Text>
+											</Button>
+										</Form>
+									</View>)
+							}
+						</Row>
 
-						<Form>
-							<Item>
-								<Label>e-mail</Label>
-								<Input
-									ref="1"
-									spellCheck={false}
-									keyboardType="email-address"
-									onChangeText={(email) => this.setState({email})}
-									value={this.state.email}
-									blurOnSubmit={false}
-									autoCapitalize="none"
-								/>
-							</Item>
-							<Item last>
-								<Label>Password</Label>
-								<Input
-									ref="2"
-									spellCheck={false}
-									keyboardType="default"
-									returnKeyType="next"
-									autoCapitalize="none"
-									secureTextEntry={true}
-									onChangeText={(password) => this.setState({password})}
-									value={this.state.password}
-									blurOnSubmit={false}
-									onSubmitEditing={() => this.logIn()}
-								/>
-							</Item>
-						</Form>
-
-						<View style={this.css.homesocialViews}>
-							<Button ref="3" primary full onPress={ () => this.logIn() }>
-								<Text style={this.css.homebuttonText}>Log-in</Text>
-							</Button>
-						</View>
-					</View>
-			</View>
-			</Content>
+						<Row size={20}>
+							{
+								(this.state.showLendyooLogin) ?
+									(<Text style={this.css.homeor}
+										   onPress={ () => this.setState({showLendyooLogin: false}) }>
+											OR use your <Text style={{textDecorationLine: 'underline'}}>Facebook
+											account</Text>
+										</Text>
+									)
+									:
+									(<Text style={this.css.homeor}
+										   onPress={ () => this.setState({showLendyooLogin: true}) }>
+											OR authenticate with a <Text style={{textDecorationLine: 'underline'}}>Lendyoo
+											account</Text>
+										</Text>
+									)
+							}
+						</Row>
+					</Grid>
+				</Row>
+			</Grid>
 		);
 	}
 }

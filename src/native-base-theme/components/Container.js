@@ -1,14 +1,14 @@
-import { Platform, Dimensions } from 'react-native';
+import {Platform, Dimensions} from 'react-native';
 import _ from 'lodash';
-
 import variable from '../variables/platform';
+import {colors} from '../../styles/Mainstyle';
 
 const deviceHeight = Dimensions.get('window').height;
 export default (variables = variable) => {
-  const theme = {
-    flex: 1,
-    height: (Platform.OS === 'ios') ? deviceHeight : deviceHeight - 20
-  };
+	const theme = {
+		flex: 1,
+		height: (Platform.OS === 'ios') ? deviceHeight : deviceHeight - 20
+	};
 
-  return theme;
+	return theme;
 };

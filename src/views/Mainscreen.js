@@ -21,7 +21,7 @@ import {
 import getTheme from '../native-base-theme/components';
 import LendyooRegistry from '../libs/LendyooRegistry';
 import MenuBar from './MenuBar';
-import Mainstyle from '../styles/Mainstyle';
+import {colors, Mainstyle} from '../styles/Mainstyle';
 
 /**
  * Welcome/help screen
@@ -34,6 +34,7 @@ class Mainscreen extends Component {
 	 */
 	constructor(props) {
 		super(props);
+		this.colors = colors;
 		this.css = Mainstyle;
 		this.lendyooRegistry = new LendyooRegistry();
 		this.lendyooRegistry.setRootComponent(this);

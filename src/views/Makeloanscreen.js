@@ -267,7 +267,7 @@ class Makeloanscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Makeloanscreen.render()');
 		return (
-			<Content padder={true}>
+			<Content padder={true} style={{backgroundColor: this.colors.c1}}>
 				<View style={ this.css.makeloanglobalContainer }>
 					<View style={this.css.makeloantoFromBar}>
 						<View style={{flex: 1, flexDirection: 'row'}}>
@@ -290,8 +290,9 @@ class Makeloanscreen extends ComponentAbstract {
 					<View style={this.css.makeloanadddetailSpace}>
 						<Form>
 							<Item stackedLabel>
-								<Label>Description</Label>
+								<Label style={{color: this.colors.white}}>Description</Label>
 								<Input
+									style={{color: this.colors.white}}
 									ref="1"
 									spellCheck={true}
 									onChangeText={ (title) => this.changeTitle(title) }

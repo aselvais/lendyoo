@@ -2,6 +2,7 @@ import React from 'react';
 import ComponentAbstract from './ComponentAbstract';
 import {
 	AppRegistry,
+	ScrollView,
 	View
 } from 'react-native';
 import {
@@ -110,29 +111,31 @@ class Contactselectionscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Contactselectionscreen.render()');
 		return (
-			<Content padder={true}>
-			<View>
+			<Content padder={true} scrollEnabled={false} style={{backgroundColor: this.colors.c1}}>
 				<View>
-					<Button success onPress={ () => this.onPressAddressbook() } full>
-						<Text> Get contact from address book </Text>
-					</Button>
+					<View>
+						<Button success onPress={ () => this.onPressAddressbook() } full>
+							<Text style={{ color: this.colors.c2 }}> Get contact from address book </Text>
+						</Button>
+					</View>
+
+					<ScrollView style={ this.css.contactsglobalContainer }>
+						{
+							this.state.contactCollectionModels.map((contact) =>
+								<ListItem key={contact._id} onPress={ () => this.onPressContact(contact) } avatar>
+									{ (false) ? (<Left><Thumbnail
+										source={require('../assets/images/bigstock-attractive-young-business-man-43103578.jpg')}
+										small/></Left>) : null }
+									<Body>
+									<Text style={{ color: this.colors.white }}>{ contact.getFullName() }</Text>
+									<Text style={{ color: this.colors.c3 }} note>{ contact.email }</Text>
+									</Body>
+								</ListItem>
+							)
+						}
+					</ScrollView>
 				</View>
-				<View style={ this.css.contactsglobalContainer }>
-					{
-						this.state.contactCollectionModels.map((contact) =>
-							<ListItem key={contact._id} onPress={ () => this.onPressContact(contact) } avatar>
-								{ (false) ? (<Left><Thumbnail
-									source={require('../assets/images/bigstock-attractive-young-business-man-43103578.jpg')}
-									small/></Left>) : null }
-								<Body>
-								<Text>{ contact.getFullName() }</Text>
-								<Text note>{ contact.email }</Text>
-								</Body>
-							</ListItem>
-						)
-					}
-				</View>
-			</View>
+
 			</Content>
 		);
 	}
