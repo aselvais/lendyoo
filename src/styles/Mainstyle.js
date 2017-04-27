@@ -176,7 +176,7 @@ var cssall = {
 	profilebuttonText: {
 		textAlign: 'center',
 		fontSize: 20,
-		color: colors.white
+		color: colors.c2
 	},
 	regglobalContainer: {
 //		flex: 1,

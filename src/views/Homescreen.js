@@ -139,11 +139,11 @@ class Authenticationscreen extends ComponentAbstract {
 		return (
 			<Grid style={{backgroundColor: this.colors.c1}}>
 
-				<Row size={20}  style={{ alignItems: 'center'}}>
+				<Row size={30}  style={{ alignItems: 'center'}}>
 					<H1 style={{color: this.colors.white}}>Lendyoo</H1>
 				</Row>
 
-				<Row size={80}>
+				<Row size={70}>
 					<Grid>
 						<Row size={80} style={{alignItems: 'center'}}>
 							{

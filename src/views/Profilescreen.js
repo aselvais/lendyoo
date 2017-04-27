@@ -83,59 +83,60 @@ class Profilescreen extends ComponentAbstract {
 	render() {
 		this.console.log('Profilescreen.render()');
 		return (
-			<Content padder={true}>
+			<Content style={{backgroundColor: this.colors.c1}} padder={true}>
 				<View style={ this.css.profileglobalContainer }>
 
 					<View style={this.css.profileRegisterContainer}>
 
 						<View>
-							<H2>Profile</H2>
+							<H2 style={{color: this.colors.white}}>Profile</H2>
 
 							<Form>
-								<Item ><Label>Registered</Label><CheckBox
+								<Item><Label style={{color: this.colors.white}}>Registered</Label><CheckBox
 									checked={this.state.user.isRegistered}/></Item>
-								<Item ><Label>Username</Label><Input value={this.state.user.username}/></Item>
-								<Item ><Label>First Name</Label><Input value={this.state.user.fname}/></Item>
-								<Item ><Label>Last Name</Label><Input value={this.state.user.lname}/></Item>
-								<Item ><Label>Gender</Label>
+								<Item ><Label style={{color: this.colors.white}}>Username</Label><Input style={{color: this.colors.c3}} value={this.state.user.username}/></Item>
+								<Item ><Label style={{color: this.colors.white}}>First Name</Label><Input style={{color: this.colors.c3}} value={this.state.user.fname}/></Item>
+								<Item ><Label style={{color: this.colors.white}}>Last Name</Label><Input style={{color: this.colors.c3}} value={this.state.user.lname}/></Item>
+								<Item ><Label style={{color: this.colors.white}}>Gender</Label>
 									<Picker mode="dropdown"
 											selectedValue={this.state.user.gender}
 											onValueChange={(gender) => this.setState({gender: gender})}>
-										{ this.user._schema.gender.enum.map((v) => <Item key={v} label={v}
-																						 value={v}/>) }
+										{ this.user._schema.gender.enum.map((v) => <Item  style={{color: this.colors.c3}} key={v} label={v} value={v}/>) }
 									</Picker>
 								</Item>
-								<Item ><Label>E-mail</Label><Input value={this.state.user.email}/></Item>
-								<Item ><Label>Date of birth</Label><Input value={this.state.user.dateOfBirth}/></Item>
+								<Item ><Label style={{color: this.colors.white}}>E-mail</Label><Input style={{color: this.colors.c3}} value={this.state.user.email}/></Item>
+								<Item ><Label style={{color: this.colors.white}}>Date of birth</Label><Input style={{color: this.colors.c3}} value={this.state.user.dateOfBirth}/></Item>
 							</Form>
 
-							<Button primary full name="pencil" onPress={ () => this.editUser() }>
+							<Button success full name="pencil" onPress={ () => this.editUser() }>
 								<Text style={this.css.profilebuttonText}>Update user</Text>
 							</Button>
 						</View>
 
-						<View>
-							<H2>Company / Group</H2>
-							<Form>
-								<Item><Label>Name</Label><Input value={this.state.group.name}/></Item>
-								<Item><Label>email</Label><Input value={this.state.group.email}/></Item>
-								<Item><Label>address</Label><Input value={this.state.group.address}/></Item>
-								<Item><Label>zipcode</Label><Input value={this.state.group.zipcode}/></Item>
-								<Item><Label>state</Label><Input value={this.state.group.state}/></Item>
-								<Item><Label>country</Label><Input value={this.state.group.country}/></Item>
-								<Item><Label>Type</Label>
-									<Picker mode="dropdown"
-											selectedValue={this.state.group.type}
-											onValueChange={(type) => this.setState({type: type})}>
-										{ this.group._schema.type.enum.map((v) => <Item key={v} label={v} value={v}/>) }
-									</Picker>
-								</Item>
-							</Form>
-							<Button primary full name="pencil" onPress={ () => this.editGroup() }>
-								<Text style={this.css.profilebuttonText}>Update group</Text>
-							</Button>
-						</View>
-
+						{
+							(false) ?
+								(<View>
+									<H2>Company / Group</H2>
+									<Form>
+										<Item><Label>Name</Label><Input value={this.state.group.name}/></Item>
+										<Item><Label>email</Label><Input value={this.state.group.email}/></Item>
+										<Item><Label>address</Label><Input value={this.state.group.address}/></Item>
+										<Item><Label>zipcode</Label><Input value={this.state.group.zipcode}/></Item>
+										<Item><Label>state</Label><Input value={this.state.group.state}/></Item>
+										<Item><Label>country</Label><Input value={this.state.group.country}/></Item>
+										<Item><Label>Type</Label>
+											<Picker mode="dropdown"
+													selectedValue={this.state.group.type}
+													onValueChange={(type) => this.setState({type: type})}>
+												{ this.group._schema.type.enum.map((v) => <Item key={v} label={v} value={v}/>) }
+											</Picker>
+										</Item>
+									</Form>
+									<Button primary full name="pencil" onPress={ () => this.editGroup() }>
+										<Text style={this.css.profilebuttonText}>Update group</Text>
+									</Button>
+								</View>) : null
+						}
 
 					</View>
 

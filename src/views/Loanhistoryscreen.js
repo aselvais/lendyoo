@@ -102,13 +102,20 @@ class Loanhistoryscreen extends ComponentAbstract {
 	 *
 	 * @returns {XML}
 	 */
-	getLoanListView()
-	{
+	getLoanListView() {
 		return <View style={this.css.loanhistRegisterContainer}>
 			{
 				(!this.state.loanCollectionModels || this.state.loanCollectionModels.length <= 0) ?
 					(<View>
-						<H2>{ this.state.noitemtext }</H2>
+						<Card>
+							<CardItem>
+								<Left>
+									<Body>
+									<Text>{ this.state.noitemtext }</Text>
+									</Body>
+								</Left>
+							</CardItem>
+						</Card>
 					</View>)
 					:
 					(<View>
@@ -118,8 +125,8 @@ class Loanhistoryscreen extends ComponentAbstract {
 									<CardItem>
 										<Left>
 											<Body>
-												<Text>{ loan.title }</Text>
-												<Text note>lent to { this.getContactName(loan) }</Text>
+											<Text>{ loan.title }</Text>
+											<Text note>lent to { this.getContactName(loan) }</Text>
 											</Body>
 										</Left>
 										<Right>
@@ -132,8 +139,13 @@ class Loanhistoryscreen extends ComponentAbstract {
 											loan.photo ?
 												(<Image
 														defaultSource={require('../assets/images/loading.png')}
-														style={{resizeMode: 'cover', overflow: 'hidden', width: Dimensions.get('window').width-60, height: 200}}
-														source={{uri: this.lendyooRegistry.config.API_URL + '/api-v2/photo/getloanimage/' + loan._id + '/' + (Dimensions.get('window').width-60)}}></Image>
+														style={{
+															resizeMode: 'cover',
+															overflow: 'hidden',
+															width: Dimensions.get('window').width - 60,
+															height: 200
+														}}
+														source={{uri: this.lendyooRegistry.config.API_URL + '/api-v2/photo/getloanimage/' + loan._id + '/' + (Dimensions.get('window').width - 60)}}></Image>
 												)
 												: null
 										}
@@ -183,10 +195,23 @@ class Loanhistoryscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Loanhistoryscreen.render()');
 		return (
-				<Tabs>
-					<Tab heading="Lent"><Content padder={true}>{ this.getLoanListView() }</Content></Tab>
-					<Tab heading="Returned"><Content padder={true}><Text>Nothing here so far ...</Text></Content></Tab>
-				</Tabs>
+			<Tabs>
+				<Tab heading="Lent"><Content padder={true}
+											 style={{backgroundColor: this.colors.c1}}>{ this.getLoanListView() }</Content></Tab>
+				<Tab heading="Returned"><Content padder={true} style={{backgroundColor: this.colors.c1}}>
+					<View>
+						<Card>
+							<CardItem>
+								<Left>
+									<Body>
+									<Text>Nothing here so far ...</Text>
+									</Body>
+								</Left>
+							</CardItem>
+						</Card>
+					</View>
+				</Content></Tab>
+			</Tabs>
 		);
 	}
 }
