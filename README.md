@@ -13,6 +13,11 @@ The dev is a React Native based app. So to set it up it is pretty easy:
     git submodule init
     git submodule update
 
+### Init react native and all
+
+    npm install
+    react-native upgrade
+    react-native link
 
 ## Questions
 

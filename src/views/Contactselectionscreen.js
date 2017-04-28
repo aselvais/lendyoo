@@ -16,6 +16,8 @@ import {
 } from 'native-base';
 import ContactsWrapper from 'react-native-contacts-wrapper';
 import Contact from '../shared/models/frontend/Contact';
+import Dimensions from 'Dimensions';
+var {width, height} = Dimensions.get('window');
 
 /**
  * Contact selection view
@@ -119,7 +121,7 @@ class Contactselectionscreen extends ComponentAbstract {
 						</Button>
 					</View>
 
-					<ScrollView style={ this.css.contactsglobalContainer }>
+					<ScrollView style={{ height: height-190 }}>
 						{
 							this.state.contactCollectionModels.map((contact) =>
 								<ListItem key={contact._id} onPress={ () => this.onPressContact(contact) } avatar>

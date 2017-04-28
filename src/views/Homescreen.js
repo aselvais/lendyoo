@@ -14,11 +14,10 @@ import {
 	Form,
 	Item,
 	Input,
-	Label,
-	H1
+	Label
 } from 'native-base';
+// import {LoginManager} from 'react-native-fbsdk';
 import Dimensions from 'Dimensions';
-
 var {width, height} = Dimensions.get('window');
 /**
  * Authentication
@@ -99,7 +98,21 @@ class Authenticationscreen extends ComponentAbstract {
 	facebookLogin() {
 		var _that = this;
 		this.console.log('Registrationscreen.facebookLogin()');
-
+/*
+		LoginManager.logInWithReadPermissions(['public_profile']).then(
+			function (result) {
+				if (result.isCancelled) {
+					_that.displayErrorAlert('Login was cancelled');
+				} else {
+					_that.displayErrorAlert('Login was successful with permissions: '
+						+ result.grantedPermissions.toString());
+				}
+			},
+			function (error) {
+				_that.displayErrorAlert('Login failed with error: ' + error);
+			}
+		);
+*/
 	}
 
 	/**
@@ -138,16 +151,34 @@ class Authenticationscreen extends ComponentAbstract {
 							(
 								<View>
 									<Button iconLeft onPress={ () => this.facebookLogin() }
-											style={{ width: 200, marginBottom: 10, alignSelf: 'center', backgroundColor: this.colors.fbcolor }}>
-										<Icon name="logo-facebook"/><Text style={{color: '#FFF'}}>Login with Facebook</Text>
+											style={{
+												width: 200,
+												marginBottom: 10,
+												alignSelf: 'center',
+												backgroundColor: this.colors.fbcolor
+											}}>
+										<Icon name="logo-facebook"/><Text style={{color: '#FFF'}}>Login with
+										Facebook</Text>
 									</Button>
 									<Button iconLeft onPress={ () => this.googleLogin() }
-											style={{width: 200, marginBottom: 10, alignSelf: 'center', backgroundColor: '#db4a39'}}>
-										<Icon name="logo-google"/><Text style={{color: '#FFF'}}>Login with Google+</Text>
+											style={{
+												width: 200,
+												marginBottom: 10,
+												alignSelf: 'center',
+												backgroundColor: '#db4a39'
+											}}>
+										<Icon name="logo-google"/><Text style={{color: '#FFF'}}>Login with
+										Google+</Text>
 									</Button>
 									<Button iconLeft onPress={ () => this.twitterLogin() }
-											style={{width: 200, marginBottom: 10, alignSelf: 'center', backgroundColor: '#0084b4'}}>
-										<Icon name="logo-twitter"/><Text style={{color: '#FFF'}}>Login with Twitter</Text>
+											style={{
+												width: 200,
+												marginBottom: 10,
+												alignSelf: 'center',
+												backgroundColor: '#0084b4'
+											}}>
+										<Icon name="logo-twitter"/><Text style={{color: '#FFF'}}>Login with
+										Twitter</Text>
 									</Button>
 								</View>
 							) : (

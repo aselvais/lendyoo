@@ -34,11 +34,11 @@ local.properties
 #
 node_modules/
 npm-debug.log
+yarn-error.log
 
 # BUCK
 buck-out/
 \.buckd/
-android/app/libs
 *.keystore
 
 # fastlane
@@ -58,12 +58,14 @@ fastlane/screenshots
 .watchmanconfig
 __tests__/
 android/
+app.json
+ios/lendyoo-tvOS/
+ios/lendyoo-tvOSTests/
 ios/lendyoo.xcodeproj/
 ios/lendyoo/AppDelegate.h
 ios/lendyoo/AppDelegate.m
 ios/lendyoo/Base.lproj/
 ios/lendyoo/Info.plist
 ios/lendyoo/main.m
-lendyooTests/
-models.uml
+ios/lendyooTests/
 src/components/
