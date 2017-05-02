@@ -58,9 +58,9 @@ class LendyooRegistry {
 		this.newloan = new Loan();
 		this.newphoto = new Photo();
 
-		if (useLocalStorageAuth === true) {
+		/* if (useLocalStorageAuth === true) {
 			var _that = this;
-			this.storage.getData().then(
+			_that.storage.getData().then(
 				function (sd) {
 					var _d = JSON.parse(sd);
 					if (_d && _d.User_id) {
@@ -75,12 +75,11 @@ class LendyooRegistry {
 				function (se) {
 					_that.setAuthStatus(false);
 					// console.error(se);
-				},
+				}
 			);
+		} */
+		this.routes = new Routes(this.isAuthenticated);
 
-			_that.routes = new Routes(_that.isAuthenticated);
-
-		}
 	}
 
 	/**
@@ -106,7 +105,6 @@ class LendyooRegistry {
 	 */
 	setAuthStatus(s)
 	{
-
 		if (this.menuBarComponent && this.menuBarComponent.setAuthState)
 			this.menuBarComponent.setAuthState(s);
 		this.isAuthenticated = s;

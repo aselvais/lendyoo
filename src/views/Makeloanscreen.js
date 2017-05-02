@@ -272,9 +272,7 @@ class Makeloanscreen extends ComponentAbstract {
 					<View style={this.css.makeloantoFromBar}>
 						<View style={{flex: 1, flexDirection: 'row'}}>
 							<View style={{flex: .4, alignItems: 'center'}}>
-								<TouchableHighlight onPress={ () => this.onPressFrom() }>
-									<Text style={ this.css.makeloanfromToText }>{ this.user.fullName }</Text>
-								</TouchableHighlight>
+								<Text style={ this.css.makeloanfromToText }>{ this.user.fullName }</Text>
 							</View>
 							<View style={{flex: .4, alignItems: 'center'}}>
 								<TouchableHighlight onPress={ () => this.routes.gotTo("contacts") }>

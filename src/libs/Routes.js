@@ -7,7 +7,6 @@ import Settingsscreen from '../views/Settingsscreen';
 import Contactselectionscreen from '../views/Contactselectionscreen';
 import Loandetailscreen from '../views/Loandetailscreen';
 import Loanhistoryscreen from '../views/Loanhistoryscreen';
-import Registrationscreen from '../views/Registrationscreen';
 import Helpscreen from '../views/Helpscreen';
 import Logoutscreen from '../views/Logoutscreen';
 
@@ -31,7 +30,6 @@ class Routes
 			this.isAuthenticated = false;
 			this._routes = [
 				{ name: 'home', icon: 'home', label: 'Home', component: <Homescreen/>, showBackButton: false, showWhenAuth: false },
-				{ name: 'reg', icon: 'check', label: 'Registration', component: <Registrationscreen/>, showBackButton: false, showWhenAuth: false },
 				{ name: 'lend', icon: 'camera', label: 'Make Loan', component: <Makeloanscreen/>, showBackButton: false, showWhenAuth: true },
 				{ name: 'history', icon: 'list', label: 'Loans History', component: <Loanhistoryscreen/>, showBackButton: false, showWhenAuth: true },
 				{ name: 'profile', icon: 'person', label: 'Profile', component: <Profilescreen/>, showBackButton: false, showWhenAuth: true },

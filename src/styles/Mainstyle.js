@@ -38,6 +38,7 @@ var cssall = {
 		fontSize: 20,
 		textAlign: 'center',
 		margin: 10,
+		color: colors.white
 	},
 	homeh3s: {
 		padding: 20

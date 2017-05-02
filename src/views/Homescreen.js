@@ -8,7 +8,6 @@ import {
 	ScrollView
 } from 'react-native';
 import {
-	Content,
 	Button,
 	Icon,
 	Form,
@@ -16,9 +15,9 @@ import {
 	Input,
 	Label
 } from 'native-base';
-// import {LoginManager} from 'react-native-fbsdk';
 import Dimensions from 'Dimensions';
 var {width, height} = Dimensions.get('window');
+
 /**
  * Authentication
  */
@@ -31,16 +30,46 @@ class Authenticationscreen extends ComponentAbstract {
 	constructor(props) {
 		super(props);
 		this.state = {
-			showLendyooLogin: false,
+			showLendyooLogin: true,
 			showCreateAccount: true,
-			email: 'arnaud@antidot.ca',
-			password: 'test',
-			password2: '',
-			//email: '',
-			//password: ''
+			email: '',
+			password: '',
+			password2: ''
 		};
+
 		this.console.log('Authenticationscreen.constructor()', props);
-		// if (this.lendyooRegistry.isAuthenticated) this.lendyooRegistry.routes.gotTo('history');
+	}
+
+	/**
+	 *
+	 */
+	componentDidMount()
+	{
+		this.rootComponent.setLoading(false);
+		var _that = this;
+		this.storage.getData().then(
+			function(dd) {
+				if (dd.email && dd.password)
+				{
+					_that.setState({
+						email: dd.email,
+						password: dd.password
+					});
+				}
+			}
+		);
+	}
+
+	/**
+	 *
+	 * @returns {*}
+	 */
+	logInPressed()
+	{
+		if (this.state.showCreateAccount)
+			return this.logIn();
+		else
+			return this.createAccount();
 	}
 
 	/**
@@ -61,11 +90,18 @@ class Authenticationscreen extends ComponentAbstract {
 			this.user.authenticate(this.state.email, this.state.password).then(
 				function (data) {
 					if (data === true) {
-						_that.rootComponent.setLoading(false);
-						_that.rootComponent.setAuth(true);
-						_that.lendyooRegistry.setAuthStatus(true);
-						_that.lendyooRegistry.User_id = _that.user._id;
-						_that.lendyooRegistry.routes.gotTo("lend");
+						_that.storage.setData(
+							{
+								email: _that.state.email,
+								password: _that.state.password,
+							}
+						).then(function(){
+							_that.rootComponent.setLoading(false);
+							_that.rootComponent.setAuth(true);
+							_that.lendyooRegistry.setAuthStatus(true);
+							_that.lendyooRegistry.User_id = _that.user._id;
+							_that.lendyooRegistry.routes.gotTo("lend");
+						});
 					} else {
 						_that.rootComponent.setLoading(false);
 						_that.displayErrorAlert('Wrong username or password');
@@ -79,6 +115,54 @@ class Authenticationscreen extends ComponentAbstract {
 		}
 	}
 
+	/**
+	 *
+	 */
+	createAccount() {
+		this.console.log('Authenticationscreen.createAccount()');
+		var _that = this;
+		var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if (!this.state.email || !this.state.password || !this.state.password2) {
+			_that.displayErrorAlert('All fields have to be filled in');
+		}
+		else if (!re.test(this.state.email)) {
+			_that.displayErrorAlert('The email address is not valid');
+		}
+		else if (this.state.password != this.state.password2) {
+			_that.displayErrorAlert('Both password do not match');
+		}
+		else {
+			this.user.username = this.state.email;
+			this.user.email = this.state.email;
+			this.user.password = this.state.password;
+
+			this.user.save(this.state.email, this.state.password).then(
+				function (data) {
+					if (data === true) {
+						_that.storage.setData(
+							{
+								email: _that.state.email,
+								password: _that.state.password,
+							}
+						).then(
+							function(dd)
+							{
+								_that.lendyooRegistry.setAuthStatus(true);
+								_that.lendyooRegistry.User_id = _that.user._id;
+								// _that.displayErrorAlert('Account created');
+								_that.lendyooRegistry.routes.gotTo("lend");
+							}
+						);
+					} else {
+						_that.displayErrorAlert('Something went wrong...');
+					}
+				},
+				function (err) {
+					_that.displayErrorAlert('Unexpected error');
+				}
+			);
+		}
+	}
 	/**
 	 *
 	 * @param msg
@@ -96,39 +180,30 @@ class Authenticationscreen extends ComponentAbstract {
 	 *
 	 */
 	facebookLogin() {
-		var _that = this;
-		this.console.log('Registrationscreen.facebookLogin()');
-/*
-		LoginManager.logInWithReadPermissions(['public_profile']).then(
-			function (result) {
-				if (result.isCancelled) {
-					_that.displayErrorAlert('Login was cancelled');
-				} else {
-					_that.displayErrorAlert('Login was successful with permissions: '
-						+ result.grantedPermissions.toString());
-				}
-			},
-			function (error) {
-				_that.displayErrorAlert('Login failed with error: ' + error);
-			}
-		);
-*/
+		this.console.log('Authenticationscreen.facebookLogin()');
+		this.displayErrorAlert('Not implemented yet');
 	}
 
 	/**
 	 *
 	 */
 	twitterLogin() {
-		this.console.log('Registrationscreen.twitterLogin()');
+		this.console.log('Authenticationscreen.twitterLogin()');
+		this.displayErrorAlert('Not implemented yet');
 	}
 
 	/**
 	 *
 	 */
 	googleLogin() {
-		this.console.log('Registrationscreen.googleLogin()');
+		this.console.log('Authenticationscreen.googleLogin()');
+		this.displayErrorAlert('Not implemented yet');
 	}
 
+	/**
+	 *
+	 * @param nextField
+	 */
 	focusNextField(nextField) {
 		this.refs[nextField].focus();
 	};
@@ -231,7 +306,7 @@ class Authenticationscreen extends ComponentAbstract {
 											/>
 										</Item>) : null
 									}
-									<Button style={{marginTop: 20}} ref="3" success full onPress={ () => this.logIn() }>
+									<Button style={{marginTop: 20}} ref="3" success full onPress={ () => this.logInPressed() }>
 										{
 											(this.state.showCreateAccount) ?
 												(<Text style={this.css.homebuttonText}>Log-in</Text>)

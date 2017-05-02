@@ -19,6 +19,7 @@
     "react-native-contacts-wrapper": "^0.2.3",
     "react-native-easy-grid": "^0.1.8",
     "react-native-fetch-blob": "^0.10.4",
+    "react-native-oauth": "^2.1.16",
     "react-native-vector-icons": "^4.0.0"
   },
   "devDependencies": {

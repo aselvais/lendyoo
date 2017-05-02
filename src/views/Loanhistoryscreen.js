@@ -133,11 +133,11 @@ class Loanhistoryscreen extends ComponentAbstract {
 											<Text note>{ this.getFormatedDate(loan.dateCreated) }</Text>
 										</Right>
 									</CardItem>
-									<CardItem onPress={ () => this.onPressLoan(loan) }>
+									<CardItem>
 										<Body>
 										{
 											loan.photo ?
-												(<Image
+												(<Image onPress={ () => this.onPressLoan(loan) }
 														defaultSource={require('../assets/images/loading.png')}
 														style={{
 															resizeMode: 'cover',
@@ -155,7 +155,7 @@ class Loanhistoryscreen extends ComponentAbstract {
 										<Left>
 											<Text>{ loan.detail }</Text>
 											<Button transparent onPress={ () => this.onPressLoan(loan) }>
-												<Text>Detail</Text>
+												<Text style={{ color: this.colors.c2, textDecorationLine: 'underline' }}>Detail</Text>
 											</Button>
 										</Left>
 										<Right>

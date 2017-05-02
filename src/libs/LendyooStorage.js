@@ -24,7 +24,20 @@ class LendyooStorage {
 	 * @returns {*|Promise}
 	 */
 	getData() {
-		return AsyncStorage.getItem(STORAGE_KEY);
+		return AsyncStorage.getItem(STORAGE_KEY).then(
+			function (dd) {
+				try {
+					var _jd = JSON.parse(dd);
+					return _jd;
+				} catch (e) {
+					return null;
+				}
+			},
+			function(er)
+			{
+				return null;
+			}
+		);
 	}
 
 	/**

@@ -27,6 +27,7 @@ class ComponentAbstract extends Component
 		this.loan = this.lendyooRegistry.loanCollection.getActiveModel();
 		this.newloan = this.lendyooRegistry.newloan;
 		this.newphoto = this.lendyooRegistry.newphoto;
+		this.storage = this.lendyooRegistry.storage;
 	}
 
 	/**

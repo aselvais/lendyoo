@@ -44,12 +44,28 @@ class Mainscreen extends Component {
 		this.routes.setGlobalContainer(this);
 		this.iOS = this.lendyooRegistry.isIOS();
 		this.state = {
-			isAuth: this.lendyooRegistry.isAuthenticated,
+			isAuth: false, //this.lendyooRegistry.isAuthenticated,
 			selectedView: this.routes._currentView,
 			loading: false,
 			routeName: 'lend'
 		};
 		this.menuItems = this.routes.getRoutes();
+	}
+
+	/**
+	 *
+	 */
+	componentDidMount()
+	{
+		this.resetAuthState(this.lendyooRegistry.isAuthenticated);
+	}
+
+	/**
+	 *
+	 */
+	resetAuthState(s)
+	{
+		this.setState({isAuth: s, routeName: 'lend'});
 	}
 
 	/**

@@ -6,7 +6,8 @@ import {
 	View
 } from 'react-native';
 import {
-	Content
+	Content,
+	Button
 } from 'native-base';
 /**
  *
@@ -19,11 +20,16 @@ class Settingsscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Settingsscreen.render()');
 		return (
-			<Content padder={true}>
-			<View style={this.css.container}>
+			<Content style={{backgroundColor: this.colors.c1}} padder={true}>
+			<View>
 				<Text style={this.css.welcome}>
-					Settingsscreen
+					Settings Screen
 				</Text>
+
+				<Button success full style={{ marginTop: 10 }} onPress={ () => this.routes.gotTo('logout') }>
+					<Text style={this.css.profilebuttonText}>Log-out</Text>
+				</Button>
+
 			</View>
 			</Content>
 		);
