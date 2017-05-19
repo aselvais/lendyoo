@@ -217,7 +217,7 @@ class Authenticationscreen extends ComponentAbstract {
 		return (
 			<ScrollView contentContainerStyle={{minHeight: height - 70}} style={{backgroundColor: this.colors.c1}}>
 				<View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
-					<Text style={{color: this.colors.white, fontSize: 50}}>Lendyoo</Text>
+					<Text style={{color: this.colors.white, fontSize: 50}}>Hello</Text>
 					<Text style={{color: this.colors.c4, fontSize: 15, paddingTop: 5}}>Know where your stuff is.</Text>
 				</View>
 				<View style={{flex: 1, paddingBottom: 50, justifyContent: 'center', alignItems: 'center'}}>
