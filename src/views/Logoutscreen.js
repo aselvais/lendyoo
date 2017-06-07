@@ -20,7 +20,7 @@ class Logoutscreen extends ComponentAbstract {
 		this.rootComponent.setLoading(false);
 		this.rootComponent.resetAuthState(false);
 		this.lendyooRegistry.setAuthStatus(false);
-		this.routes.gotTo('home');
+		this.routes.gotTo("home");
 	}
 
 	/**

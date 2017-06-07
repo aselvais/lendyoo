@@ -26,7 +26,7 @@ class Settingsscreen extends ComponentAbstract {
 					Settings Screen
 				</Text>
 
-				<Button success full style={{ marginTop: 10 }} onPress={ () => this.routes.gotTo('logout') }>
+				<Button success full style={{ marginTop: 10 }} onPress={ () => this.routes.gotTo("logout") }>
 					<Text style={this.css.profilebuttonText}>Log-out</Text>
 				</Button>
 

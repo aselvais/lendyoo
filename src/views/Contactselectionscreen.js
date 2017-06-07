@@ -65,7 +65,7 @@ class Contactselectionscreen extends ComponentAbstract {
 		this.console.log('Contactselectionscreen.onPressContact()');
 		this.rootComponent.setLoading(true);
 		this.lendyooRegistry.contactCollection.setActiveModel(contact);
-		this.routes.gotTo("lend");
+		this.routes.gotTo("lendtakepict");
 	}
 
 	/**
@@ -91,13 +91,13 @@ class Contactselectionscreen extends ComponentAbstract {
 							_that.lendyooRegistry.contactCollection.setActiveModel(_c);
 							_that.setState({contactCollectionModels: _that.lendyooRegistry.contactCollection.models});
 							_that.rootComponent.setLoading(false);
-							_that.routes.gotTo("lend");
+							_that.routes.gotTo("lendtakepict");
 						}
 					);
 				} else {
 					_that.lendyooRegistry.contactCollection.setActiveModel(_fc);
 					_that.rootComponent.setLoading(false);
-					_that.routes.gotTo("lend");
+					_that.routes.gotTo("lendtakepict");
 				}
 			})
 			.catch((error) => {

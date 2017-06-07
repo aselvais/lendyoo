@@ -1,6 +1,11 @@
 import React from 'react';
 
 import Makeloanscreen from '../views/Makeloanscreen';
+
+import Lendtakepictscreen from '../views/Lendtakepictscreen';
+import Lendchoosecontactcreen from '../views/Lendchoosecontactcreen';
+import Lendconfirmloanscreen from '../views/Lendconfirmloanscreen';
+
 import Homescreen from '../views/Homescreen';
 import Profilescreen from '../views/Profilescreen';
 import Settingsscreen from '../views/Settingsscreen';
@@ -31,6 +36,11 @@ class Routes
 			this._routes = [
 				{ name: 'home', icon: 'home', label: 'Home', component: <Homescreen/>, showBackButton: false, showWhenAuth: false },
 				{ name: 'lend', icon: 'camera', label: 'Make Loan', component: <Makeloanscreen/>, showBackButton: false, showWhenAuth: true },
+
+				{ name: 'lendtakepict', icon: 'camera', label: 'Lend your item', component: <Lendtakepictscreen/>, showBackButton: true, showWhenAuth: false },
+				{ name: 'lendchoosecontact', icon: 'camera', label: 'Pick the borrower', component: <Lendchoosecontactcreen/>, showBackButton: true, showWhenAuth: false },
+				{ name: 'lendconfirmloan', icon: 'camera', label: 'Lend to ', component: <Lendconfirmloanscreen/>, showBackButton: true, showWhenAuth: false },
+
 				{ name: 'history', icon: 'list', label: 'Loans History', component: <Loanhistoryscreen/>, showBackButton: false, showWhenAuth: true },
 				{ name: 'profile', icon: 'person', label: 'Profile', component: <Profilescreen/>, showBackButton: false, showWhenAuth: true },
 				{ name: 'settings', icon: 'settings', label: 'Settings', component: <Settingsscreen/>, showBackButton: false, showWhenAuth: true },

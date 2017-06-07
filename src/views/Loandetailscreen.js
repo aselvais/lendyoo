@@ -124,7 +124,7 @@ class Loandetailscreen extends ComponentAbstract {
 	takePicture() {
 		this.lendyooRegistry.newloan = this.loan;
 		this.lendyooRegistry.contactCollection.setActiveModel(this.state.contact);
-		this.routes.gotTo("lend");
+		this.routes.gotTo("lendtakepict");
 	}
 
 	/**

@@ -1,12 +1,12 @@
 {
   "defaults": {
-	"API_URL": "https://lendyoo.antidot.ca",
+	"API_URL": "https://api.lendyou.io",
 	"APP_VERSION": "0.9.97"
   },
   "development": {
 	"API_URL": "http://localhost:3010"
   },
   "production": {
-	"API_URL": "https://lendyoo.antidot.ca"
+	"API_URL": "https://api.lendyou.io"
   }
 }
