@@ -19,21 +19,21 @@ export default {
 	badgeBg: '#ED1727',
 	badgeColor: '#fff',
 	// New Variable
-	badgePadding: (platform === 'ios') ? 3 : 0,
+	badgePadding: 3,
 
 	// Button
-	btnFontFamily: (platform === 'ios') ? 'System' : 'Roboto_medium',
+	btnFontFamily: 'System',
 	btnDisabledBg: '#b5b5b5',
 	btnDisabledClr: '#f1f1f1',
 
 	// CheckBox
-	CheckboxRadius: (platform === 'ios') ? 13 : 0,
-	CheckboxBorderWidth: (platform === 'ios') ? 1 : 2,
-	CheckboxPaddingLeft: (platform === 'ios') ? 4 : 2,
-	CheckboxPaddingBottom: (platform === 'ios') ? 0 : 5,
-	CheckboxIconSize: (platform === 'ios') ? 21 : 14,
-	CheckboxIconMarginTop: (platform === 'ios') ? undefined : 1,
-	CheckboxFontSize: (platform === 'ios') ? (23 / 0.9) : 18,
+	CheckboxRadius: 13,
+	CheckboxBorderWidth: 1,
+	CheckboxPaddingLeft: 4,
+	CheckboxPaddingBottom: 0,
+	CheckboxIconSize: 21,
+	CheckboxIconMarginTop: undefined,
+	CheckboxFontSize: (23 / 0.9),
 	DefaultFontSize: 17,
 	checkboxBgColor: '#039BE5',
 	checkboxSize: 20,
@@ -84,8 +84,7 @@ export default {
 		return this.inverseTextColor;
 	},
 	get btnTextSize() {
-		return (platform === 'ios') ? this.fontSizeBase * 1.1 :
-			this.fontSizeBase - 1;
+		return this.fontSizeBase * 1.1;
 	},
 	get btnTextSizeLarge() {
 		return this.fontSizeBase * 1.5;
@@ -121,7 +120,7 @@ export default {
 
 
 	// Font
-	fontFamily: (platform === 'ios') ? 'System' : 'Roboto',
+	fontFamily: 'System',
 	fontSizeBase: 15,
 
 	get fontSizeH1() {
@@ -140,17 +139,17 @@ export default {
 
 	// FooterTab
 	tabBarTextColor: '#8bb3f4',
-	tabBarTextSize: (platform === 'ios') ? 14 : 11,
-	activeTab: (platform === 'ios') ? '#007aff' : '#fff',
+	tabBarTextSize: 14,
+	activeTab: '#007aff',
 	sTabBarActiveTextColor: '#007aff',
 	tabBarActiveTextColor: '#fff',
-	tabActiveBgColor: (platform === 'ios') ? '#1569f4' : undefined,
+	tabActiveBgColor: '#1569f4',
 
 	// Tab
 	tabDefaultBg: '#2874F0',
 	topTabBarTextColor: '#b3c7f9',
 	topTabBarActiveTextColor: '#fff',
-	topTabActiveBgColor: (platform === 'ios') ? '#1569f4' : undefined,
+	topTabActiveBgColor: '#1569f4',
 	topTabBarBorderColor: '#fff',
 	topTabBarActiveBorderColor: '#fff',
 
@@ -158,11 +157,11 @@ export default {
 	// Header
 	toolbarBtnColor: '#fff',
 	toolbarDefaultBg: '#2874F0',
-	toolbarHeight: (platform === 'ios') ? 64 : 56,
-	toolbarIconSize: (platform === 'ios') ? 20 : 22,
-	toolbarSearchIconSize: (platform === 'ios') ? 20 : 23,
-	toolbarInputColor: (platform === 'ios') ? '#CECDD2' : '#fff',
-	searchBarHeight: (platform === 'ios') ? 30 : 40,
+	toolbarHeight: 64,
+	toolbarIconSize: 20,
+	toolbarSearchIconSize: 20,
+	toolbarInputColor: '#CECDD2',
+	searchBarHeight: 30,
 	toolbarInverseBg: '#222',
 	toolbarTextColor: '#fff',
 	iosStatusbar: 'light-content',
@@ -174,9 +173,9 @@ export default {
 
 	// Icon
 	iconFamily: 'Ionicons',
-	iconFontSize: (platform === 'ios') ? 30 : 28,
+	iconFontSize: 30,
 	iconMargin: 7,
-	iconHeaderSize: (platform === 'ios') ? 33 : 24,
+	iconHeaderSize: 33,
 
 
 	// InputGroup
@@ -206,8 +205,8 @@ export default {
 	lineHeightH1: 32,
 	lineHeightH2: 27,
 	lineHeightH3: 22,
-	iconLineHeight: (platform === 'ios') ? 37 : 30,
-	lineHeight: (platform === 'ios') ? 20 : 24,
+	iconLineHeight: 37,
+	lineHeight: 20,
 
 
 	// List
@@ -220,7 +219,7 @@ export default {
 	cardBorderColor: '#ccc',
 
 	// Changed Variable
-	listItemPadding: (platform === 'ios') ? 10 : 12,
+	listItemPadding: 10,
 
 	listNoteColor: '#808080',
 	listNoteSize: 13,
@@ -232,11 +231,11 @@ export default {
 
 
 	// Radio Button
-	radioBtnSize: (platform === 'ios') ? 25 : 23,
+	radioBtnSize: 25,
 	radioSelectedColorAndroid: '#5067FF',
 
 	// New Variable
-	radioBtnLineHeight: (platform === 'ios') ? 29 : 24,
+	radioBtnLineHeight: 29,
 
 	radioColor: '#7e7e7e',
 
@@ -263,9 +262,9 @@ export default {
 
 
 	// Title
-	titleFontfamily: (platform === 'ios') ? 'System' : 'Roboto_medium',
-	titleFontSize: (platform === 'ios') ? 17 : 19,
-	subTitleFontSize: (platform === 'ios') ? 12 : 14,
+	titleFontfamily: 'System',
+	titleFontSize: 17,
+	subTitleFontSize: 12,
 	subtitleColor: '#FFF',
 
 	// New Variable
@@ -273,7 +272,7 @@ export default {
 
 
 	// Other
-	borderRadiusBase: (platform === 'ios') ? 5 : 2,
+	borderRadiusBase: 0,
 	borderWidth: (1 / PixelRatio.getPixelSizeForLayoutSize(1)),
 	contentPadding: 10,
 

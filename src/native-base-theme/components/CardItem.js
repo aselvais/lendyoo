@@ -58,7 +58,7 @@ export default (variables = variable) => {
 
 		'.content': {
 			'NativeBase.Text': {
-				color: (platform === 'ios') ? '#555' : '#222',
+				color: '#555',
 				fontSize: variables.DefaultFontSize - 3,
 			},
 		},
@@ -160,14 +160,14 @@ export default (variables = variable) => {
 		'.header': {
 			'NativeBase.Text': {
 				fontSize: 16,
-				fontWeight: (platform === 'ios') ? '500' : undefined,
+				fontWeight: '500',
 			},
 			'.bordered': {
 				'NativeBase.Text': {
 					color: variables.sTabBarActiveTextColor,
-					fontWeight: (platform === 'ios') ? '500' : undefined,
+					fontWeight: '500',
 				},
-				borderBottomWidth: (platform === 'ios') ? variables.borderWidth : null,
+				borderBottomWidth: variables.borderWidth,
 			},
 			borderBottomWidth: null,
 			paddingVertical: variables.listItemPadding + 5,
@@ -175,14 +175,14 @@ export default (variables = variable) => {
 		'.footer': {
 			'NativeBase.Text': {
 				fontSize: 16,
-				fontWeight: (platform === 'ios') ? '500' : undefined,
+				fontWeight: '500',
 			},
 			'.bordered': {
 				'NativeBase.Text': {
 					color: variables.activeTab,
 					fontWeight: '500',
 				},
-				borderTopWidth: (platform === 'ios') ? variables.borderWidth : null,
+				borderTopWidth: variables.borderWidth,
 			},
 			borderBottomWidth: null,
 		},

@@ -165,22 +165,22 @@ class Mainscreen extends Component {
 						this.state.isAuth ? <Footer>
 							<FooterTab>
 								<Button active={(this.state.routeName == 'history')}
-										onPress={ () => this.onPressTabElement('history') }>
+										onPress={ () => this.onPressTabElement("history") }>
 									<Icon name="list"/>
 									<Text style={ this.css.tabText }>Loans</Text>
 								</Button>
-								<Button active={(this.state.routeName == 'lend')}
-										onPress={ () => this.onPressTabElement('lend') }>
+								<Button active={(this.state.routeName == 'lendtakepict')}
+										onPress={ () => this.onPressTabElement("lendtakepict") }>
 									<Icon name="camera"/>
 									<Text style={ this.css.tabText }>Lend</Text>
 								</Button>
 								<Button active={(this.state.routeName == 'profile')}
-										onPress={ () => this.onPressTabElement('profile') }>
+										onPress={ () => this.onPressTabElement("profile") }>
 									<Icon name="person"/>
 									<Text style={ this.css.tabText }>Account</Text>
 								</Button>
 								<Button active={(this.state.routeName == 'settings')}
-										onPress={ () => this.onPressTabElement('settings') }>
+										onPress={ () => this.onPressTabElement("settings") }>
 									<Icon name="settings"/>
 									<Text style={ this.css.tabText }>Settings</Text>
 								</Button>
