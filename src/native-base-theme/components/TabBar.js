@@ -46,11 +46,11 @@ export default (variables = variable) => {
 		height: 45,
 		flexDirection: 'row',
 		justifyContent: 'space-around',
-		borderWidth: 1,
+		borderWidth: 0,
 		borderTopWidth: 0,
 		borderLeftWidth: 0,
 		borderRightWidth: 0,
-		borderBottomColor: '#ccc',
+		// borderBottomColor: '#ccc',
 		backgroundColor: variables.tabBgColor,
 	};
 
