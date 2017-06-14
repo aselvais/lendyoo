@@ -23,6 +23,7 @@ import Photo from '../shared/models/frontend/Photo';
 
 /**
  * Make loan screen (with pict)
+ *
  */
 class Makeloanscreen extends ComponentAbstract {
 

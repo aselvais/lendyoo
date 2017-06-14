@@ -55,6 +55,7 @@ class Routes
 			this._previousView = null;
 			// default route
 			this.setCurrentView( this.getViewByName((isAuthenticated ? 'history' : 'home')));
+			// this.setCurrentView( this.getViewByName('lendtakepict'));
 			instance = this;
 		}
 		return instance;
