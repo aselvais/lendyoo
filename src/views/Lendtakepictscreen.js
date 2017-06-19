@@ -2,19 +2,12 @@ import React from 'react';
 import ComponentAbstract from './ComponentAbstract';
 import {
 	AppRegistry,
-	Text,
 	View,
 	Image,
 	TouchableHighlight,
 	Alert
 } from 'react-native';
 import {
-	Content,
-	Form,
-	Item,
-	Input,
-	Label,
-	Button,
 	Icon
 } from 'native-base';
 import Camera from 'react-native-camera';
@@ -36,10 +29,9 @@ class Lendtakepictscreen extends ComponentAbstract {
 		this.contactCollection = this.lendyooRegistry.contactCollection;
 		this.activeContact = this.contactCollection.getActiveModel();
 		this.state = {
-			direction: '>',
 			loan: this.newloan,
 			photo: this.newphoto.data ? this.newphoto.data : false,
-			title: this.newloan.title ? this.newloan.title : '',
+			localpath: this.newphoto.localpath ? this.newphoto.localpath : false,
 			saving: false,
 			isMounted: false
 		};
@@ -51,26 +43,6 @@ class Lendtakepictscreen extends ComponentAbstract {
 	componentDidMount() {
 		this.rootComponent.setLoading(false);
 		this.setState({isMounted: true});
-	}
-
-	/**
-	 *
-	 */
-	onPressLoadDirection() {
-		this.console.log('Makeloanscreen.onPressLoadDirection()');
-		if (this.state.direction === '>')
-			this.setState({direction: '<'});
-		if (this.state.direction === '<')
-			this.setState({direction: '>'});
-	}
-
-	/**
-	 *
-	 * @param e
-	 */
-	onPressFrom(e) {
-		this.console.log('Makeloanscreen.onPressFrom()', e);
-		Alert.alert('To be implemented', 'From pressed');
 	}
 
 	/**
@@ -161,31 +133,6 @@ class Lendtakepictscreen extends ComponentAbstract {
 
 	/**
 	 *
-	 * @param d
-	 * @returns {*}
-	 */
-	getIconDirectionName(d) {
-		this.console.log('Makeloanscreen.getIconDirectionName()', d);
-		if (d == '>')
-			return 'arrow-dropright';
-		else
-			return 'arrow-round-back';
-	}
-
-	/**
-	 *
-	 * @returns {*}
-	 */
-	getContactName() {
-		this.console.log('Makeloanscreen.getContactName()');
-		if (this.activeContact)
-			return this.activeContact.getFullName();
-		else
-			return 'Choose ...';
-	}
-
-	/**
-	 *
 	 */
 	takePicture() {
 		console.log('Clicked take picture');
@@ -222,50 +169,29 @@ class Lendtakepictscreen extends ComponentAbstract {
 				_that.setState({photo: false});
 				// console.log(err);
 			}
-
 		}
 	}
 
 	/**
-	 *
-	 * @param title
+	 * Access the image gallery for selecting an existing picture
 	 */
-	changeTitle(title) {
-		this.newloan.title = title;
-		this.setState({title: title});
+	loadGallery()
+	{
+		// this.displayErrorAlert('Gallery access not implemented yet');
+		this.routes.gotTo("lendpictgallery");
 	}
 
 	/**
-	 * Returns the camera widget or the picture taken...
-	 * Or null if the component has not been mounted (to try to speedup Android init)
-	 * @returns {*}
+	 * Discard the selected pictire
+	 * @todo Add a confirmation "are you sure you want to discard"
 	 */
-	getCameraWidget() {
-		if (this.state.photo !== false) {
-			return (<Image source={{uri: 'data:image/png;base64,' + this.state.photo}} style={this.css.makeloanimageSpace}></Image>)
-		}
-		else if (this.state.isMounted) {
-			return (<Camera
-				ref={(cam) => {
-					this.camera = cam;
-				}}
-				captureTarget={Camera.constants.CaptureTarget.disk}
-				captureQuality={Camera.constants.CaptureQuality["720p"]}
-				style={{
-					alignItems: 'center',
-					justifyContent: 'center',
-					overflow: 'hidden',
-					width: '100%',
-					height: '100%'
+	discardPicture()
+	{
+		this.newphoto.data = null;
+		this.newphoto.localpath = false;
+		this.setState({ photo: false, localpath: false });
 
-				}}
-				aspect={Camera.constants.Aspect.fill}>
-			</Camera>)
-		} else {
-			return null;
-		}
 	}
-
 
 	/**
 	 *
@@ -274,84 +200,98 @@ class Lendtakepictscreen extends ComponentAbstract {
 	render() {
 		this.console.log('Lendtakepictscreen.render()');
 		return (
-
-
 			<View style={{backgroundColor: this.colors.c1, flex: 1, flexDirection: 'column'}}>
-				<View style={{flex: .80 }}>
-					{ (this.state.photo !== false) ? (<Image source={{uri: 'data:image/png;base64,' + this.state.photo}} style={this.css.makeloanimageSpace}></Image>) : null }
+				<View style={{flex: .80}}>
+
+					{ (this.newphoto.localpath !== false) ? (
+						<Image
+							source={{uri: this.newphoto.localpath}}
+							style={{
+								alignItems: 'center',
+								justifyContent: 'center',
+								overflow: 'hidden',
+								width: '100%',
+								height: '100%'
+							}}></Image>
+					) : null }
 					{ (this.state.photo === false && this.state.isMounted) ?
 						(<Camera
-						ref={ (cam) => { this.camera = cam } }
-						captureTarget={Camera.constants.CaptureTarget.disk}
-						captureQuality={Camera.constants.CaptureQuality["720p"]}
-						style={{
-						alignItems: 'center',
-						justifyContent: 'center',
-						overflow: 'hidden',
-						width: '100%',
-						height: '100%'
-						}}
-						aspect={Camera.constants.Aspect.fill}/>) : null
+							ref={
+								(cam) => {
+									this.camera = cam
+								}
+							}
+							captureTarget={Camera.constants.CaptureTarget.disk}
+							captureQuality={Camera.constants.CaptureQuality["720p"]}
+							style={{
+								alignItems: 'center',
+								justifyContent: 'center',
+								overflow: 'hidden',
+								width: '100%',
+								height: '100%'
+							}}
+							aspect={Camera.constants.Aspect.fill}/>) : null
 					}
 				</View>
 				<View style={{flex: .20, backgroundColor: '#000000', flexDirection: 'row'}}>
 					<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#000000'}}>
-
-						<View style={{
-							alignItems: 'center',
-							justifyContent: 'center',
-							width: 40,
-							height: 40,
-							borderRadius: 40/2,
-							borderColor: '#FFFFFF',
-							borderWidth: 1,
-							backgroundColor: '#000'
-						}} >
-							<Icon name="image" style={{
-								color: '#FFF',
-								fontSize: 25,
-								paddingTop: 2
-							}} onPress={ () => this.takePicture() }/>
-						</View>
-
+						<TouchableHighlight
+							onPress={ () => this.loadGallery() }>
+							<View style={{
+								alignItems: 'center',
+								justifyContent: 'center',
+								width: 40,
+								height: 40,
+								borderRadius: 40 / 2,
+								borderColor: '#FFFFFF',
+								borderWidth: 1,
+								backgroundColor: '#000'
+							}}>
+								<Icon name="image" style={{
+									color: '#FFF',
+									fontSize: 25,
+									paddingTop: 2
+								}}/>
+							</View>
+						</TouchableHighlight>
 					</View>
 
 					<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#000000'}}>
-<TouchableHighlight onPress={ () => this.takePicture() }>
-						<View style={{
-							width: 60,
-							height: 60,
-							borderRadius: 60/2,
-							borderColor: '#4D4D4D',
-							borderWidth: 10,
-							backgroundColor: '#FFF'
-						}}  />
-</TouchableHighlight>
+						<TouchableHighlight onPress={ () => this.takePicture() }>
+							<View style={{
+								width: 60,
+								height: 60,
+								borderRadius: 60 / 2,
+								borderColor: '#4D4D4D',
+								borderWidth: 10,
+								backgroundColor: '#FFF'
+							}}/>
+						</TouchableHighlight>
 					</View>
 					<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#000000'}}>
 
-						<View style={{
-							alignItems: 'center',
-							justifyContent: 'center',
-							width: 40,
-							height: 40,
-							borderRadius: 40/2,
-							borderColor: '#FFFFFF',
-							borderWidth: 1,
-							backgroundColor: '#000'
-						}} >
-							<Icon name="refresh" style={{
-								color: '#FFF',
-								fontSize: 30,
-								paddingTop: 2
-							}} onPress={ () => this.takePicture() }/>
-						</View>
-
+						<TouchableHighlight
+							onPress={ () => this.discardPicture() }>
+							<View style={{
+								alignItems: 'center',
+								justifyContent: 'center',
+								width: 40,
+								height: 40,
+								borderRadius: 40 / 2,
+								borderColor: '#FFFFFF',
+								borderWidth: 1,
+								backgroundColor: '#000'
+							}}>
+								<Icon name="refresh" style={{
+									color: '#FFF',
+									fontSize: 30,
+									paddingTop: 2
+								}}/>
+							</View>
+						</TouchableHighlight>
 					</View>
 				</View>
 			</View>
-
-
 		);
 	}
 }

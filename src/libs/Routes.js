@@ -3,6 +3,7 @@ import React from 'react';
 import Makeloanscreen from '../views/Makeloanscreen';
 
 import Lendtakepictscreen from '../views/Lendtakepictscreen';
+import Lendpictgalleryscreen from '../views/Lendpictgalleryscreen';
 import Lendchoosecontactcreen from '../views/Lendchoosecontactcreen';
 import Lendconfirmloanscreen from '../views/Lendconfirmloanscreen';
 
@@ -38,6 +39,7 @@ class Routes
 				{ name: 'lend', icon: 'camera', label: 'Make Loan', component: <Makeloanscreen/>, showBackButton: false, showWhenAuth: true },
 
 				{ name: 'lendtakepict', icon: 'camera', label: 'Lend your item', component: <Lendtakepictscreen/>, showBackButton: true, showWhenAuth: false },
+				{ name: 'lendpictgallery', icon: 'camera', label: 'Choose a picture', component: <Lendpictgalleryscreen/>, showBackButton: true, showWhenAuth: false },
 				{ name: 'lendchoosecontact', icon: 'camera', label: 'Pick the borrower', component: <Lendchoosecontactcreen/>, showBackButton: true, showWhenAuth: false },
 				{ name: 'lendconfirmloan', icon: 'camera', label: 'Lend to ', component: <Lendconfirmloanscreen/>, showBackButton: true, showWhenAuth: false },
 
