@@ -149,7 +149,10 @@ class Lendtakepictscreen extends ComponentAbstract {
 								_that.newphoto.localpath = data.path;
 								_that.newphoto.initImage().then(
 									function (d) {
-										_that.setState({photo: _that.newphoto.data});
+										_that.setState({
+											photo: _that.newphoto.data,
+											localpath: _that.newphoto.localpath
+										});
 									}
 								);
 							} catch (err) {
@@ -175,8 +178,7 @@ class Lendtakepictscreen extends ComponentAbstract {
 	/**
 	 * Access the image gallery for selecting an existing picture
 	 */
-	loadGallery()
-	{
+	loadGallery() {
 		// this.displayErrorAlert('Gallery access not implemented yet');
 		this.routes.gotTo("lendpictgallery");
 	}
@@ -185,11 +187,10 @@ class Lendtakepictscreen extends ComponentAbstract {
 	 * Discard the selected pictire
 	 * @todo Add a confirmation "are you sure you want to discard"
 	 */
-	discardPicture()
-	{
+	discardPicture() {
 		this.newphoto.data = null;
 		this.newphoto.localpath = false;
-		this.setState({ photo: false, localpath: false });
+		this.setState({photo: false, localpath: false});
 
 	}
 
@@ -203,7 +204,7 @@ class Lendtakepictscreen extends ComponentAbstract {
 			<View style={{backgroundColor: this.colors.c1, flex: 1, flexDirection: 'column'}}>
 				<View style={{flex: .80}}>
 
-					{ (this.newphoto.localpath !== false) ? (
+					{ (this.state.localpath !== false) ? (
 						<Image
 							source={{uri: this.newphoto.localpath}}
 							style={{
@@ -214,7 +215,7 @@ class Lendtakepictscreen extends ComponentAbstract {
 								height: '100%'
 							}}></Image>
 					) : null }
-					{ (this.state.photo === false && this.state.isMounted) ?
+					{ (this.state.localpath === false && this.state.isMounted) ?
 						(<Camera
 							ref={
 								(cam) => {
@@ -235,8 +236,70 @@ class Lendtakepictscreen extends ComponentAbstract {
 				</View>
 				<View style={{flex: .20, backgroundColor: '#000000', flexDirection: 'row'}}>
 					<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#000000'}}>
-						<TouchableHighlight
-							onPress={ () => this.loadGallery() }>
+						{
+							(this.state.localpath !== false) ? null :
+								(<TouchableHighlight
+									onPress={ () => this.loadGallery() }>
+									<View style={{
+										alignItems: 'center',
+										justifyContent: 'center',
+										width: 40,
+										height: 40,
+										borderRadius: 40 / 2,
+										borderColor: '#FFFFFF',
+										borderWidth: 1,
+										backgroundColor: '#000'
+									}}>
+										<Icon name="image" style={{
+											color: '#FFF',
+											fontSize: 25,
+											paddingTop: 2
+										}}/>
+									</View>
+								</TouchableHighlight>)
+						}
+					</View>
+
+					<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#000000'}}>
+						{
+							(this.state.localpath !== false) ?
+								(<TouchableHighlight onPress={ () => this.onPressSave() }>
+									<View style={{
+										alignItems: 'center',
+										justifyContent: 'center',
+										width: 40,
+										height: 40,
+										borderRadius: 40 / 2,
+										borderColor: '#FFFFFF',
+										borderWidth: 1,
+										backgroundColor: '#000'
+									}}>
+										<Icon name="play" style={{
+											color: '#FFF',
+											fontSize: 29,
+											paddingTop: 2,
+											paddingLeft: 4
+										}}/>
+									</View>
+								</TouchableHighlight>)
+								:
+								(<TouchableHighlight onPress={ () => this.takePicture() }>
+									<View style={{
+										width: 60,
+										height: 60,
+										borderRadius: 60 / 2,
+										borderColor: '#4D4D4D',
+										borderWidth: 10,
+										backgroundColor: '#FFF'
+									}}/>
+								</TouchableHighlight>)
+						}
+					</View>
+					<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#000000'}}>
+
+						{
+							(this.state.localpath !== false) ?
+							(<TouchableHighlight onPress={ () => this.discardPicture() }>
 							<View style={{
 								alignItems: 'center',
 								justifyContent: 'center',
@@ -247,48 +310,16 @@ class Lendtakepictscreen extends ComponentAbstract {
 								borderWidth: 1,
 								backgroundColor: '#000'
 							}}>
-								<Icon name="image" style={{
-									color: '#FFF',
-									fontSize: 25,
-									paddingTop: 2
-								}}/>
-							</View>
-						</TouchableHighlight>
-					</View>
-
-					<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#000000'}}>
-						<TouchableHighlight onPress={ () => this.takePicture() }>
-							<View style={{
-								width: 60,
-								height: 60,
-								borderRadius: 60 / 2,
-								borderColor: '#4D4D4D',
-								borderWidth: 10,
-								backgroundColor: '#FFF'
+							<Icon name="refresh" style={{
+								color: '#FFF',
+								fontSize: 30,
+								paddingTop: 2
 							}}/>
-						</TouchableHighlight>
-					</View>
-					<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#000000'}}>
-
-						<TouchableHighlight
-							onPress={ () => this.discardPicture() }>
-							<View style={{
-								alignItems: 'center',
-								justifyContent: 'center',
-								width: 40,
-								height: 40,
-								borderRadius: 40 / 2,
-								borderColor: '#FFFFFF',
-								borderWidth: 1,
-								backgroundColor: '#000'
-							}}>
-								<Icon name="refresh" style={{
-									color: '#FFF',
-									fontSize: 30,
-									paddingTop: 2
-								}}/>
 							</View>
-						</TouchableHighlight>
+							</TouchableHighlight>) : null
+						}
+
+
 					</View>
 				</View>
 			</View>

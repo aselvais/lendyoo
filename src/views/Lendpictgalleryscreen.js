@@ -39,7 +39,14 @@ class Lendpictgalleryscreen extends ComponentAbstract {
 	 */
 	componentDidMount() {
 		// get photos from camera roll
-		CameraRoll.getPhotos(this.state.fetchParams, this._storeImages);
+		CameraRoll.getPhotos(this.state.fetchParams).done(
+			(data) => {
+				this._storeImages(data);
+			},
+			(error) => {
+				// console.warn(error);
+			}
+		);
 	}
 
 	/**
@@ -66,7 +73,7 @@ class Lendpictgalleryscreen extends ComponentAbstract {
 			selected: uri,
 		});
 
-		this.newphoto.cameradata = RNFetchBlob.wrap("RNFetchBlob-file://" + uri);
+		// this.newphoto.cameradata = RNFetchBlob.wrap("RNFetchBlob-file://" + uri);
 		this.newphoto.localpath = uri;
 		this.routes.gotTo("lendtakepict");
 
@@ -87,7 +94,7 @@ class Lendpictgalleryscreen extends ComponentAbstract {
 					}}>
 						{ this.state.images.map(image => {
 							return (
-								<TouchableHighlight onPress={() => this._selectImage(image.uri)}>
+								<TouchableHighlight key={image.uri} onPress={() => this._selectImage(image.uri)}>
 									<Image style={{
 										width: 100,
 										height: 100,
