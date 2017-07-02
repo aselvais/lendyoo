@@ -115,7 +115,7 @@ class Loandetailscreen extends ComponentAbstract {
 
 		// this.loan.save();
 		// redirect
-		// this.routes.gotTo("history");
+		// this.routes.goTo("history");
 	}
 
 	/**
@@ -124,7 +124,7 @@ class Loandetailscreen extends ComponentAbstract {
 	takePicture() {
 		this.lendyooRegistry.newloan = this.loan;
 		this.lendyooRegistry.contactCollection.setActiveModel(this.state.contact);
-		this.routes.gotTo("lendtakepict");
+		this.routes.goTo("lendtakepict");
 	}
 
 	/**

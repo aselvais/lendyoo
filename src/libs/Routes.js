@@ -136,7 +136,7 @@ class Routes
 	 * Go to the current view
 	 * @todo make something cleaner than that
 	 */
-	gotToCurrentView()
+	goToCurrentView()
 	{
 		this._globalContainer.onPressTextbox( this._routes.indexOf(this._currentView) );
 	}
@@ -145,10 +145,10 @@ class Routes
 	 * Go to a view by it's route name
 	 * @param {string} name Route name
 	 */
-	gotTo( name="auth" )
+	goTo( name="auth" )
 	{
 		this.getViewByName(name);
-		this.gotToCurrentView();
+		this.goToCurrentView();
 	}
 
 	/**
@@ -156,7 +156,7 @@ class Routes
 	 */
 	goBack()
 	{
-		this.gotTo( this._previousView.name );
+		this.goTo( this._previousView.name );
 	}
 
 	/**

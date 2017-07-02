@@ -137,7 +137,7 @@ class Mainscreen extends Component {
 
 	onPressTabElement(routeName) {
 		this.setState({routeName: routeName});
-		this.routes.gotTo(routeName);
+		this.routes.goTo(routeName);
 	}
 
 	/**

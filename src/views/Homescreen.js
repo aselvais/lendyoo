@@ -100,7 +100,7 @@ class Authenticationscreen extends ComponentAbstract {
 							_that.rootComponent.setAuth(true);
 							_that.lendyooRegistry.setAuthStatus(true);
 							_that.lendyooRegistry.User_id = _that.user._id;
-							_that.lendyooRegistry.routes.gotTo("lendtakepict");
+							_that.lendyooRegistry.routes.goTo("lendtakepict");
 						});
 					} else {
 						_that.rootComponent.setLoading(false);
@@ -150,7 +150,7 @@ class Authenticationscreen extends ComponentAbstract {
 								_that.lendyooRegistry.setAuthStatus(true);
 								_that.lendyooRegistry.User_id = _that.user._id;
 								// _that.displayErrorAlert('Account created');
-								_that.lendyooRegistry.routes.gotTo("lendtakepict");
+								_that.lendyooRegistry.routes.goTo("lendtakepict");
 							}
 						);
 					} else {

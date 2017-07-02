@@ -132,7 +132,7 @@ class Makeloanscreen extends ComponentAbstract {
 									_that.setState({saving: false});
 									_that.lendyooRegistry.newloan = new Loan();
 									_that.lendyooRegistry.newphoto = new Photo();
-									_that.routes.gotTo("detail");
+									_that.routes.goTo("detail");
 								},
 								function (e) {
 									_that.rootComponent.setLoading(false);
@@ -146,7 +146,7 @@ class Makeloanscreen extends ComponentAbstract {
 							_that.lendyooRegistry.newloan = new Loan();
 							_that.lendyooRegistry.newphoto = new Photo();
 							// _that.setState({ saving: false });
-							_that.routes.gotTo("detail");
+							_that.routes.goTo("detail");
 						}
 					}
 					//else
@@ -276,7 +276,7 @@ class Makeloanscreen extends ComponentAbstract {
 								<Text style={ this.css.makeloanfromToText }>{ this.user.fullName }</Text>
 							</View>
 							<View style={{flex: .4, alignItems: 'center'}}>
-								<TouchableHighlight onPress={ () => this.routes.gotTo("contacts") }>
+								<TouchableHighlight onPress={ () => this.routes.goTo("contacts") }>
 									<Text style={ this.css.makeloanfromToText }>{ this.getContactName() }</Text>
 								</TouchableHighlight>
 							</View>

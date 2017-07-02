@@ -76,7 +76,7 @@ class Loanhistoryscreen extends ComponentAbstract {
 	 */
 	lendItem() {
 		this.console.log('Authenticationscreen.lendItem()');
-		this.lendyooRegistry.routes.gotTo("lendtakepict");
+		this.lendyooRegistry.routes.goTo("lendtakepict");
 	}
 
 	/**
@@ -85,7 +85,7 @@ class Loanhistoryscreen extends ComponentAbstract {
 	 */
 	onPressLoan(loan) {
 		this.lendyooRegistry.loanCollection.setActiveModel(loan);
-		this.routes.gotTo("detail");
+		this.routes.goTo("detail");
 	}
 
 	/**
