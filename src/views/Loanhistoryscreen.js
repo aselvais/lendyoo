@@ -88,9 +88,31 @@ class Loanhistoryscreen extends ComponentAbstract {
 		this.routes.goTo("detail");
 	}
 
-	onPressSaveretured(loan)
+	/**
+	 *
+	 * @param loan
+	 */
+	toggleLoanStatus(loan)
 	{
-
+		var _that = this;
+		if (loan.status == 'open')
+		{
+			loan.status = 'closed';
+		}
+		else
+		{
+			loan.status = 'open';
+		}
+		loan.save().then(
+			function(d) {
+				console.log(d);
+			},
+			function(er) {
+				console.log(er);
+			}
+		).then(function(){
+		});
+		_that.setState({loanCollectionModels: _that.lendyooRegistry.loanCollection.models});
 	}
 
 	/**
@@ -105,9 +127,11 @@ class Loanhistoryscreen extends ComponentAbstract {
 
 	/**
 	 *
+	 * @param status open|close|expired
 	 * @returns {XML}
 	 */
-	getLoanListView() {
+	getLoanListView( status='open' ) {
+		var nbrEntries = 0;
 		return <View style={this.css.loanhistRegisterContainer}>
 			{
 				(!this.state.loanCollectionModels || this.state.loanCollectionModels.length <= 0) ?
@@ -125,24 +149,33 @@ class Loanhistoryscreen extends ComponentAbstract {
 					:
 					(<View>
 						{
-							this.state.loanCollectionModels.map((loan) =>
+							this.state.loanCollectionModels.filter(function(loan){
+								if (loan.status == status )
+								{
+									nbrEntries++;
+									return true;
+								}
+								return false;
+							}).map((loan, idx, orAr) =>
 								<Card key={loan._id}>
+
 									<CardItem>
 										<Left>
 											<Body>
 											<Text>{ loan.title }</Text>
-											<Text note>lent to { this.getContactName(loan) }</Text>
+											<Text note>lent to { this.getContactName(orAr[idx]) }</Text>
 											</Body>
 										</Left>
 										<Right>
 											<Text note>{ this.getFormatedDate(loan.dateCreated) }</Text>
 										</Right>
 									</CardItem>
+
 									<CardItem>
 										<Body>
 										{
 											loan.photo ?
-												(<Image onPress={ () => this.onPressLoan(loan) }
+												(<Image onPress={ () => this.onPressLoan(orAr[idx]) }
 														defaultSource={require('../assets/images/loading.png')}
 														style={{
 															resizeMode: 'cover',
@@ -156,16 +189,18 @@ class Loanhistoryscreen extends ComponentAbstract {
 										}
 										</Body>
 									</CardItem>
+
 									<CardItem>
 										<Left>
 											<Text>{ loan.detail }</Text>
-											<Button transparent onPress={ () => this.onPressLoan(loan) }>
+											<Button transparent onPress={ () => this.onPressLoan(orAr[idx]) }>
 												<Text style={{ color: this.colors.c2, textDecorationLine: 'underline' }}>Detail</Text>
 											</Button>
 										</Left>
 										<Right>
-											<Button primary onPress={ () => this.onPressSaveretured(loan) }>
-												<Text>Returned</Text>
+											<Button primary onPress={ () => this.toggleLoanStatus(orAr[idx]) }>
+												<Text>{ (loan.status == 'open') ? 'Returned' : 'Re-open' }
+												</Text>
 											</Button>
 										</Right>
 									</CardItem>
@@ -203,21 +238,8 @@ class Loanhistoryscreen extends ComponentAbstract {
 		this.console.log('Loanhistoryscreen.render()');
 		return (
 			<Tabs>
-				<Tab heading="Lent"><Content padder={true}
-											 style={{backgroundColor: this.colors.c1}}>{ this.getLoanListView() }</Content></Tab>
-				<Tab heading="Returned"><Content padder={true} style={{backgroundColor: this.colors.c1}}>
-					<View>
-						<Card>
-							<CardItem>
-								<Left>
-									<Body>
-									<Text>Nothing here so far ...</Text>
-									</Body>
-								</Left>
-							</CardItem>
-						</Card>
-					</View>
-				</Content></Tab>
+				<Tab heading="Lent"><Content padder={true} style={{backgroundColor: this.colors.c1}}>{ this.getLoanListView('open') }</Content></Tab>
+				<Tab heading="Returned"><Content padder={true} style={{backgroundColor: this.colors.c1}}>{ this.getLoanListView('closed') }</Content></Tab>
 			</Tabs>
 		);
 	}
