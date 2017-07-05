@@ -47,7 +47,7 @@ class Mainscreen extends Component {
 			isAuth: false, //this.lendyooRegistry.isAuthenticated,
 			selectedView: this.routes._currentView,
 			loading: false,
-			routeName: 'lend'
+			routeName: 'lendtakepict'
 		};
 		this.menuItems = this.routes.getRoutes();
 	}
@@ -58,6 +58,7 @@ class Mainscreen extends Component {
 	componentDidMount()
 	{
 		this.resetAuthState(this.lendyooRegistry.isAuthenticated);
+		this.setState({routeName: 'lendtakepict'});
 	}
 
 	/**
@@ -164,24 +165,27 @@ class Mainscreen extends Component {
 					{
 						this.state.isAuth ? <Footer>
 							<FooterTab>
-								<Button active={(this.state.routeName == 'history')}
-										onPress={ () => this.onPressTabElement("history") }>
-									<Icon name="list"/>
-									<Text style={ this.css.tabText }>Loans</Text>
-								</Button>
+
 								<Button active={(this.state.routeName == 'lendtakepict')}
 										onPress={ () => this.onPressTabElement("lendtakepict") }>
 									<Icon name="camera"/>
 									<Text style={ this.css.tabText }>Lend</Text>
 								</Button>
+
+								<Button active={(this.state.routeName == 'history')}
+										onPress={ () => this.onPressTabElement("history") }>
+									<Icon name="list-box"/>
+									<Text style={ this.css.tabText }>Loans</Text>
+								</Button>
+
 								<Button active={(this.state.routeName == 'profile')}
 										onPress={ () => this.onPressTabElement("profile") }>
-									<Icon name="person"/>
+									<Icon name="contact"/>
 									<Text style={ this.css.tabText }>Account</Text>
 								</Button>
 								<Button active={(this.state.routeName == 'settings')}
 										onPress={ () => this.onPressTabElement("settings") }>
-									<Icon name="settings"/>
+									<Icon name="construct"/>
 									<Text style={ this.css.tabText }>Settings</Text>
 								</Button>
 							</FooterTab>

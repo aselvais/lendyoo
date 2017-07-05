@@ -39,9 +39,10 @@ class Lendtakepictscreen extends ComponentAbstract {
 			loan: this.newloan,
 			photo: this.newphoto.data ? this.newphoto.data : false,
 			localpath: this.newphoto.localpath ? this.newphoto.localpath : false,
-			title: (this.newphoto.title) ? this.newphoto.title: '',
+			title: (this.newphoto.title) ? this.newphoto.title : '',
 			saving: false,
-			isMounted: false
+			isMounted: false,
+			cameraside: 'back'
 		};
 	}
 
@@ -146,12 +147,28 @@ class Lendtakepictscreen extends ComponentAbstract {
 	 * When changing descritpion in the text field
 	 * @param title
 	 */
-	onChangeTitle( title='' )
-	{
+	onChangeTitle(title = '') {
 		this.newphoto.title = title;
 		this.setState({title});
 	}
 
+	/**
+	 * Reverse the camera
+	 */
+	reverseCamera()
+	{
+		(this.state.cameraside == 'back') ? this.setState({ cameraside: 'front' }) : this.setState({ cameraside: 'back' });
+	}
+
+	/**
+	 *
+	 */
+	readBarCode(e)
+	{
+		this.displayErrorAlert('Barcode detected!' + "\n" +
+			'This feature will be available soon :)' +
+			"\nType: " + e.type + "\nData: " + e.data);
+	}
 
 	/**
 	 *
@@ -183,6 +200,8 @@ class Lendtakepictscreen extends ComponentAbstract {
 							}
 							captureTarget={Camera.constants.CaptureTarget.disk}
 							captureQuality={Camera.constants.CaptureQuality["720p"]}
+							type={ this.state.cameraside }
+							onBarCodeRead={ (e) => this.readBarCode(e) }
 							style={{
 								alignItems: 'center',
 								justifyContent: 'center',
@@ -198,102 +217,99 @@ class Lendtakepictscreen extends ComponentAbstract {
 				{
 					(this.state.localpath !== false) ?
 						(<View style={{flex: .20, backgroundColor: '#000000', flexDirection: 'row'}}>
-							<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#000000'}}>
-								<TouchableHighlight onPress={ () => this.discardPicture() }>
-									<View style={{
-										alignItems: 'center',
-										justifyContent: 'center',
-										width: 40,
-										height: 40,
-										borderRadius: 40 / 2,
-										borderColor: '#FFFFFF',
-										borderWidth: 1,
-										backgroundColor: '#000'
-									}}>
-										<Icon name="refresh" style={{
-											color: '#FFF',
-											fontSize: 30,
-											paddingTop: 2
-										}}/>
-									</View>
-								</TouchableHighlight>
+							<View style={{
+								flex: 1,
+								alignItems: 'center',
+								justifyContent: 'center',
+								backgroundColor: '#000000'
+							}}>
+								<Icon name="arrow-round-back" style={{
+									color: '#FFF',
+									fontSize: 40,
+									paddingTop: 2
+								}} onPress={ () => this.discardPicture() }/>
 							</View>
-							<View style={{flex: 2, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#000000'}}>
+							<View style={{
+								flex: 2,
+								flexDirection: 'row',
+								alignItems: 'center',
+								justifyContent: 'center',
+								backgroundColor: '#000000'
+							}}>
 
 								<View style={{flex: 2}}>
-									<Input placeholder="Title"
-										   style={{ color: '#FFF', width: '100%'}}
+									<Input placeholder="Loan title"
+										   style={{color: '#FFF', width: '100%', textAlign: 'center'}}
 										   onChangeText={(title) => this.onChangeTitle(title)}
 										   value={this.state.title}
 										   blurOnSubmit={false}
 										   onSubmitEditing={() => this.onPressSave()}
 									/>
 								</View>
-								<View style={{flex: 1}}>
-								<Button primary
-									onPress={ () => this.onPressSave() }>
-									<Text>Go</Text>
-								</Button>
+								<View style={{flex: 1,
+									alignItems: 'center',
+									justifyContent: 'center',
+									backgroundColor: '#000000'}}>
+									<Icon name="arrow-round-forward" style={{
+										color: '#FFF',
+										fontSize: 40,
+										paddingTop: 2
+									}} onPress={ () => this.onPressSave() }/>
 								</View>
 							</View>
 
 						</View>)
 						:
 						(<View style={{flex: .20, backgroundColor: '#000000', flexDirection: 'row'}}>
-								<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#000000'}}>
-									<TouchableHighlight onPress={ () => this.discardPicture() }>
-										<View style={{
-											alignItems: 'center',
-											justifyContent: 'center',
-											width: 40,
-											height: 40,
-											borderRadius: 40 / 2,
-											borderColor: '#FFFFFF',
-											borderWidth: 1,
-											backgroundColor: '#000'
-										}}>
-											<Icon name="refresh" style={{
-												color: '#FFF',
-												fontSize: 30,
-												paddingTop: 2
-											}}/>
-										</View>
-									</TouchableHighlight>
-								</View>
-								<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#000000'}}>
-									<TouchableHighlight onPress={ () => this.takePicture() }>
-										<View style={{
-											width: 60,
-											height: 60,
-											borderRadius: 60 / 2,
-											borderColor: '#4D4D4D',
-											borderWidth: 10,
-											backgroundColor: '#FFF'
-										}}/>
-									</TouchableHighlight>
-								</View>
-								<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#000000'}}>
-									<TouchableHighlight
-										onPress={ () => this.loadGallery() }>
-										<View style={{
-											alignItems: 'center',
-											justifyContent: 'center',
-											width: 40,
-											height: 40,
-											borderRadius: 40 / 2,
-											borderColor: '#FFFFFF',
-											borderWidth: 1,
-											backgroundColor: '#000'
-										}}>
-											<Icon name="image" style={{
-												color: '#FFF',
-												fontSize: 25,
-												paddingTop: 2
-											}}/>
-										</View>
-									</TouchableHighlight>
-								</View>
-							</View>)
+
+							<View style={{
+								flex: 1,
+								alignItems: 'center',
+								justifyContent: 'center',
+								backgroundColor: '#000000'
+							}}>
+								<Icon name="images" style={{
+									color: '#FFF',
+									fontSize: 40,
+									paddingTop: 2
+								}} onPress={ () => this.loadGallery() }/>
+							</View>
+
+
+							<View style={{
+								flex: 1,
+								alignItems: 'center',
+								justifyContent: 'center',
+								backgroundColor: '#000000'
+							}}>
+								<TouchableHighlight onPress={ () => this.takePicture() }>
+									<View style={{
+										width: 60,
+										height: 60,
+										borderRadius: 60 / 2,
+										borderColor: '#4D4D4D',
+										borderWidth: 10,
+										backgroundColor: '#FFF'
+									}}/>
+								</TouchableHighlight>
+							</View>
+
+
+							<View style={{
+								flex: 1,
+								alignItems: 'center',
+								justifyContent: 'center',
+								backgroundColor: '#000000'
+							}}>
+								<Icon name="reverse-camera" style={{
+									color: '#FFF',
+									fontSize: 40,
+									paddingTop: 2
+								}} onPress={ () => this.reverseCamera() }/>
+							</View>
+
+
+						</View>)
 
 				}
 

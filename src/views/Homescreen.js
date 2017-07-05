@@ -55,6 +55,10 @@ class Authenticationscreen extends ComponentAbstract {
 						email: dd.email,
 						password: dd.password
 					});
+					if (_that.lendyooRegistry.didLogOut === false)
+					{
+						_that.logIn();
+					}
 				}
 			}
 		);

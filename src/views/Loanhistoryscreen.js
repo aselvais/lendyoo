@@ -88,6 +88,11 @@ class Loanhistoryscreen extends ComponentAbstract {
 		this.routes.goTo("detail");
 	}
 
+	onPressSaveretured(loan)
+	{
+
+	}
+
 	/**
 	 *
 	 * @param d
@@ -159,7 +164,9 @@ class Loanhistoryscreen extends ComponentAbstract {
 											</Button>
 										</Left>
 										<Right>
-											<Switch value={false}/>
+											<Button primary onPress={ () => this.onPressSaveretured(loan) }>
+												<Text>Returned</Text>
+											</Button>
 										</Right>
 									</CardItem>
 

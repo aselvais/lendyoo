@@ -40,6 +40,7 @@ class LendyooRegistry {
 	init(useLocalStorageAuth=true)
 	{
 		this.isAuthenticated = false;
+		this.didLogOut = false;
 		if (useLocalStorageAuth) {
 			this.config = new Config();
 			this.Console = new Console(this.config.debug);
