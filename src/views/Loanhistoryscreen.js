@@ -94,25 +94,17 @@ class Loanhistoryscreen extends ComponentAbstract {
 	 */
 	toggleLoanStatus(loan)
 	{
-		var _that = this;
-		if (loan.status == 'open')
-		{
-			loan.status = 'closed';
-		}
-		else
-		{
-			loan.status = 'open';
-		}
-		loan.save().then(
-			function(d) {
-				console.log(d);
-			},
-			function(er) {
-				console.log(er);
-			}
-		).then(function(){
-		});
-		_that.setState({loanCollectionModels: _that.lendyooRegistry.loanCollection.models});
+		(loan.status == 'open') ? loan.status = 'closed' : loan.status = 'open';
+		this.updateLoanList();
+		loan.save();
+	}
+
+	/**
+	 *
+	 */
+	updateLoanList()
+	{
+		this.setState({loanCollectionModels: this.lendyooRegistry.loanCollection.models});
 	}
 
 	/**
