@@ -15,11 +15,10 @@ class Lendpictgalleryctrl extends ComponentAbstract {
 	 */
 	constructor(props) {
 		super(props);
-		var controls = props.controls;
 		this.state = {
 			images: [],
 			selected: '',
-			fetchParams: {first: 25},
+			fetchParams: {first: 50},
 			groupTypes: 'SavedPhotos'
 		};
 		this._storeImages = this._storeImages.bind(this);

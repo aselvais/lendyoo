@@ -1,10 +1,4 @@
 import React, {Component} from 'react';
-import {
-	Text
-} from 'react-native';
-import {
-	Icon
-} from 'native-base';
 import LendyooRegistry from '../libs/LendyooRegistry';
 import {colors, Mainstyle} from '../styles/Mainstyle';
 
@@ -69,39 +63,12 @@ class Mainctrl extends Component {
 	/**
 	 *
 	 */
-	showMenu() {
-		this._drawer._root.open();
-	}
-
-	/**
-	 *
-	 */
 	hideMenu() {
 		try {
 			this._drawer._root.close();
 		} catch (er) {
 			console.log('Error, must be a logout');
 		}
-	}
-
-	/**
-	 *
-	 */
-	toggleMenu() {
-		this._drawer._root.toggle();
-	}
-
-	/**
-	 *
-	 * @returns {XML}
-	 */
-	getNavigationItem() {
-		this.console.log('Mainctrl.getNavigationItem()');
-		if (this.state.selectedView.showBackButton)
-			return <Text style={ this.css.maintopBarText } onPress={ () => this.routes.goBack() }><Icon
-				name="chevron-left"/></Text>;
-		else
-			return <Text style={ this.css.maintopBarText } onPress={ () => this.showMenu() }><Icon name="bars"/></Text>;
 	}
 
 	/**
@@ -120,6 +87,10 @@ class Mainctrl extends Component {
 		this.setState({isAuth: v});
 	}
 
+	/**
+	 *
+	 * @param routeName
+	 */
 	onPressTabElement(routeName) {
 		this.setState({routeName: routeName});
 		this.routes.goTo(routeName);

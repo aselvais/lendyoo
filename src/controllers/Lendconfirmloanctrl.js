@@ -73,20 +73,6 @@ class Lendconfirmloanctrl extends ComponentAbstract {
 
 	/**
 	 *
-	 * @returns {*}
-	 */
-	getFromName() {
-		this.console.log('Loandetailscreen.getFromName()');
-		if (!this.loan.fromId) {
-			return this.user.fullName;
-		}
-		else {
-			return '???';
-		}
-	}
-
-	/**
-	 *
 	 */
 	save() {
 		this.console.log('Loandetailscreen.save()');

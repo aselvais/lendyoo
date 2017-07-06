@@ -1,14 +1,5 @@
 import React from 'react';
 import ComponentAbstract from '../libs/ComponentAbstract';
-import {
-	AppRegistry,
-	Text,
-	View,
-	ScrollView
-} from 'react-native';
-import {
-	Icon
-} from 'native-base';
 
 /**
  * Make loan screen (with pict)

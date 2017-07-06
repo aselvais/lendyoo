@@ -46,13 +46,6 @@ class Loanhistoryctrl extends ComponentAbstract {
 		);
 	}
 
-	/**
-	 *
-	 */
-	lendItem() {
-		this.console.log('Homescreen.lendItem()');
-		this.lendyooRegistry.routes.goTo("lendtakepict");
-	}
 
 	/**
 	 *
@@ -68,9 +61,16 @@ class Loanhistoryctrl extends ComponentAbstract {
 	 * @param loan
 	 */
 	toggleLoanStatus(loan) {
+		var _that = this;
+		_that.rootComponent.setLoading(true);
 		(loan.status == 'open') ? loan.status = 'closed' : loan.status = 'open';
-		this.updateLoanList();
-		loan.save();
+		loan.save().then(
+			(d) => {
+				_that.rootComponent.setLoading(false);
+				_that.updateLoanList();
+			},
+			(er) => _that.rootComponent.setLoading(false)
+		);
 	}
 
 	/**

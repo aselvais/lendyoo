@@ -17,7 +17,6 @@ class Lendtakepictctrl extends ComponentAbstract {
 		super(props);
 		this.console.log('Makeloanscreen.constructor()', props);
 		this.contactCollection = this.lendyooRegistry.contactCollection;
-		this.activeContact = this.contactCollection.getActiveModel();
 		this.state = {
 			loan: this.newloan,
 			photo: this.newphoto.data ? this.newphoto.data : false,
