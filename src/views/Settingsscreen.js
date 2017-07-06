@@ -21,16 +21,16 @@ class Settingsscreen extends Settingsctrl {
 		this.console.log('Settingsscreen.render()');
 		return (
 			<Content style={{backgroundColor: this.colors.c1}} padder={true}>
-			<View>
-				<Text style={this.css.welcome}>
-					Settings Screen
-				</Text>
+				<View>
+					<Text style={this.css.welcome}>
+						Settings Screen
+					</Text>
 
-				<Button success full style={{ marginTop: 10 }} onPress={ () => this.routes.goTo("logout") }>
-					<Text style={this.css.profilebuttonText}>Log-out</Text>
-				</Button>
+					<Button success full style={{marginTop: 10}} onPress={ () => this.routes.goTo("logout") }>
+						<Text style={this.css.profilebuttonText}>Log-out</Text>
+					</Button>
 
-			</View>
+				</View>
 			</Content>
 		);
 	}

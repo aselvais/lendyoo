@@ -1,5 +1,5 @@
 import React from 'react';
-import ComponentAbstract from '../../libs/ComponentAbstract';
+import ComponentAbstract from '../libs/ComponentAbstract';
 import {
 	AppRegistry,
 	Text,

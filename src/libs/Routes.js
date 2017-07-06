@@ -2,19 +2,19 @@ import React from 'react';
 
 // import Makeloanscreen from '../views/Makeloanscreen';
 
-import Lendtakepictscreen from '../views/jsx/Lendtakepictscreen';
-import Lendpictgalleryscreen from '../views/jsx/Lendpictgalleryscreen';
-import Lendchoosecontactcreen from '../views/jsx/Lendchoosecontactcreen';
-import Lendconfirmloanscreen from '../views/jsx/Lendconfirmloanscreen';
+import Lendtakepictscreen from '../views/Lendtakepictscreen';
+import Lendpictgalleryscreen from '../views/Lendpictgalleryscreen';
+import Lendchoosecontactcreen from '../views/Lendchoosecontactcreen';
+import Lendconfirmloanscreen from '../views/Lendconfirmloanscreen';
 
-import Homescreen from '../views/jsx/Homescreen';
-import Profilescreen from '../views/jsx/Profilescreen';
-import Settingsscreen from '../views/jsx/Settingsscreen';
+import Homescreen from '../views/Homescreen';
+import Profilescreen from '../views/Profilescreen';
+import Settingsscreen from '../views/Settingsscreen';
 // import Contactselectionscreen from '../views/Contactselectionscreen';
-import Loandetailscreen from '../views/jsx/Loandetailscreen';
-import Loanhistoryscreen from '../views/jsx/Loanhistoryscreen';
+import Loandetailscreen from '../views/Loandetailscreen';
+import Loanhistoryscreen from '../views/Loanhistoryscreen';
 // import Helpscreen from '../views/Helpscreen';
-import Logoutscreen from '../views/jsx/Logoutscreen';
+import Logoutscreen from '../views/Logoutscreen';
 
 let instance = null;
 

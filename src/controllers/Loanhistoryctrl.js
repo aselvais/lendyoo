@@ -1,5 +1,5 @@
 import React from 'react';
-import ComponentAbstract from '../../libs/ComponentAbstract';
+import ComponentAbstract from '../libs/ComponentAbstract';
 
 /**
  * Loans history/list
@@ -67,8 +67,7 @@ class Loanhistoryctrl extends ComponentAbstract {
 	 *
 	 * @param loan
 	 */
-	toggleLoanStatus(loan)
-	{
+	toggleLoanStatus(loan) {
 		(loan.status == 'open') ? loan.status = 'closed' : loan.status = 'open';
 		this.updateLoanList();
 		loan.save();
@@ -77,8 +76,7 @@ class Loanhistoryctrl extends ComponentAbstract {
 	/**
 	 *
 	 */
-	updateLoanList()
-	{
+	updateLoanList() {
 		this.setState({loanCollectionModels: this.lendyooRegistry.loanCollection.models});
 	}
 

@@ -17,7 +17,7 @@ import {
 	Footer,
 	FooterTab
 } from 'native-base';
-import getTheme from '../../native-base-theme/components/index';
+import getTheme from '../native-base-theme/components/index';
 
 /**
  * Welcome/help screen

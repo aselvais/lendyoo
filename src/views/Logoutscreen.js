@@ -21,11 +21,11 @@ class Logoutscreen extends Logoutctrl {
 		this.console.log('Logoutscreen.render()');
 		return (
 			<Content padder={true}>
-			<View style={this.css.container}>
-				<Text style={this.css.welcome}>
-					Bye bye :)
-				</Text>
-			</View>
+				<View style={this.css.container}>
+					<Text style={this.css.welcome}>
+						Bye bye :)
+					</Text>
+				</View>
 			</Content>
 		);
 	}

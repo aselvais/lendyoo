@@ -1,7 +1,7 @@
 import React from 'react';
-import ComponentAbstract from '../../libs/ComponentAbstract';
-import Contact from '../../shared/models/frontend/Contact';
-import Photo from '../../shared/models/frontend/Photo';
+import ComponentAbstract from '../libs/ComponentAbstract';
+import Contact from '../shared/models/frontend/Contact';
+import Photo from '../shared/models/frontend/Photo';
 /**
  *
  */

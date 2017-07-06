@@ -5,8 +5,8 @@ import {
 import {
 	Icon
 } from 'native-base';
-import LendyooRegistry from '../../libs/LendyooRegistry';
-import {colors, Mainstyle} from '../../styles/Mainstyle';
+import LendyooRegistry from '../libs/LendyooRegistry';
+import {colors, Mainstyle} from '../styles/Mainstyle';
 
 /**
  * Welcome/help screen
@@ -40,8 +40,7 @@ class Mainctrl extends Component {
 	/**
 	 *
 	 */
-	componentDidMount()
-	{
+	componentDidMount() {
 		this.resetAuthState(this.lendyooRegistry.isAuthenticated);
 		this.setState({routeName: 'lendtakepict'});
 	}
@@ -49,8 +48,7 @@ class Mainctrl extends Component {
 	/**
 	 *
 	 */
-	resetAuthState(s)
-	{
+	resetAuthState(s) {
 		this.setState({isAuth: s, routeName: 'lend'});
 	}
 
@@ -100,7 +98,8 @@ class Mainctrl extends Component {
 	getNavigationItem() {
 		this.console.log('Mainctrl.getNavigationItem()');
 		if (this.state.selectedView.showBackButton)
-			return <Text style={ this.css.maintopBarText } onPress={ () => this.routes.goBack() }><Icon name="chevron-left" /></Text>;
+			return <Text style={ this.css.maintopBarText } onPress={ () => this.routes.goBack() }><Icon
+				name="chevron-left"/></Text>;
 		else
 			return <Text style={ this.css.maintopBarText } onPress={ () => this.showMenu() }><Icon name="bars"/></Text>;
 	}

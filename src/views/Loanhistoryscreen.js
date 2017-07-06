@@ -29,7 +29,7 @@ class Loanhistoryscreen extends Loanhistoryctrl {
 	 * @param status open|close|expired
 	 * @returns {XML}
 	 */
-	getLoanListView( status='open' ) {
+	getLoanListView(status = 'open') {
 		var nbrEntries = 0;
 		return <View style={this.css.loanhistRegisterContainer}>
 			{
@@ -48,9 +48,8 @@ class Loanhistoryscreen extends Loanhistoryctrl {
 					:
 					(<View>
 						{
-							this.state.loanCollectionModels.filter(function(loan){
-								if (loan.status == status )
-								{
+							this.state.loanCollectionModels.filter(function (loan) {
+								if (loan.status == status) {
 									nbrEntries++;
 									return true;
 								}
@@ -75,7 +74,7 @@ class Loanhistoryscreen extends Loanhistoryctrl {
 										{
 											loan.photo ?
 												(<Image onPress={ () => this.onPressLoan(orAr[idx]) }
-														defaultSource={require('../../assets/images/loading.png')}
+														defaultSource={require('../assets/images/loading.png')}
 														style={{
 															resizeMode: 'cover',
 															overflow: 'hidden',
@@ -93,7 +92,7 @@ class Loanhistoryscreen extends Loanhistoryctrl {
 										<Left>
 											<Text>{ loan.detail }</Text>
 											<Button transparent onPress={ () => this.onPressLoan(orAr[idx]) }>
-												<Text style={{ color: this.colors.c2, textDecorationLine: 'underline' }}>Detail</Text>
+												<Text style={{color: this.colors.c2, textDecorationLine: 'underline'}}>Detail</Text>
 											</Button>
 										</Left>
 										<Right>
@@ -120,8 +119,10 @@ class Loanhistoryscreen extends Loanhistoryctrl {
 		this.console.log('Loanhistoryscreen.render()');
 		return (
 			<Tabs>
-				<Tab heading="Lent"><Content padder={true} style={{backgroundColor: this.colors.c1}}>{ this.getLoanListView('open') }</Content></Tab>
-				<Tab heading="Returned"><Content padder={true} style={{backgroundColor: this.colors.c1}}>{ this.getLoanListView('closed') }</Content></Tab>
+				<Tab heading="Lent"><Content padder={true}
+											 style={{backgroundColor: this.colors.c1}}>{ this.getLoanListView('open') }</Content></Tab>
+				<Tab heading="Returned"><Content padder={true}
+												 style={{backgroundColor: this.colors.c1}}>{ this.getLoanListView('closed') }</Content></Tab>
 			</Tabs>
 		);
 	}

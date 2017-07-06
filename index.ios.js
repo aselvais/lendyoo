@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {
 	AppRegistry
 } from 'react-native';
-import Mainscreen from './src/views/jsx/Mainscreen';
+import Mainscreen from './src/views/Mainscreen';
 
 /**
  * Bootstraping iOS

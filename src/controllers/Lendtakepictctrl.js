@@ -1,5 +1,5 @@
 import React from 'react';
-import ComponentAbstract from '../../libs/ComponentAbstract';
+import ComponentAbstract from '../libs/ComponentAbstract';
 import {
 	Alert
 } from 'react-native';
@@ -138,16 +138,14 @@ class Lendtakepictctrl extends ComponentAbstract {
 	/**
 	 * Reverse the camera
 	 */
-	reverseCamera()
-	{
-		(this.state.cameraside == 'back') ? this.setState({ cameraside: 'front' }) : this.setState({ cameraside: 'back' });
+	reverseCamera() {
+		(this.state.cameraside == 'back') ? this.setState({cameraside: 'front'}) : this.setState({cameraside: 'back'});
 	}
 
 	/**
 	 *
 	 */
-	readBarCode(e)
-	{
+	readBarCode(e) {
 		this.displayErrorAlert('Barcode detected!' + "\n" +
 			'This feature will be available soon :)' +
 			"\nType: " + e.type + "\nData: " + e.data);

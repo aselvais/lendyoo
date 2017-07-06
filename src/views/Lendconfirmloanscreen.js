@@ -50,10 +50,11 @@ class Lendconfirmloanscreen extends Lendconfirmloanctrl {
 							{
 								this.loan.photo ? (
 									<Image
-										defaultSource={require('../../assets/images/loading.png')}
+										defaultSource={require('../assets/images/loading.png')}
 										style={{overflow: 'hidden', width: Dimensions.get('window').width, height: 400}}
 										source={{uri: this.lendyooRegistry.config.API_URL + '/api-v2/photo/getloanimage/' + this.loan._id + '/' + Dimensions.get('window').width}}></Image>)
-									: <TouchableHighlight onPress={ () => this.takePicture() }><Icon name="camera"/></TouchableHighlight>
+									: <TouchableHighlight onPress={ () => this.takePicture() }><Icon
+									name="camera"/></TouchableHighlight>
 							}
 							<Item><Label>Detail</Label><Input value={this.state.detail}
 															  onValueChange={(val) => this.onFormElementChange('detail', val)}/></Item>

@@ -40,21 +40,30 @@ class Profilescreen extends Profilectrl {
 								<Item ><Label style={{color: this.colors.white}}>Username</Label>
 									<Text style={{color: this.colors.c3}}>{this.state.user.username}</Text></Item>
 								<Item ><Label style={{color: this.colors.white}}>First Name</Label>
-									<Input style={{color: this.colors.c3}} onChangeText={(fname) => this.setState({fname: fname})} value={this.state.fname}/></Item>
+									<Input style={{color: this.colors.c3}}
+										   onChangeText={(fname) => this.setState({fname: fname})}
+										   value={this.state.fname}/></Item>
 								<Item ><Label style={{color: this.colors.white}}>Last Name</Label>
-									<Input style={{color: this.colors.c3}} onChangeText={(lname) => this.setState({lname: lname})} value={this.state.lname}/></Item>
+									<Input style={{color: this.colors.c3}}
+										   onChangeText={(lname) => this.setState({lname: lname})}
+										   value={this.state.lname}/></Item>
 								<Item ><Label style={{color: this.colors.white}}>Gender</Label>
 									<Picker mode="dropdown"
 											selectedValue={this.state.gender}
 											onValueChange={(gender) => this.setState({gender: gender})}>
-										{ this.user._schema.gender.enum.map((v) => <Item  style={{color: this.colors.c3}} key={v} label={v} value={v}/>) }
+										{ this.user._schema.gender.enum.map((v) => <Item style={{color: this.colors.c3}}
+																						 key={v} label={v}
+																						 value={v}/>) }
 									</Picker>
 								</Item>
-								<Item ><Label style={{color: this.colors.white}}>E-mail</Label><Input style={{color: this.colors.c3}} value={this.state.user.email}/></Item>
-								<Item ><Label style={{color: this.colors.white}}>Date of birth</Label><Input style={{color: this.colors.c3}} value={this.state.user.dateOfBirth}/></Item>
+								<Item ><Label style={{color: this.colors.white}}>E-mail</Label><Input
+									style={{color: this.colors.c3}} value={this.state.user.email}/></Item>
+								<Item ><Label style={{color: this.colors.white}}>Date of birth</Label><Input
+									style={{color: this.colors.c3}} value={this.state.user.dateOfBirth}/></Item>
 							</Form>
 
-							<Button success full name="pencil" style={{marginTop: 20}} onPress={ () => this.editUser() }>
+							<Button success full name="pencil" style={{marginTop: 20}}
+									onPress={ () => this.editUser() }>
 								<Text style={this.css.profilebuttonText}>Update</Text>
 							</Button>
 						</View>
@@ -74,7 +83,8 @@ class Profilescreen extends Profilectrl {
 											<Picker mode="dropdown"
 													selectedValue={this.state.group.type}
 													onValueChange={(type) => this.setState({type: type})}>
-												{ this.group._schema.type.enum.map((v) => <Item key={v} label={v} value={v}/>) }
+												{ this.group._schema.type.enum.map((v) => <Item key={v} label={v}
+																								value={v}/>) }
 											</Picker>
 										</Item>
 									</Form>

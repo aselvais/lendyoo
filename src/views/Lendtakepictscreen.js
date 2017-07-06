@@ -93,10 +93,12 @@ class Lendtakepictscreen extends Lendtakepictctrl {
 										   onSubmitEditing={() => this.onPressSave()}
 									/>
 								</View>
-								<View style={{flex: 1,
+								<View style={{
+									flex: 1,
 									alignItems: 'center',
 									justifyContent: 'center',
-									backgroundColor: '#000000'}}>
+									backgroundColor: '#000000'
+								}}>
 									<Icon name="arrow-round-forward" style={{
 										color: '#FFF',
 										fontSize: 40,

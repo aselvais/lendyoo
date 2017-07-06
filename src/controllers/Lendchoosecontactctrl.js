@@ -1,7 +1,7 @@
 import React from 'react';
-import ComponentAbstract from '../../libs/ComponentAbstract';
+import ComponentAbstract from '../libs/ComponentAbstract';
 import ContactsWrapper from 'react-native-contacts-wrapper';
-import Contact from '../../shared/models/frontend/Contact';
+import Contact from '../shared/models/frontend/Contact';
 /**
  *
  */
