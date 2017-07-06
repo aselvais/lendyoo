@@ -74,7 +74,6 @@ class Loanhistoryscreen extends Loanhistoryctrl {
 										{
 											loan.photo ?
 												(<Image onPress={ () => this.onPressLoan(orAr[idx]) }
-														defaultSource={require('../assets/images/loading.png')}
 														style={{
 															resizeMode: 'cover',
 															overflow: 'hidden',
