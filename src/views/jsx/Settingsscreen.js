@@ -1,5 +1,5 @@
 import React from 'react';
-import ComponentAbstract from './ComponentAbstract';
+import Settingsctrl from '../controllers/Settingsctrl';
 import {
 	AppRegistry,
 	Text,
@@ -12,7 +12,7 @@ import {
 /**
  *
  */
-class Settingsscreen extends ComponentAbstract {
+class Settingsscreen extends Settingsctrl {
 	/**
 	 *
 	 * @returns {XML}

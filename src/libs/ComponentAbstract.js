@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import LendyooRegistry from '../libs/LendyooRegistry';
+import LendyooRegistry from './LendyooRegistry';
 import {colors, Mainstyle} from '../styles/Mainstyle';
 
 /**

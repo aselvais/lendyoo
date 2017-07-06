@@ -1,21 +1,13 @@
 import React from 'react';
-import ComponentAbstract from './ComponentAbstract';
+import ComponentAbstract from '../../libs/ComponentAbstract';
 import {
-	AppRegistry,
-	CameraRoll,
-	Image,
-	TouchableHighlight,
-	View
+	CameraRoll
 } from 'react-native';
-import {
-	Content
-} from 'native-base';
-import RNFetchBlob from 'react-native-fetch-blob';
 
 /**
  *
  */
-class Lendpictgalleryscreen extends ComponentAbstract {
+class Lendpictgalleryctrl extends ComponentAbstract {
 
 	/**
 	 *
@@ -79,39 +71,6 @@ class Lendpictgalleryscreen extends ComponentAbstract {
 
 	}
 
-	/**
-	 *
-	 * @returns {XML}
-	 */
-	render() {
-		return (
-			<Content padder={false}>
-				<View style={this.css.container}>
-					<View style={{
-						flexDirection: 'row',
-						flexWrap: 'wrap',
-						justifyContent: 'center'
-					}}>
-						{ this.state.images.map(image => {
-							return (
-								<TouchableHighlight key={image.uri} onPress={() => this._selectImage(image.uri)}>
-									<Image style={{
-										width: 100,
-										height: 100,
-										margin: 1
-									}} source={{uri: image.uri}}/>
-								</TouchableHighlight>
-							);
-						})}
-					</View>
-				</View>
-			</Content>
-		);
-	}
-
-
 }
 
-AppRegistry.registerComponent('Lendpictgalleryscreen', () => Lendpictgalleryscreen);
-
-export default Lendpictgalleryscreen;
+export default Lendpictgalleryctrl;

@@ -1,28 +1,11 @@
 import React from 'react';
-import ComponentAbstract from './ComponentAbstract';
-import {
-	AppRegistry,
-	ScrollView,
-	View
-} from 'react-native';
-import {
-	Content,
-	Left,
-	Body,
-	ListItem,
-	Thumbnail,
-	Icon,
-	Text,
-	Button
-} from 'native-base';
+import ComponentAbstract from '../../libs/ComponentAbstract';
 import ContactsWrapper from 'react-native-contacts-wrapper';
-import Contact from '../shared/models/frontend/Contact';
-import Dimensions from 'Dimensions';
-var {width, height} = Dimensions.get('window');
+import Contact from '../../shared/models/frontend/Contact';
 /**
  *
  */
-class Lendchoosecontactcreen extends ComponentAbstract {
+class Lendchoosecontactctrl extends ComponentAbstract {
 	/**
 	 *
 	 * @param props
@@ -107,61 +90,8 @@ class Lendchoosecontactcreen extends ComponentAbstract {
 			});
 	}
 
-	/**
-	 *
-	 * @returns {XML}
-	 */
-	render() {
-		this.console.log('Contactselectionscreen.render()');
-		return (
-			<Content padder={false} scrollEnabled={false} style={{backgroundColor: '#FFFFFF'}}>
-				<View>
-					<Text style={{
-						color: this.colors.c2,
-						padding: 10
-					}}>Recent contacts</Text>
-					<ScrollView style={{ height: height-210 }}>
-						{
-							this.state.contactCollectionModels.map((contact) =>
-								<ListItem key={contact._id} onPress={ () => this.onPressContact(contact) } avatar>
-									<Left>
-										<Icon name="contact" style={{
-											color: '#888',
-											fontSize: 25
-										}}/>
-									</Left>
-									<Body>
-									<Text style={{ color: '#888' }}>{ contact.getFullName() }</Text>
-
-									{
-										(contact.email) ?
-											(<Text style={{ color: '#111' }} note>{ contact.email }</Text>)
-											:
-											(<Text style={{ color: '#111' }} note>{ contact.phone }</Text>)
-									}
-
-									</Body>
-								</ListItem>
-							)
-						}
-					</ScrollView>
-
-
-					<View>
-						<Button success onPress={ () => this.onPressAddressbook() } full>
-							<Text style={{
-								color: '#FFFFFF'
-							}}> Get contact from address book </Text>
-						</Button>
-					</View>
-
-				</View>
-
-			</Content>
-		);
-	}
 }
 
-AppRegistry.registerComponent('Lendchoosecontactcreen', () => Lendchoosecontactcreen);
+// AppRegistry.registerComponent('Lendchoosecontactctrl', () => Lendchoosecontactctrl);
 
-export default Lendchoosecontactcreen;
+export default Lendchoosecontactctrl;

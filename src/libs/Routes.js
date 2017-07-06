@@ -1,20 +1,20 @@
 import React from 'react';
 
-import Makeloanscreen from '../views/Makeloanscreen';
+// import Makeloanscreen from '../views/Makeloanscreen';
 
-import Lendtakepictscreen from '../views/Lendtakepictscreen';
-import Lendpictgalleryscreen from '../views/Lendpictgalleryscreen';
-import Lendchoosecontactcreen from '../views/Lendchoosecontactcreen';
-import Lendconfirmloanscreen from '../views/Lendconfirmloanscreen';
+import Lendtakepictscreen from '../views/jsx/Lendtakepictscreen';
+import Lendpictgalleryscreen from '../views/jsx/Lendpictgalleryscreen';
+import Lendchoosecontactcreen from '../views/jsx/Lendchoosecontactcreen';
+import Lendconfirmloanscreen from '../views/jsx/Lendconfirmloanscreen';
 
-import Homescreen from '../views/Homescreen';
-import Profilescreen from '../views/Profilescreen';
-import Settingsscreen from '../views/Settingsscreen';
-import Contactselectionscreen from '../views/Contactselectionscreen';
-import Loandetailscreen from '../views/Loandetailscreen';
-import Loanhistoryscreen from '../views/Loanhistoryscreen';
-import Helpscreen from '../views/Helpscreen';
-import Logoutscreen from '../views/Logoutscreen';
+import Homescreen from '../views/jsx/Homescreen';
+import Profilescreen from '../views/jsx/Profilescreen';
+import Settingsscreen from '../views/jsx/Settingsscreen';
+// import Contactselectionscreen from '../views/Contactselectionscreen';
+import Loandetailscreen from '../views/jsx/Loandetailscreen';
+import Loanhistoryscreen from '../views/jsx/Loanhistoryscreen';
+// import Helpscreen from '../views/Helpscreen';
+import Logoutscreen from '../views/jsx/Logoutscreen';
 
 let instance = null;
 
@@ -36,7 +36,8 @@ class Routes
 			this.isAuthenticated = false;
 			this._routes = [
 				{ name: 'home', icon: 'home', label: 'Home', component: <Homescreen/>, showBackButton: false, showWhenAuth: false },
-				{ name: 'lend', icon: 'camera', label: 'Make Loan', component: <Makeloanscreen/>, showBackButton: false, showWhenAuth: true },
+
+//				{ name: 'lend', icon: 'camera', label: 'Make Loan', component: <Makeloanscreen/>, showBackButton: false, showWhenAuth: true },
 
 				{ name: 'lendtakepict', icon: 'camera', label: 'Lend your item', component: <Lendtakepictscreen/>, showBackButton: true, showWhenAuth: false },
 				{ name: 'lendpictgallery', icon: 'camera', label: 'Choose a picture', component: <Lendpictgalleryscreen/>, showBackButton: true, showWhenAuth: false },
@@ -47,9 +48,11 @@ class Routes
 				{ name: 'profile', icon: 'person', label: 'Profile', component: <Profilescreen/>, showBackButton: false, showWhenAuth: true },
 				{ name: 'settings', icon: 'settings', label: 'Settings', component: <Settingsscreen/>, showBackButton: false, showWhenAuth: true },
 				{ name: 'detail', icon: 'info', label: 'Loan Detail', component: <Loandetailscreen/>, showBackButton: true, showWhenAuth: true },
-				{ name: 'contacts', icon: 'address-book', label: 'Contact Selection', component: <Contactselectionscreen/>, showBackButton: true, showWhenAuth: true },
-				{ name: 'help', icon: 'question-circle', label: 'About / Help', component: <Helpscreen/>, showBackButton: false, showWhenAuth: false },
-				{ name: 'helpAuth', icon: 'question-circle', label: 'About / Help', component: <Helpscreen/>, showBackButton: false, showWhenAuth: true },
+
+//				{ name: 'contacts', icon: 'address-book', label: 'Contact Selection', component: <Contactselectionscreen/>, showBackButton: true, showWhenAuth: true },
+//				{ name: 'help', icon: 'question-circle', label: 'About / Help', component: <Helpscreen/>, showBackButton: false, showWhenAuth: false },
+//				{ name: 'helpAuth', icon: 'question-circle', label: 'About / Help', component: <Helpscreen/>, showBackButton: false, showWhenAuth: true },
+
 				{ name: 'logout', icon: 'lock', label: 'Log-out', component: <Logoutscreen/>, showBackButton: false, showWhenAuth: true }
 			];
 			this._currentView = null;

@@ -35,7 +35,7 @@ he has to download the app too)
 ## Screens
 
 1. [Mainscreen] Welcome/help screen
-2. [Authenticationscreen] Authentication
+2. [Homescreen] Authentication
 4. [Loanhistoryscreen] Loans history/list
 5. [Makeloanscreen] Make loan screen (with pict)
 6. [Contactselectionscreen] Contact selection view

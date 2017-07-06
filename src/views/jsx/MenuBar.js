@@ -1,5 +1,5 @@
 import React from 'react';
-import ComponentAbstract from './ComponentAbstract';
+import MenuBarctrl from '../controllers/MenuBarctrl';
 import {
 	AppRegistry,
 	Text,
@@ -13,46 +13,7 @@ import {
 /**
  * Make loan screen (with pict)
  */
-class MenuBar extends ComponentAbstract {
-
-	/**
-	 *
-	 * @param props
-	 */
-	constructor(props) {
-		super(props);
-		this.props.parentComponent = props.parentComponent;
-		this.state = {
-			isAuthenticated: false
-		};
-	}
-
-	/**
-	 *
-	 */
-	componentDidMount() {
-		this.lendyooRegistry.setMenuBarComponent(this);
-		this.console.log('MenuBar.componentDidMount()');
-	}
-
-	/**
-	 *
-	 * @param st
-	 */
-	setAuthState(st = false) {
-		this.setState({isAuthenticated: st});
-	}
-
-	/**
-	 *
-	 * @todo clean that
-	 * @param elemId
-	 */
-	onPressTextbox(elemId = 0) {
-		this.rootComponent.setLoading(true);
-		this.console.log('MenuBar.onPressTextbox()', elemId);
-		this.props.parentComponent.onPressTextbox(elemId);
-	}
+class MenuBar extends MenuBarctrl {
 
 	/**
 	 *

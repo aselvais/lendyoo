@@ -1,5 +1,5 @@
 import React from 'react';
-import ComponentAbstract from './ComponentAbstract';
+import Logoutctrl from '../controllers/Logoutctrl';
 import {
 	AppRegistry,
 	Text,
@@ -11,19 +11,19 @@ import {
 /**
  *
  */
-class Helpscreen extends ComponentAbstract {
+class Logoutscreen extends Logoutctrl {
+
 	/**
 	 *
 	 * @returns {XML}
 	 */
-	render()
-	{
-		this.console.log('Helpscreen.render()');
+	render() {
+		this.console.log('Logoutscreen.render()');
 		return (
 			<Content padder={true}>
 			<View style={this.css.container}>
 				<Text style={this.css.welcome}>
-					Helpscreen
+					Bye bye :)
 				</Text>
 			</View>
 			</Content>
@@ -31,6 +31,6 @@ class Helpscreen extends ComponentAbstract {
 	}
 }
 
-AppRegistry.registerComponent('Helpscreen', () => Helpscreen);
+AppRegistry.registerComponent('Logoutscreen', () => Logoutscreen);
 
-export default Helpscreen;
+export default Logoutscreen;
