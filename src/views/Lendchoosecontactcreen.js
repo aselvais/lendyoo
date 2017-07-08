@@ -37,7 +37,7 @@ class Lendchoosecontactcreen extends Lendchoosecontactctrl {
 					<ScrollView style={{ height: height-210 }}>
 						{
 							this.state.contactCollectionModels.map((contact) =>
-								<ListItem key={contact._id} onPress={ (contact) => this.onPressContact(contact) } avatar>
+								<ListItem key={contact._id} onPress={ () => this.onPressContact(contact) } avatar>
 									<Left>
 										<Icon name="contact" style={{
 											color: '#888',
@@ -46,14 +46,12 @@ class Lendchoosecontactcreen extends Lendchoosecontactctrl {
 									</Left>
 									<Body>
 									<Text style={{ color: '#888' }}>{ contact.getFullName() }</Text>
-
 									{
 										(contact.email) ?
 											(<Text style={{ color: '#111' }} note>{ contact.email }</Text>)
 											:
 											(<Text style={{ color: '#111' }} note>{ contact.phone }</Text>)
 									}
-
 									</Body>
 								</ListItem>
 							)

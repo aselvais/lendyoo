@@ -127,10 +127,10 @@ class Lendtakepictctrl extends ComponentAbstract {
 
 	/**
 	 * When changing descritpion in the text field
-	 * @param title
+	 * @param {string} title
 	 */
 	onChangeTitle(title = '') {
-		this.newphoto.title = title;
+		this.newloan.title = title;
 		this.setState({title});
 	}
 

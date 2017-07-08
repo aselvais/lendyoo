@@ -37,18 +37,6 @@ class Lendconfirmloanscreen extends Lendconfirmloanctrl {
 								<Input value={this.state.newloan.title} onValueChange={(val) => this.onFormElementChange('title', val)}/>
 							</Item>
 							<Item>
-								<Label>Type</Label>
-								<Picker mode="dropdown"
-										selectedValue={this.state.newloan.status}
-										onValueChange={(val) => this.onFormElementChange('status', val)}>
-									{ this.state.newloan._schema.status.enum.map((v) => <Item key={v} label={v} value={v}/>) }
-								</Picker>
-							</Item>
-							<Item>
-								<Label>Loan Date</Label>
-								<Input value={this.state.newloan.dateCreated} onValueChange={(val) => this.onFormElementChange('dateCreated', val)}/>
-							</Item>
-							<Item>
 								<Label>To</Label>
 								<Input value={((this.state.contact && this.state.contact.getFullName) ? this.state.contact.getFullName() : '' )}/>
 							</Item>
@@ -60,11 +48,7 @@ class Lendconfirmloanscreen extends Lendconfirmloanctrl {
 								<Input value={this.state.newloan.detail} onValueChange={(val) => this.onFormElementChange('detail', val)}/>
 							</Item>
 							<Item>
-								<Label>Reminders frequency</Label>
-								<Input value={this.state.newloan.remindersFrequency} onValueChange={(val) => this.onFormElementChange('remindersFrequency', val)}/>
-							</Item>
-							<Item>
-								<Label>Expiration date</Label>
+								<Label>Return date</Label>
 								<Input value={this.state.newloan.dateExpiration} onValueChange={(val) => this.onFormElementChange('dateExpiration', val)}/>
 							</Item>
 						</Form>

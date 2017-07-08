@@ -23,6 +23,16 @@ class Lendconfirmloanctrl extends ComponentAbstract {
 	}
 
 	/**
+	 * Do some initialization of data
+	 */
+	init()
+	{
+		// sets expiration 1 month in the future
+		this.newloan.dateExpiration = new Date();
+		this.newloan.dateExpiration.setMonth(current.getMonth()+1);
+	}
+
+	/**
 	 *
 	 */
 	componentDidMount() {
