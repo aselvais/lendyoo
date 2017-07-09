@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import {
 	Content,
-	Picker,
 	Button,
 	Form,
 	Item,
@@ -36,9 +35,11 @@ class Lendconfirmloanscreen extends Lendconfirmloanctrl {
 								<Label>Title</Label>
 								<Input value={this.state.newloan.title} onValueChange={(val) => this.onFormElementChange('title', val)}/>
 							</Item>
-							<Item>
+							<Item onPress={ () => this.clickedNamed() }>
 								<Label>To</Label>
-								<Input value={((this.state.contact && this.state.contact.getFullName) ? this.state.contact.getFullName() : '' )}/>
+								<Input
+									editable={false}
+									value={((this.state.contact && this.state.contact.getFullName) ? this.state.contact.getFullName() : '' )}/>
 							</Item>
 							<Image
 								style={{overflow: 'hidden', width: Dimensions.get('window').width, height: 400}}
@@ -47,15 +48,18 @@ class Lendconfirmloanscreen extends Lendconfirmloanctrl {
 								<Label>Detail</Label>
 								<Input value={this.state.newloan.detail} onValueChange={(val) => this.onFormElementChange('detail', val)}/>
 							</Item>
-							<Item>
+							<Item onPress={ () => this.clickedReturnedDate() }>
 								<Label>Return date</Label>
-								<Input value={this.state.newloan.dateExpiration} onValueChange={(val) => this.onFormElementChange('dateExpiration', val)}/>
+								<Input
+									editable={false}
+									value={this.state.newloan.dateExpiration.toDateString()}
+									onValueChange={(val) => this.onFormElementChange('dateExpiration', val)}/>
 							</Item>
 						</Form>
 
 						<View style={this.css.loandetsocialViews}>
 							<Button primary full ref="2" onPress={ () => this.save() }>
-								<Text style={this.css.loandetbuttonText}>Update loan</Text>
+								<Text style={this.css.loandetbuttonText}>Confirm loan</Text>
 							</Button>
 						</View>
 					</View>

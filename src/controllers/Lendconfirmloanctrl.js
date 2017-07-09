@@ -14,6 +14,8 @@ class Lendconfirmloanctrl extends ComponentAbstract {
 		super(props);
 		this.console.log('Loandetailscreen.constructor()', props);
 
+		this.init();
+
 		this.state = {
 			contact: this.lendyooRegistry.contactCollection.getActiveModel(),
 			newloan: this.newloan,
@@ -29,7 +31,7 @@ class Lendconfirmloanctrl extends ComponentAbstract {
 	{
 		// sets expiration 1 month in the future
 		this.newloan.dateExpiration = new Date();
-		this.newloan.dateExpiration.setMonth(current.getMonth()+1);
+		this.newloan.dateExpiration.setMonth(this.newloan.dateExpiration.getMonth()+1);
 	}
 
 	/**
@@ -61,6 +63,22 @@ class Lendconfirmloanctrl extends ComponentAbstract {
 		this.console.log(JSON.stringify(_o));
 		this.loan[key] = val;
 		this.setState(_o);
+	}
+
+	/**
+	 *
+	 */
+	clickedReturnedDate()
+	{
+
+	}
+
+	/**
+	 * @todo Save the other model params before going back to the contact selection
+	 */
+	clickedNamed()
+	{
+		this.routes.goTo('lendchoosecontact');
 	}
 
 }
