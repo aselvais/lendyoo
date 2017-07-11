@@ -52,8 +52,7 @@ class Lendconfirmloanscreen extends Lendconfirmloanctrl {
 								<Label>Return date</Label>
 								<Input
 									editable={false}
-									value={this.state.newloan.dateExpiration.toDateString()}
-									onValueChange={(val) => this.onFormElementChange('dateExpiration', val)}/>
+									value={this.state.newloan.dateExpiration.toDateString()} />
 							</Item>
 						</Form>
 

@@ -56,8 +56,7 @@ class LendyooRegistry {
 		this.group = new Group();
 		this.contactCollection = new ContactCollection();
 		this.loanCollection = new LoanCollection();
-		this.newloan = new Loan();
-		this.newphoto = new Photo();
+		this.initNewLoanAndPhoto();
 
 		/* if (useLocalStorageAuth === true) {
 			var _that = this;
@@ -81,6 +80,12 @@ class LendyooRegistry {
 		} */
 		this.routes = new Routes(this.isAuthenticated);
 
+	}
+
+	initNewLoanAndPhoto()
+	{
+		this.newloan = new Loan();
+		this.newphoto = new Photo();
 	}
 
 	/**

@@ -1,5 +1,6 @@
 import React from 'react';
 import ComponentAbstract from '../libs/ComponentAbstract';
+// import RNFetchBlob from 'react-native-fetch-blob';
 
 /**
  *
@@ -27,11 +28,10 @@ class Lendconfirmloanctrl extends ComponentAbstract {
 	/**
 	 * Do some initialization of data
 	 */
-	init()
-	{
+	init() {
 		// sets expiration 1 month in the future
 		this.newloan.dateExpiration = new Date();
-		this.newloan.dateExpiration.setMonth(this.newloan.dateExpiration.getMonth()+1);
+		this.newloan.dateExpiration.setMonth(this.newloan.dateExpiration.getMonth() + 1);
 	}
 
 	/**
@@ -45,11 +45,57 @@ class Lendconfirmloanctrl extends ComponentAbstract {
 	 *
 	 */
 	save() {
-		this.console.log('Loandetailscreen.save()');
-		this.console.log(this.loan);
-		// this.loan.save();
-		// redirect
-		// this.routes.goTo("history");
+		this.console.log('Lendconfirmloanctrl.save()');
+		var _that = this;
+		this.rootComponent.setLoading(true);
+		_that.toDataURL(_that.newphoto.localpath, function(dataUrl) {
+			var pic = dataUrl.split(',');
+			_that.newphoto.data = pic[1];
+			_that.newloan.isSaved = true;
+			_that.newloan.photo = _that.newphoto.localpath;
+			_that.newloan.dateCreated = new Date();
+			_that.newloan.save().then(
+				function(d) {
+					this.console.log('Loan saved');
+					_that.newphoto.Loan_id = _that.newloan._id;
+					_that.newphoto.save().then(
+						function(pd){
+							this.console.log('Photo saved ... redirecting');
+							_that.routes.goTo("history");
+						},
+						function(epd){
+							this.console.log('Error saving photo');
+						},
+					);
+
+
+				},
+				function(er) {
+					this.console.log('Error saving loan');
+				}
+			);
+		});
+
+
+	}
+
+	/**
+	 *
+	 * @param url
+	 * @param callback
+	 */
+	toDataURL(url, callback) {
+		var xhr = new XMLHttpRequest();
+		xhr.onload = function () {
+			var reader = new FileReader();
+			reader.onloadend = function () {
+				callback(reader.result);
+			};
+			reader.readAsDataURL(xhr.response);
+		};
+		xhr.open('GET', url);
+		xhr.responseType = 'blob';
+		xhr.send();
 	}
 
 	/**
@@ -58,26 +104,29 @@ class Lendconfirmloanctrl extends ComponentAbstract {
 	 * @param val
 	 */
 	onFormElementChange(key, val) {
-		var _o = {};
-		_o[key] = val;
-		this.console.log(JSON.stringify(_o));
-		this.loan[key] = val;
-		this.setState(_o);
+		var _that = this;
+		switch (key) {
+			case 'title':
+				_that.newloan.title = val;
+				break;
+			case 'detail':
+				_that.newloan.detail = val;
+				break;
+		}
+		this.setState({newloan: this.newloan});
 	}
 
 	/**
 	 *
 	 */
-	clickedReturnedDate()
-	{
+	clickedReturnedDate() {
 
 	}
 
 	/**
 	 * @todo Save the other model params before going back to the contact selection
 	 */
-	clickedNamed()
-	{
+	clickedNamed() {
 		this.routes.goTo('lendchoosecontact');
 	}
 

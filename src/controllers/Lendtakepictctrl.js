@@ -17,6 +17,10 @@ class Lendtakepictctrl extends ComponentAbstract {
 		super(props);
 		this.console.log('Makeloanscreen.constructor()', props);
 		this.contactCollection = this.lendyooRegistry.contactCollection;
+
+		this.newloan.Group_id = this.user.Group_id;
+		this.newloan.User_id = this.user._id;
+
 		this.state = {
 			loan: this.newloan,
 			photo: this.newphoto.data ? this.newphoto.data : false,
@@ -78,14 +82,11 @@ class Lendtakepictctrl extends ComponentAbstract {
 								_that.newloan.photo = data.path;
 								_that.newphoto.cameradata = data;
 								_that.newphoto.localpath = data.path;
-								_that.newphoto.initImage().then(
-									function (d) {
-										_that.setState({
-											photo: _that.newphoto.data,
-											localpath: _that.newphoto.localpath
-										});
-									}
-								);
+								_that.newphoto.initImage();
+								_that.setState({
+									photo: _that.newphoto.data,
+									localpath: _that.newphoto.localpath
+								});
 							} catch (err) {
 								_that.setState({photo: false});
 							}

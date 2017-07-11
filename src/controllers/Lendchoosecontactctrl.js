@@ -49,6 +49,7 @@ class Lendchoosecontactctrl extends ComponentAbstract {
 		this.console.log('Contactselectionscreen.onPressContact()');
 		this.rootComponent.setLoading(true);
 		this.lendyooRegistry.contactCollection.setActiveModel(contact);
+		this.newloan.Contact_id = contact._id;
 		this.routes.goTo(this.nextScreen);
 	}
 
@@ -64,8 +65,8 @@ class Lendchoosecontactctrl extends ComponentAbstract {
 				var _fc = _that.lendyooRegistry.contactCollection.getModelByName(contact.name);
 				if (!_fc) {
 					var _c = new Contact();
-					_c.Group_id = this.user.Group_id;
-					_c.User_id = this.user._id;
+					_c.Group_id = _that.user.Group_id;
+					_c.User_id = _that.user._id;
 					_c.name = contact.name;
 					_c.email = contact.email;
 					_c.phone = contact.phone;
@@ -74,6 +75,7 @@ class Lendchoosecontactctrl extends ComponentAbstract {
 							_that.lendyooRegistry.contactCollection.addModel(_c);
 							_that.lendyooRegistry.contactCollection.setActiveModel(_c);
 							_that.setState({contactCollectionModels: _that.lendyooRegistry.contactCollection.models});
+							_that.newloan.Contact_id = _c._id;
 							_that.rootComponent.setLoading(false);
 							_that.routes.goTo(_that.nextScreen);
 						}

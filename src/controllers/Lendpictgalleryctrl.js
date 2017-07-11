@@ -66,6 +66,7 @@ class Lendpictgalleryctrl extends ComponentAbstract {
 
 		// this.newphoto.cameradata = RNFetchBlob.wrap("RNFetchBlob-file://" + uri);
 		this.newphoto.localpath = uri;
+		this.newphoto.initImage();
 		this.routes.goTo("lendtakepict");
 
 	}
