@@ -97,7 +97,6 @@ class Loanhistoryctrl extends ComponentAbstract {
 	getContactName(_loan) {
 		if (_loan && _loan.Contact_id && this.lendyooRegistry.contactCollection.models && this.lendyooRegistry.contactCollection.models.length > 0) {
 			var toret = this.lendyooRegistry.contactCollection.getModelById(_loan.Contact_id);
-			console.log(toret);
 			if (toret && toret.getFullName)
 				return toret.getFullName();
 			else

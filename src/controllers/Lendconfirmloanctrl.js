@@ -48,33 +48,36 @@ class Lendconfirmloanctrl extends ComponentAbstract {
 		this.console.log('Lendconfirmloanctrl.save()');
 		var _that = this;
 		this.rootComponent.setLoading(true);
-		_that.toDataURL(_that.newphoto.localpath, function(dataUrl) {
-			var pic = dataUrl.split(',');
-			_that.newphoto.data = pic[1];
-			_that.newloan.isSaved = true;
-			_that.newloan.photo = _that.newphoto.localpath;
-			_that.newloan.dateCreated = new Date();
-			_that.newloan.save().then(
-				function(d) {
-					this.console.log('Loan saved');
-					_that.newphoto.Loan_id = _that.newloan._id;
-					_that.newphoto.save().then(
-						function(pd){
-							this.console.log('Photo saved ... redirecting');
-							_that.routes.goTo("history");
-						},
-						function(epd){
-							this.console.log('Error saving photo');
-						},
-					);
+
+		// _that.newphoto.data = pic[1];
+
+		_that.newloan.isSaved = true;
+		_that.newloan.photo = _that.newphoto.localpath;
+		_that.newloan.dateCreated = new Date();
+		_that.newloan.save().then(
+			function (d) {
+				this.console.log('Loan saved');
+				_that.newphoto.Loan_id = _that.newloan._id;
+				_that.newphoto.initFilename();
+				_that.newphoto.save().then(
+					function (pd) {
+						// upload image only when we have the _id back
+						_that.newphoto.uploadImage();
+
+						this.console.log('Photo saved ... redirecting');
+						_that.routes.goTo("history");
+					},
+					function (epd) {
+						this.console.log('Error saving photo');
+					},
+				);
 
 
-				},
-				function(er) {
-					this.console.log('Error saving loan');
-				}
-			);
-		});
+			},
+			function (er) {
+				this.console.log('Error saving loan');
+			}
+		);
 
 
 	}
