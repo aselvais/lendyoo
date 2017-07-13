@@ -36,14 +36,14 @@ class Mainctrl extends Component {
 	 */
 	componentDidMount() {
 		this.resetAuthState(this.lendyooRegistry.isAuthenticated);
-		this.setState({routeName: 'lendtakepict'});
+		// this.setState({routeName: 'lendtakepict'});
 	}
 
 	/**
 	 *
 	 */
 	resetAuthState(s) {
-		this.setState({isAuth: s, routeName: 'lend'});
+		this.setState({isAuth: s}); //, routeName: 'lend'});
 	}
 
 	/**
@@ -52,10 +52,7 @@ class Mainctrl extends Component {
 	 */
 	onPressTextbox(elemId = 0) {
 		this.console.log('Mainctrl.onPressTextbox()', elemId);
-		this.routes.getViewById(elemId);
-		if (elemId.name) {
-			this.setState({routeName: elemId.name});
-		}
+		var cv = this.routes.getViewById(elemId);
 		this.setState({selectedView: this.routes.getCurrentView()});
 		this.hideMenu();
 	}
@@ -89,10 +86,24 @@ class Mainctrl extends Component {
 
 	/**
 	 *
+	 * @param rn
+	 */
+	/* setRouteName(rn='')
+	{
+		var authroutes = ['lendtakepict','history','profile','settings'];
+		if (authroutes.indexOf(rn) >= 0)
+		{
+			this.console.log('Mainctrl.setRouteName: ' + rn);
+			this.setState({ routeName: rn});
+		}
+	} */
+
+	/**
+	 *
 	 * @param routeName
 	 */
 	onPressTabElement(routeName) {
-		this.setState({routeName: routeName});
+		// this.setState({routeName: routeName});
 		this.routes.goTo(routeName);
 	}
 
