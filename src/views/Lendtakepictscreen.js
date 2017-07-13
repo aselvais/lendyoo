@@ -46,7 +46,7 @@ class Lendtakepictscreen extends Lendtakepictctrl {
 								}
 							}
 							captureTarget={Camera.constants.CaptureTarget.disk}
-							captureQuality={Camera.constants.CaptureQuality["720p"]}
+							captureQuality={Camera.constants.CaptureQuality["1080p"]}
 							type={ this.state.cameraside }
 							onBarCodeRead={ (e) => this.readBarCode(e) }
 							style={{

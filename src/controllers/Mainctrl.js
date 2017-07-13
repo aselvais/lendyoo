@@ -86,24 +86,13 @@ class Mainctrl extends Component {
 
 	/**
 	 *
-	 * @param rn
-	 */
-	/* setRouteName(rn='')
-	{
-		var authroutes = ['lendtakepict','history','profile','settings'];
-		if (authroutes.indexOf(rn) >= 0)
-		{
-			this.console.log('Mainctrl.setRouteName: ' + rn);
-			this.setState({ routeName: rn});
-		}
-	} */
-
-	/**
-	 *
 	 * @param routeName
 	 */
 	onPressTabElement(routeName) {
-		// this.setState({routeName: routeName});
+		if (routeName === 'lendtakepict')
+		{
+			this.lendyooRegistry.initNewLoanAndPhoto();
+		}
 		this.routes.goTo(routeName);
 	}
 

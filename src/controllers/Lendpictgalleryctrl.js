@@ -58,14 +58,15 @@ class Lendpictgalleryctrl extends ComponentAbstract {
 	 * @param uri
 	 * @private
 	 */
-	_selectImage(uri) {
-		// define whatever you want to happen when an image is selected here
-		this.setState({
-			selected: uri,
-		});
+	_selectImage(image) {
+		this.setState({ selected: image.uri });
 
-		// this.newphoto.cameradata = RNFetchBlob.wrap("RNFetchBlob-file://" + uri);
-		this.newphoto.localpath = uri;
+		this.newphoto.localpath = image.uri;
+		if (image.fileName) this.newphoto.filename = image.fileName;
+		if (image.type) this.newphoto.ext = image.type.toLowerCase();
+		if (image.fileSize) this.newphoto.size = image.fileSize;
+		if (image.width) this.newphoto.width = image.width;
+		if (image.height) this.newphoto.height = image.height;
 		this.newphoto.initImage();
 		this.routes.goTo("lendtakepict");
 

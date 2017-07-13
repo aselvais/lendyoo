@@ -29,7 +29,7 @@ class Lendpictgalleryscreen extends Lendpictgalleryctrl {
 					}}>
 						{ this.state.images.map(image => {
 							return (
-								<TouchableHighlight key={image.uri} onPress={() => this._selectImage(image.uri)}>
+								<TouchableHighlight key={image.uri} onPress={() => this._selectImage(image)}>
 									<Image style={{
 										width: 100,
 										height: 100,

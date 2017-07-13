@@ -58,30 +58,13 @@ class LendyooRegistry {
 		this.loanCollection = new LoanCollection();
 		this.initNewLoanAndPhoto();
 
-		/* if (useLocalStorageAuth === true) {
-			var _that = this;
-			_that.storage.getData().then(
-				function (sd) {
-					var _d = JSON.parse(sd);
-					if (_d && _d.User_id) {
-						_that.setAuthStatus(true);
-						_that.User_id = _d.User_id;
-						_that.user.populateDataFromRemote(_that.User_id).then((d) => _that.group.populateDataFromRemote(_that.user.Group_id));
-					}
-					else {
-						// console.warn('No stored profile data found');
-					}
-				},
-				function (se) {
-					_that.setAuthStatus(false);
-					// console.error(se);
-				}
-			);
-		} */
 		this.routes = new Routes(this.isAuthenticated);
 
 	}
 
+	/**
+	 *
+	 */
 	initNewLoanAndPhoto()
 	{
 		this.newloan = new Loan();
